@@ -1,0 +1,89 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{tituloGuia}}</mat-card-title>
+    <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-card-body class="p-3">
+
+    <form class="example-form">
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-label>Empresa</mat-label>
+            <input matInput placeholder="Ingrese el nombre de la empresa emisora" value="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field  class="w-100" appearance="outline">
+            <mat-label>Serie</mat-label>
+            <mat-select >
+              <mat-option *ngFor="let item of tablaSeries" [value]="item.serie">{{item.serie| slice : 0 : 4}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-form-field w-100" appearance="outline">
+            <mat-label>Fecha de emision</mat-label>
+            <input matInput [matDatepicker]="datepicker">
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-form-field w-100" appearance="outline">
+            <mat-label>Fecha de translado</mat-label>
+            <input matInput [matDatepicker]="datepicker1">
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker1>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field  class="w-100" appearance="outline">
+            <mat-label>Seleccione una modalidad</mat-label>
+            <mat-select >
+              <mat-option value="01">Publico</mat-option>
+              <mat-option value="02">Privado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field  class="w-100" appearance="outline">
+            <mat-label>Seleccione un motivo</mat-label>
+            <mat-select >
+              <mat-option *ngFor="let item of Motivos" [value]="item.codigo">{{item.descripcion}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-label>Nro bultos</mat-label>
+            <input matInput placeholder="Ingrese el numero de bultos" type="number" value="">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3" >
+          <mat-form-field class="example-full-width w-100" appearance="outline">
+            <mat-label>Peso bruto</mat-label>
+            <input matInput placeholder="Ingrese el peso bruto" type="number" value="">
+          </mat-form-field>
+        </div>
+      </div>
+
+    </form>
+  </mat-card-body>
+  <!-- <mat-card-actions align="end" class="p-3">
+    <button mat-stroke-button color="primary" class="btn btn-primary">Declarar</button>
+  </mat-card-actions> -->
+</mat-card>

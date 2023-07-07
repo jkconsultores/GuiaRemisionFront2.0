@@ -1,0 +1,144 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+.example-container {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  height: calc(100vh - 60px);
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  min-width: 320px!important;
+  background: white;
+}
+.menu .sub-menu ul {
+  display: none;
+}
+
+.d-block {
+  display: block!important;
+}
+.list-inline, .list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+dl, ol, ul {
+  margin-top: 0;
+}
+address, dl, ol, ul {
+  margin-bottom: 1rem;
+}
+*, :after, :before {
+  box-sizing: border-box;
+}
+ul {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.menu .sub-menu ul li {
+  margin-left: 30px;
+  margin-bottom: 0;
+  position: relative;
+}
+ul li {
+  margin-bottom: 5px;
+}
+*, :after, :before {
+  box-sizing: border-box;
+}
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+.menu .sub-menu ul li a {
+  font-size: 13px;
+  display: block;
+  padding: 8px 0;
+  margin-bottom: 10px;
+}
+.menu .sub-menu ul li mat-icon {
+  font-size: 1.7em;
+  margin-right: 10px;
+  color: #8f8f8f;
+  vertical-align: middle;
+  display: inline-block;
+}
+.menu .sub-menu ul li a span {
+  vertical-align: middle;
+  /* height: 16px; */
+}
+.d-inline-block {
+  display: inline-block!important;
+}
+a {
+  color: #3a3a3a;
+  transition: color .2s;
+  outline: initial!important;
+}
+.menu .sub-menu ul li {
+  margin-left: 15px;
+  margin-bottom: 0;
+  position: relative;
+}
+.menu-desplegado{
+  font-size: 14px;
+  padding: 8px 0;
+  cursor: pointer;
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.menu-desplegado:hover{
+  font-size: 13px;
+  background-color: #f0f1f5;
+  border-radius: 15px;
+  padding: 8px 0;
+  cursor: pointer;
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.menu-desplegado mat-icon {
+  font-size: 1.7em;
+  margin-right: 10px;
+  color: #8f8f8f;
+  vertical-align: middle;
+  display: inline-block;
+}
+.sub-menu ul li:hover{
+  background-color: #f0f1f5;
+  border-radius: 15px;
+  padding-left: 15px;
+  margin-right: 15px;
+}
+.sub-menu ul li{
+  border-radius: 15px;
+  padding-left: 15px;
+  margin-right: 15px;
+}
+.sub-menu ul li mat-icon{
+  color: #7c8db5!important;
+}
+.sub-menu ul li a{
+  vertical-align: middle;
+}
+.sub-menu ul li a span {
+  color:#25396f!important;
+  font-size: 1rem;
+}
+.menu-desplegado mat-icon{
+  color: #7c8db5!important;
+}
+.menu-desplegado mat-icon{
+  color: #7c8db5!important;
+}
+

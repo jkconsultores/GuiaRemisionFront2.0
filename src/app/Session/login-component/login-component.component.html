@@ -1,0 +1,41 @@
+<div style="margin-top: 100px;">
+  <div class="row justify-content-center">
+    <div class="card shadow  mb-5 bg-body rounded" style="width: 400px;">
+
+     <div class="card-body">
+      <div class="text-center">
+        <h1><b>GRE</b></h1>
+        <hr>
+      </div>
+       <form class="justify-content-center" [formGroup]="formGroup" (ngSubmit)="login()">
+        <div class="form-outline mb-4">
+          <label>Empresa:</label>
+           <input type="text" name="empresa" formControlName="empresa" class="form-control" placeholder="Ingrese la empresa"  required minlength="4"/>
+
+         <div class="form-outline mb-4">
+          <label>Usuario:</label>
+           <input type="text" name="nombreusuario" formControlName="nombreusuario" class="form-control" placeholder="Ingrese el usuario" required minlength="4"/>
+          </div>
+         <label>Password:</label>
+         <div class="form-outline mb-4">
+           <input type="password" name="contrasena" formControlName="contrasena" class="form-control" placeholder="Ingrese la contraseña"  required minlength="4"/>
+         </div>
+         <!-- 2 column grid layout for inline styling -->
+         <div class="row mb-4">
+           <div class="col d-flex justify-content-center">
+             <!-- Checkbox -->
+             <div class="form-check">
+               <input class="form-check-input" name="recordarme"  type="checkbox" value="" id="form2Example31" checked />
+               <label class="form-check-label" for="form2Example31"> Recordar </label>
+             </div>
+           </div>
+         </div>
+         <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar sesión</button>
+         </div>
+        </div>
+       </form>
+     </div>
+    </div>
+   </div>
+</div>

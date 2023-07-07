@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Crear producto</mat-card-title>
+    <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-card-body>
+    <div class="p-3">
+      <!-- <form class="example-form"> -->
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Codigo</mat-label>
+          <input type="text" matInput [(ngModel)]="data.codigo" [required]="true" placeholder="ingrese un codigo">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Producto</mat-label>
+          <input type="text" matInput [(ngModel)]="data.descripcion" [required]="true" placeholder="ingrese el nombre del producto">
+        </mat-form-field>
+
+        <mat-form-field  class="w-100" appearance="outline" >
+          <mat-label>Seleccione una unidad de medida</mat-label>
+          <mat-select  [(ngModel)]="data.unidadMedida" [required]="true">
+            <mat-option value="KGM">KGM</mat-option>
+            <mat-option value="NIU">NIU</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      <!-- </form> -->
+    </div>
+  </mat-card-body>
+  <mat-card-actions align="end" class="p-3">
+    <button mat-stroke-button color="primary"  (click)="onNoClick()" class="btn btn-danger me-3">Cancelar</button>
+    <button mat-stroke-button color="primary" [mat-dialog-close]="data" [disabled]="EnvioDatos()" class="btn btn-primary">Aceptar</button>
+  </mat-card-actions>
+</mat-card>
