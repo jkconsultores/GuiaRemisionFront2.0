@@ -40,3 +40,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+/.vs/guias_de_remision_front_2_0/FileContentIndex/read.lock
+/.vs/guias_de_remision_front_2_0/FileContentIndex/d113d9e5-b24b-45c6-bac2-180529dc1a75.vsidx
