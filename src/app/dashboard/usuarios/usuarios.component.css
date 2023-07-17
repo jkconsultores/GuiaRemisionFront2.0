@@ -1,0 +1,30 @@
+.conborderasds .inter{
+  border-bottom: #cecece 1px solid;
+}
+.conborderasds .inter:last-child{
+  border-bottom:none!important;
+}
+mat-cell,mat-header-cell{
+  text-align: center;
+  min-width: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+mat-cell{
+  padding: 5px;
+  min-width: 120px;
+  /* padding-left: 10px;
+  padding-right: 10px; */
+}
+/* .example-container {
+  overflow-x: scroll;
+} */
+.mat-row, .mat-header-row {
+  min-width: 2800px;
+  width: 100%;
+}
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+}

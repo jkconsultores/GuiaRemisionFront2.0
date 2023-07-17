@@ -1,0 +1,128 @@
+<h2 mat-dialog-title>{{titulo}}</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="p-3">
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Nombre usuario</mat-label>
+          <input type="text" matInput [(ngModel)]="data.nombreusuario" [required]="true" placeholder="ingrese un nombre de usuario">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput [(ngModel)]="data.contrasena" [required]="true" placeholder="ingrese una contraseña">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Nombres</mat-label>
+          <input type="text" matInput [(ngModel)]="data.nombres" [required]="true" placeholder="ingrese el nombre completo del usuario">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Correo electronico</mat-label>
+          <input type="text" matInput [(ngModel)]="data.correoelectronico" [required]="true" placeholder="ingrese un correo electronico">
+        </mat-form-field>
+
+        <mat-form-field  class="w-100" appearance="outline" >
+          <mat-label>Rol de usuario</mat-label>
+          <mat-select  [(ngModel)]="data.rol" [required]="true">
+            <mat-option [value]="false">Usuario</mat-option>
+            <mat-option [value]="true">Administrador</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <h4>Agregar Empresas</h4>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let item of empresas">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" [name]="'flexCheckDefault' + item.numerodocumentoemisor" [(ngModel)]="item.seleccionado"
+                  [id]="'flexCheckDefault' + item.numerodocumentoemisor">
+                <label class="form-check-label"
+                  [for]="'flexCheckDefault' + item.numerodocumentoemisor">
+                  <b>{{ item.nombreempresa }}</b> ({{item.numerodocumentoemisor}})
+                </label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <hr>
+        <hr>
+        <h4>Agregar permisos</h4>
+        <div class="row">
+          <div class="col-12 col-md-4" >
+            <mat-form-field  class="w-100" appearance="outline" >
+              <mat-label>Tipo de permiso</mat-label>
+              <mat-select  [(ngModel)]="TipoServicio" [required]="true">
+                <mat-option value="">Seleccione un tipo de permiso</mat-option>
+                <mat-option value="Serie">Serie</mat-option>
+                <mat-option value="Motivo">Motivo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-8" *ngIf="TipoServicio=='Serie'">
+            <mat-form-field  class="w-100" appearance="outline" >
+              <mat-label>Serie</mat-label>
+              <mat-select  [(ngModel)]="serieNumero" [required]="true">
+                <mat-option value="">Seleccione una serie</mat-option>
+                <mat-option value="{{item.numerodocumentoemisor}}-{{item.serie}}" *ngFor="let item of arraySerie">Ruc:{{item.numerodocumentoemisor}} - serie: {{item.serie| slice : 0 : 4}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-8" *ngIf="TipoServicio=='Motivo'">
+            <mat-form-field class="example-chip-list w-100" appearance="outline">
+              <mat-label>Motivos</mat-label>
+              <mat-chip-grid #chipGrid aria-label="Seleccion de motivos">
+                <mat-chip-row *ngFor="let fruit of Motivos" (removed)="remove(fruit)">
+                  {{fruit}}
+                  <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              </mat-chip-grid>
+              <input placeholder="Nuevo permiso..." #fruitInput [formControl]="fruitCtrl"
+                [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)"/>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                  {{fruit}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+      </div>
+      <a class="btn btn-success mt-2" (click)="AgregarPermisos()">Añadir permisos</a>
+
+      <div class="row mt-3">
+        <hr>
+        <h4>Permisos activos</h4>
+        <div class="col-12">
+          <h6 class="text-danger text-center" *ngIf="permisos.length == 0"> NO SE ASIGNARON PERMISOS</h6>
+          <table class="table table-bordered table-responsive" *ngIf="permisos.length > 0">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Permiso</th>
+                <th>Ruc de empresa</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of permisos">
+                <td>{{item.tipo}}</td>
+                <td>{{reemplazarMotivo(item.tipo,item.valor)}}</td>
+                <td>{{item.numeroDocumentoEmisor}}</td>
+                <td><button class="badge bg-danger text-white " style="border: none;"><mat-icon class="text-white" (click)="retirarPermiso(item.tipo,item.valor)">delete</mat-icon></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="p-3">
+    <button mat-stroke-button color="primary"  (click)="onNoClick()" class="btn btn-danger me-3">Cancelar</button>
+    <button mat-stroke-button color="primary" (click)="acction()"  class="btn btn-primary">{{boton}}</button>
+  </mat-dialog-actions>
+
+

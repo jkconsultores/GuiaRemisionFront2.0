@@ -14,6 +14,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 
 @NgModule({
@@ -32,7 +36,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatNativeDateModule,
     MatSelectModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatToolbarModule,
@@ -47,7 +54,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatNativeDateModule,
     MatSelectModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatChipsModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }

@@ -21,3 +21,12 @@ export interface UsuariosReturnPortalDTO {
   observations: string;
   correo: string;
 }
+export interface USUARIO {
+  usuarioid: number;
+  nombreusuario: string;
+  contrasena: string;
+  nombres: string | null;
+  rol: boolean;
+  correoelectronico: string | null;
+  estado:boolean;
+}

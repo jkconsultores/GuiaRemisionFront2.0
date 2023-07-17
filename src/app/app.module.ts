@@ -27,8 +27,12 @@ import { DestinatarioGuiaComponent } from './componentes/destinatario-guia/desti
 import { ItemsGuiaComponent } from './componentes/items-guia/items-guia.component';
 import { ItemsModalComponent } from './modals/items-modal/items-modal.component';
 import { CreacionItemsModalComponent } from './modals/creacion-items-modal/creacion-items-modal.component';
+import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
+import { UsuarioModalComponent } from './modals/usuario-modal/usuario-modal.component';
 
 registerLocaleData(myLocaleEs)
+
+
 
 @NgModule({
   declarations: [
@@ -46,7 +50,9 @@ registerLocaleData(myLocaleEs)
     DestinatarioGuiaComponent,
     ItemsGuiaComponent,
     ItemsModalComponent,
-    CreacionItemsModalComponent
+    CreacionItemsModalComponent,
+    UsuariosComponent,
+    UsuarioModalComponent,
   ],
   imports: [
     BrowserModule,

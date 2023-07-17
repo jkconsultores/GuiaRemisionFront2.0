@@ -13,3 +13,8 @@ export interface AAA_EMPRESA {
   usuarioid?: number;
   datestamp?: string;
 }
+export interface T_UsuarioEmpresaDTO {
+  idUsuario: number;
+  rucEmpresa: string;
+  estado: boolean;
+}
