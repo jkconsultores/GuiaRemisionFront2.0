@@ -74,10 +74,31 @@
           </mat-form-field>
         </div>
         <div class="col-md-3" >
-          <mat-form-field class="example-full-width w-100" appearance="outline">
-            <mat-label>Peso bruto</mat-label>
-            <input matInput placeholder="Ingrese el peso bruto" type="number" value="">
-          </mat-form-field>
+          <div class="row">
+            <div class="col-md-7">
+              <mat-form-field class="example-full-width w-100" appearance="outline">
+                <mat-label>Peso bruto</mat-label>
+                <input matInput placeholder="Ingrese el peso bruto" type="number" value="">
+              </mat-form-field>
+            </div>
+            <div class="col-md-5">
+              <mat-form-field class="example-full-width w-100" appearance="outline">
+                <mat-label>Unidad de medida</mat-label>
+                <input type="text"
+                       placeholder="Pick one"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="stateCtrl"
+                      [required]="true"
+                      [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option [value]="item.valor" *ngFor="let item of filteredOptions | async">{{item.valor}} - {{item.descripcion}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+
         </div>
       </div>
 

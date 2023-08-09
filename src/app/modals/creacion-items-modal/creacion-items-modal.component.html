@@ -16,12 +16,27 @@
           <input type="text" matInput [(ngModel)]="data.descripcion" [required]="true" placeholder="ingrese el nombre del producto">
         </mat-form-field>
 
-        <mat-form-field  class="w-100" appearance="outline" >
+        <!-- <mat-form-field  class="w-100" appearance="outline" >
           <mat-label>Seleccione una unidad de medida</mat-label>
           <mat-select  [(ngModel)]="data.unidadMedida" [required]="true">
-            <mat-option value="KGM">KGM</mat-option>
-            <mat-option value="NIU">NIU</mat-option>
+            <mat-option [value]="item.valor" *ngFor="let item of unidadesDeMedida">{{item.valor}} - {{item.descripcion}}</mat-option>
           </mat-select>
+        </mat-form-field> -->
+
+ <!-- [(ngModel)]="data.unidadMedida" -->
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Unidad de medida</mat-label>
+          <input type="text"
+                 placeholder="Pick one"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="stateCtrl"
+                [required]="true"
+                [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="CambiarValor($event)">
+            <mat-option [value]="item.valor" *ngFor="let item of filteredOptions | async">{{item.valor}} - {{item.descripcion}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
 
       <!-- </form> -->
