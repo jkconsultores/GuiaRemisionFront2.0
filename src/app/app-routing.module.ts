@@ -5,6 +5,7 @@ import { GreComponent } from './dashboard/gre/gre.component';
 import { PlataformaComponent } from './plataforma/plataforma.component';
 import { SessionGuardGuard } from 'src/guard/session-guard.guard';
 import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
+import { EmpresaComponentComponent } from './componentes/empresa-component/empresa-component.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponentComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'plataforma',canActivate: [SessionGuardGuard],component:PlataformaComponent,children:[
     {path:'main',component:GreComponent},
     {path:'usuarios',component:UsuariosComponent},
+    {path:'empresas',component:EmpresaComponentComponent},
   ]}
 ];
 

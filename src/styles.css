@@ -81,4 +81,8 @@ mat-card-header{
 .mat-paginator{
   background-color: white;
 } */
-
+.btn-primary{
+  color: #fff!important;
+  background-color: #0d6efd!important;
+  border-color: #0d6efd!important;
+}

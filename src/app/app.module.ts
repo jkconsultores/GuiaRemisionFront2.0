@@ -29,6 +29,7 @@ import { ItemsModalComponent } from './modals/items-modal/items-modal.component'
 import { CreacionItemsModalComponent } from './modals/creacion-items-modal/creacion-items-modal.component';
 import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
 import { UsuarioModalComponent } from './modals/usuario-modal/usuario-modal.component';
+import { EmpresaComponentComponent } from './componentes/empresa-component/empresa-component.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -53,6 +54,7 @@ registerLocaleData(myLocaleEs)
     CreacionItemsModalComponent,
     UsuariosComponent,
     UsuarioModalComponent,
+    EmpresaComponentComponent,
   ],
   imports: [
     BrowserModule,
