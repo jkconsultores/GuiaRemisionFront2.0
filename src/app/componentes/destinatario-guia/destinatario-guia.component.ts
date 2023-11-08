@@ -9,7 +9,7 @@ import { DestinatariosService } from 'src/services/destinatarios.service';
 export class DestinatarioGuiaComponent implements OnInit{
 
   Destinos:any;
-
+  RucAdquiriente:string|undefined
   constructor(private destinosService:DestinatariosService){}
 
   ngOnInit(): void {

@@ -1,0 +1,16 @@
+<div class="d-flex align-items-center">
+  <div class="w-100">
+    <mat-form-field class="example-full-width w-100" appearance="outline">
+      <mat-label>Destino</mat-label>
+      <input type="text" placeholder="Seleccione un destino" aria-label="Number" matInput
+        [formControl]="myControl" [matAutocomplete]="auto" >
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)" [displayWith]="displayFn">
+        <mat-option  *ngFor="let option of filteredOptions | async" [value]="option" >
+          {{option.direcciondestino}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button (click)="AbrirModalDeDestino()"
+    class="btn btn-primary mb-4"><mat-icon>edit</mat-icon></button>
+</div>

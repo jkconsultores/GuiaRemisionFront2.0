@@ -6,6 +6,7 @@ import { PlataformaComponent } from './plataforma/plataforma.component';
 import { SessionGuardGuard } from 'src/guard/session-guard.guard';
 import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
 import { EmpresaComponentComponent } from './componentes/empresa-component/empresa-component.component';
+import { DestinoComponentComponent } from './componentes/destinatario-guia/destino-component/destino-component.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponentComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
     {path:'main',component:GreComponent},
     {path:'usuarios',component:UsuariosComponent},
     {path:'empresas',component:EmpresaComponentComponent},
+    {path:'destinos',component:DestinoComponentComponent},
   ]}
 ];
 

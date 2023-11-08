@@ -30,6 +30,8 @@ import { CreacionItemsModalComponent } from './modals/creacion-items-modal/creac
 import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
 import { UsuarioModalComponent } from './modals/usuario-modal/usuario-modal.component';
 import { EmpresaComponentComponent } from './componentes/empresa-component/empresa-component.component';
+import { DestinoComponentComponent } from './componentes/destinatario-guia/destino-component/destino-component.component';
+import { EditDestinoComponentComponent } from './modals/destino-modal/edit-destino-component/edit-destino-component.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -55,6 +57,8 @@ registerLocaleData(myLocaleEs)
     UsuariosComponent,
     UsuarioModalComponent,
     EmpresaComponentComponent,
+    DestinoComponentComponent,
+    EditDestinoComponentComponent,
   ],
   imports: [
     BrowserModule,

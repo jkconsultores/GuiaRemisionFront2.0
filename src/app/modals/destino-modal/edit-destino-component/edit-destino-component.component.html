@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>{{boton}}</h2>
+<form novalidate [formGroup]="destinoForm" (ngSubmit)="acction()" >
+<mat-dialog-content class="mat-typography pt-2">
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>Numero de documento</mat-label>
+        <input type="text" matInput formControlName="numeroadquiriente"  [readonly]="data.numerodocumentoadquiriente!=undefined" [required]="true" placeholder="Ingrese un numero de docuemnto de identidad">
+        <mat-error *ngIf="destinoForm.get('numeroadquiriente')!.hasError('required') && destinoForm.get('numeroadquiriente')!.touched"> El numero de documento es obligatorio</mat-error>
+        <mat-error *ngIf="destinoForm.get('numeroadquiriente')!.hasError('maxlength') && destinoForm.get('numeroadquiriente')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
+        <mat-error *ngIf="destinoForm.get('numeroadquiriente')!.hasError('minlength') && destinoForm.get('numeroadquiriente')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
+        <mat-error *ngIf="destinoForm.get('numeroadquiriente')!.hasError('pattern') && destinoForm.get('numeroadquiriente')!.touched"> El numero de documento solo acepta numeros</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>Ubigeo</mat-label>
+        <input type="text" matInput formControlName="ubigeo" [required]="true" placeholder="Ingrese un ubigeo">
+        <mat-error *ngIf="destinoForm.get('ubigeo')!.hasError('required') && destinoForm.get('ubigeo')!.touched"> El ubigeo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>Direccion</mat-label>
+        <input type="text" matInput formControlName="direccion" [required]="true" placeholder="Ingrese una direccion">
+        <mat-error *ngIf="destinoForm.get('direccion')!.hasError('required') && destinoForm.get('direccion')!.touched"> La direccion es obligatoria</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>Local anexo</mat-label>
+        <input type="text" matInput formControlName="local" [required]="true" placeholder="Ingrese el codigo local anexo">
+        <mat-error *ngIf="destinoForm.get('local')!.hasError('required') && destinoForm.get('local')!.touched"> El codigo local anexo es obligatorio</mat-error>
+        <mat-error *ngIf="destinoForm.get('local')!.hasError('maxlength') && destinoForm.get('local')!.touched"> El codigo local anexo no puede ser mayor a 4 digitos</mat-error>
+        <mat-error *ngIf="destinoForm.get('local')!.hasError('pattern') && destinoForm.get('local')!.touched"> El codigo anexo solo puede ser numerico</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>Tienda</mat-label>
+        <input type="text" matInput formControlName="tienda"  placeholder="Ingrese el nombre de la tienda">
+      </mat-form-field>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="p-3">
+  <button mat-stroke-button color="primary"  (click)="onNoClick()" class="btn btn-danger me-3">Cancelar</button>
+  <button mat-stroke-button color="primary" type="submit" [disabled]="destinoForm.invalid" class="btn btn-primary">{{boton}}</button>
+</mat-dialog-actions>
+</form>
+

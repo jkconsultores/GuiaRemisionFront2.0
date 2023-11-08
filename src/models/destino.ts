@@ -5,5 +5,5 @@ export interface AAA_DESTINO {
   usuarioid?: number;
   datestamp?: Date;
   codigolocalanexo?:string;
-
+  tienda?:string|null;
 }
