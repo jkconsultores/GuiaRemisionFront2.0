@@ -15,7 +15,7 @@ import { OrigenService } from 'src/services/origen.service';
 })
 export class OrigenModalComponent {
   @Input()
-  titulo!: string;
+  titulo: string='Origenes';
   @Output()
   submitClicked = new EventEmitter<Aaa_OrigenDTO>();
 
@@ -93,7 +93,7 @@ export class OrigenModalComponent {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       if (result != undefined) {
-        if (result.numerodocumentoadquiriente.length > 0) {
+        if (result.numerodocumentoemisor.length > 0) {
           this.data.push(result);
           this.dataSource = new MatTableDataSource(this.data);
         }

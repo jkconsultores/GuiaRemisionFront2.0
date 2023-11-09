@@ -15,10 +15,13 @@ export class OrigenService {
   public ObtenerTodosLosOrigenDeUnAdquiriente(rucAdquiriente:string){
     return this.http.get<Aaa_OrigenDTO[]>(this.url+'Origen/Obtener/Origen/'+rucAdquiriente);
   }
+  public ObtenerTodosLosOrigen(){
+    return this.http.get<Aaa_OrigenDTO[]>(this.url+'Origen/GetOrigenes');
+  }
   public EliminarOrigen(destino:Aaa_OrigenDTO ){
-    return this.http.post<boolean>(this.url+'Origen/eliminar',destino);
+    return this.http.post<boolean>(this.url+'Origen/BorrarOrigen',destino);
   }
   public AgregarUnOrigen(destino:Aaa_OrigenDTO ){
-    return this.http.post<boolean>(this.url+'Origen/agregar',destino);
+    return this.http.post<Aaa_OrigenDTO>(this.url+'Origen/CrearOrigen',destino);
   }
 }

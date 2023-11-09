@@ -14,7 +14,7 @@ import { EditDestinoComponentComponent } from './edit-destino-component/edit-des
 })
 export class DestinoModalComponent {
 @Input()
-titulo!:string;
+titulo:string='Destinos';
 @Output()
 submitClicked  = new EventEmitter<AAA_DESTINO>();
 

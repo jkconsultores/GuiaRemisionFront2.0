@@ -45,19 +45,15 @@ export class EditDestinoComponentComponent implements OnInit {
     this.dialogRef.close();
   }
   acction(){
-    console.log("Esta en action")
-    console.log(this.DatosEditables)
-    console.log(this.data)
-    console.log(this.destinoForm.value)
-    console.log("Esta fuera de action")
-    // tienda:this.destinoForm.get('tienda')!.value!,
-    let desti={
+
+    let desti:AAA_DESTINO={
       codigolocalanexo:this.destinoForm.get('local')!.value!,
       direcciondestino:this.destinoForm.get('direccion')!.value!,
       numerodocumentoadquiriente:this.destinoForm.get('numeroadquiriente')!.value!,
       ubigeodestino:this.destinoForm.get('ubigeo')!.value!,
       datestamp:new Date(),
-      usuarioid:0
+      usuarioid:0,
+      tienda:this.destinoForm.get('tienda')!.value!
     }
 
     if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
@@ -72,7 +68,6 @@ AgregarDestino(desti:any,dato:string){
   this.destinoservice.AgregarUnDestino(desti).subscribe(resp=>{
         Swal.fire("Felicidades",dato,"success")  ;
         if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
-          this.AgregarDestino(desti,"Se agrego satisfactoriamente la direccion")
           this.dialogRef.close(resp);
         }else{
         this.dialogRef.close();

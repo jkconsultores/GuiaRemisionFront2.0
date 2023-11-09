@@ -26,7 +26,7 @@ options: AAA_DESTINO[]=[];
 
   ngOnInit(): void {
     //RucAdquiriente
-      this.destinosService.ObtenerTodosLosDestinosDeUnAdquiriente('20329545459').subscribe((resp:AAA_DESTINO[])=>{
+      this.destinosService.ObtenerTodosLosDestinosDeUnAdquiriente(this.RucAdquiriente).subscribe((resp:AAA_DESTINO[])=>{
         this.Destinos=resp;
         this.options=resp;
         console.log(this.Destinos)
