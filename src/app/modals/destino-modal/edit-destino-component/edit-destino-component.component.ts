@@ -27,7 +27,7 @@ export class EditDestinoComponentComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: AAA_DESTINO,public dialogRef: MatDialogRef<DestinoModalComponent>,public destinoservice:DestinosService){}
   ngOnInit(): void {
-    if(this.data.numerodocumentoadquiriente==undefined){
+    if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
       this.boton="Crear destino"
     }else{
       this.destinoForm.get('direccion')?.patchValue(this.data.direcciondestino!)
@@ -40,7 +40,8 @@ export class EditDestinoComponentComponent implements OnInit {
     this.DatosEditables = JSON.parse(parsedo);
   }
 
-  onNoClick(){
+  onNoClick(event :any){
+    event.preventDefault();
     this.dialogRef.close();
   }
   acction(){
@@ -59,7 +60,7 @@ export class EditDestinoComponentComponent implements OnInit {
       usuarioid:0
     }
 
-    if(this.data.numerodocumentoadquiriente==undefined){
+    if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
       this.AgregarDestino(desti,"Se agrego satisfactoriamente la direccion")
     }else{
       this.destinoservice.EliminarDestino(this.data).subscribe(resp=>{
@@ -70,7 +71,12 @@ export class EditDestinoComponentComponent implements OnInit {
 AgregarDestino(desti:any,dato:string){
   this.destinoservice.AgregarUnDestino(desti).subscribe(resp=>{
         Swal.fire("Felicidades",dato,"success")  ;
+        if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
+          this.AgregarDestino(desti,"Se agrego satisfactoriamente la direccion")
+          this.dialogRef.close(resp);
+        }else{
         this.dialogRef.close();
+        }
   })
 }
 }

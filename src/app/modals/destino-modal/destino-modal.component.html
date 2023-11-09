@@ -1,11 +1,17 @@
 <h2 mat-dialog-title>{{titulo}}</h2>
 <mat-dialog-content class="mat-typography pt-2">
+  <div class="d-flex align-items-center">
+    <!-- <div class="w-100"> -->
   <mat-form-field class="w-100" appearance="outline">
     <mat-label>Filtro</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo av." #input>
   </mat-form-field>
+  <button mat-raised-button (click)="CrearDireccion()"
+  class="btn btn-primary mb-4 butondeadd" matTooltip="Agregar un nuevo destino"
+  aria-label="Agregar un nuevo destino"><mat-icon>add</mat-icon></button>
+    </div>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
 
     <!-- Position Column -->
     <ng-container matColumnDef="ubigeo">
@@ -36,8 +42,10 @@
       <th mat-header-cell *matHeaderCellDef> Opciones </th>
       <td mat-cell *matCellDef="let element">
         <div class="d-flex align-items-center">
-        <button mat-raised-button color="warn" class="buttonchunqued" (click)="eliminarDireccion(element)" ><mat-icon>delete</mat-icon></button>
-        <button mat-raised-button class="ms-3 btn btn-primary buttonchunqued" (click)="editarDireccion(element)"><mat-icon>edit</mat-icon></button>
+        <button mat-raised-button color="warn" class="buttonchunqued" (click)="eliminarDireccion(element)" matTooltip="Eliminar el destino"
+        aria-label="Eliminar el destino"><mat-icon>delete</mat-icon></button>
+        <button mat-raised-button class="ms-3 btn btn-primary buttonchunqued" (click)="editarDireccion(element)" matTooltip="Modificar el destino"
+        aria-label="Modificar el destino"><mat-icon>edit</mat-icon></button>
       </div>
       </td>
     </ng-container>

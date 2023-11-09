@@ -32,6 +32,7 @@ import { UsuarioModalComponent } from './modals/usuario-modal/usuario-modal.comp
 import { EmpresaComponentComponent } from './componentes/empresa-component/empresa-component.component';
 import { DestinoComponentComponent } from './componentes/destinatario-guia/destino-component/destino-component.component';
 import { EditDestinoComponentComponent } from './modals/destino-modal/edit-destino-component/edit-destino-component.component';
+import { EditOrigenComponentComponent } from './modals/origen-modal/edit-origen-component/edit-origen-component.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -59,6 +60,7 @@ registerLocaleData(myLocaleEs)
     EmpresaComponentComponent,
     DestinoComponentComponent,
     EditDestinoComponentComponent,
+    EditOrigenComponentComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { DestinosService } from 'src/services/destinos.service';
 import Swal from 'sweetalert2';
 import { EditDestinoComponentComponent } from './edit-destino-component/edit-destino-component.component';
 
+
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -38,7 +39,7 @@ titulo!:string;
 @Output()
 submitClicked  = new EventEmitter<AAA_DESTINO>();
 
-clickedRows  = new Set<PeriodicElement>();
+clickedRows  = new Set<AAA_DESTINO>();
 
 constructor( @Inject(MAT_DIALOG_DATA) public data: AAA_DESTINO[],public dialogRef: MatDialogRef<DestinoModalComponent>,public destinoService:DestinosService,public dialog: MatDialog){}
 
@@ -84,6 +85,7 @@ displayedColumns: string[] = ['ubigeo', 'codigolocalanexo', 'direccion', 'numerd
     );
   }
   editarDireccion(event:AAA_DESTINO){
+    console.log(event);
     const dialogRef = this.dialog.open(EditDestinoComponentComponent, {
       data: event,width:'500px',
     });
@@ -101,5 +103,22 @@ displayedColumns: string[] = ['ubigeo', 'codigolocalanexo', 'direccion', 'numerd
     }
 
     return arr;
+  }
+  CrearDireccion(){
+    let datos:AAA_DESTINO={codigolocalanexo:'',direcciondestino:'',numerodocumentoadquiriente:'',tienda:'',usuarioid:0,ubigeodestino:'',datestamp:new Date()};
+    const dialogRef = this.dialog.open(EditDestinoComponentComponent, {
+      data: datos!,width:'500px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result!=undefined){
+        if(result.numerodocumentoadquiriente.length>0){
+          this.data.push(result);
+          this.dataSource=new MatTableDataSource(this.data);
+        }
+      }
+
+    });
   }
 }
