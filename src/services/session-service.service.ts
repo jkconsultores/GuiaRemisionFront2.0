@@ -12,6 +12,6 @@ export class SessionServiceService {
   constructor(public http:HttpClient) { }
 
   public login(form:any){
-    return this.http.post(this.url+'Session/login',form);
+    return this.http.post(this.url+'Session/Login',form);
   }
 }

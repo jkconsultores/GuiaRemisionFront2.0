@@ -16,5 +16,5 @@ export interface AAA_EMPRESA {
 export interface T_UsuarioEmpresaDTO {
   idUsuario: number;
   rucEmpresa: string;
-  estado: boolean;
+  estado: boolean;
 }

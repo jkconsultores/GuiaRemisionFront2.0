@@ -6,6 +6,7 @@ import { AAA_DESTINO } from 'src/models/destino';
 import { DestinosService } from 'src/services/destinos.service';
 import Swal from 'sweetalert2';
 import { EditDestinoComponentComponent } from './edit-destino-component/edit-destino-component.component';
+
 export interface PeriodicElement {
   name: string;
   position: number;
