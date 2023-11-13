@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DestinatariosService } from 'src/services/destinatarios.service';
 
 @Component({
@@ -8,8 +8,11 @@ import { DestinatariosService } from 'src/services/destinatarios.service';
 })
 export class DestinatarioGuiaComponent implements OnInit{
 
+@Input()
+RucEmisor!:string
+
   Destinos:any;
-  RucAdquiriente:string|undefined
+  RucAdquiriente:string='';
   constructor(private destinosService:DestinatariosService){}
 
   ngOnInit(): void {

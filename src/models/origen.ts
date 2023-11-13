@@ -8,7 +8,7 @@ export interface Aaa_OrigenDTO
 {
     numerodocumentoemisor: string;
     ubigeoorigen: string;
-    tienda: string|undefined;
+    tienda: string|null;
     direccionorigen: string;
     codigolocalanexo: string | null;
     usuarioid: number;

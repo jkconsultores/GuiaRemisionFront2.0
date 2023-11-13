@@ -7,6 +7,7 @@ import { SessionGuardGuard } from 'src/guard/session-guard.guard';
 import { UsuariosComponent } from './dashboard/usuarios/usuarios.component';
 import { EmpresaComponentComponent } from './componentes/empresa-component/empresa-component.component';
 import { DestinoComponentComponent } from './componentes/destinatario-guia/destino-component/destino-component.component';
+import { OrigenComponentComponent } from './componentes/origen-component/origen-component.component';
 import { DestinatarioGuiaComponent } from './componentes/destinatario-guia/destinatario-guia.component';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     {path:'main',component:GreComponent},
     {path:'usuarios',component:UsuariosComponent},
     {path:'empresas',component:EmpresaComponentComponent},
+    {path:'origenes',component:OrigenComponentComponent},
     {path:'destinos',component:DestinoComponentComponent},
     {path:'destinatario',component:DestinatarioGuiaComponent},
   ]}

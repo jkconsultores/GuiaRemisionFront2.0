@@ -35,7 +35,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DestinoModalComponent {
 @Input()
-titulo!:string;
+titulo:string='Destinos';
 @Output()
 submitClicked  = new EventEmitter<AAA_DESTINO>();
 
