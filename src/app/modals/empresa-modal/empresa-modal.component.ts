@@ -93,12 +93,12 @@ export class EmpresaModalComponent {
     }
     this.empresaService.eliminarEmpresa(event).subscribe(
       (resp:any) => {
-        Swal.fire('Destino eliminado satisfactoriamente', '', 'success');
+        Swal.fire('Empresa eliminada satisfactoriamente', '', 'success');
         this.data=this.removerObjetoDeArray(this.data,event);
         this.dataSource=new MatTableDataSource(this.data);
       },
       error => {
-        Swal.fire('No se pudo eliminar el destino', '', 'error');
+        Swal.fire('No se pudo eliminar el empresa', '', 'error');
       }
     );
   }

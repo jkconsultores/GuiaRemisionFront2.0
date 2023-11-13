@@ -1,6 +1,6 @@
-<h2 mat-dialog-title>
-    <!-- {{ boton }}  -->
-    Empresa</h2>
+<h2 mat-dialog-title id="titulo">
+    <!-- {{ boton }} -->
+     Empresa</h2>
 
 <form novalidate [formGroup]="empresaForm" (ngSubmit)="acction()" >    
     <mat-dialog-content class="mat-typography ">
@@ -8,56 +8,41 @@
         <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label>Número de documento</mat-label>
             <input type="text" matInput formControlName="numerodocumentoemisor" [readonly]="data.numerodocumentoemisor != undefined && data.numerodocumentoemisor.length > 0 "[required]="true" placeholder="Ingrese el número de documento"/>
-            <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
+            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
             <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-          <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-         <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
+            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label>Nombre de empresa</mat-label>
             <input type="text" matInput formControlName="nombreempresa" [required]="true" placeholder="Ingrese el nombre de la empresa"/>
-            <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-          <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-         <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+            <mat-error *ngIf="empresaForm.get('nombreempresa')!.hasError('required') && empresaForm.get('nombreempresa')!.touched"> El nombre de empresa es obligatorio</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label>Tipo de documento</mat-label>
             <input type="text" matInput formControlName="tipodocumentoemisor" [required]="true" placeholder="Ingrese el tipo de documento"/>
-            <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-          <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-         <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+            <mat-error *ngIf="empresaForm.get('tipodocumentoemisor')!.hasError('required') && empresaForm.get('tipodocumentoemisor')!.touched"> El tipo de documento es obligatorio</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label>Razón social</mat-label>
             <input type="text" matInput formControlName="razonsocialemisor" [required]="true" placeholder="Ingrese la razón social de empresa"/>
-            <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-          <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-         <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+            <mat-error *ngIf="empresaForm.get('razonsocialemisor')!.hasError('required') && empresaForm.get('razonsocialemisor')!.touched"> La razón social es obligatoria</mat-error>
         </mat-form-field>
 
         <div class="example w-100 "> 
             <mat-form-field class="marco1 w-50" appearance="outline">
                 <mat-label>Dirección emisor </mat-label>
                 <input type="text" matInput formControlName="direccionemisor" [required]="true" placeholder="Ingrese la dirección emisor"/>
-                <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-              <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-             <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+                <mat-error *ngIf="empresaForm.get('direccionemisor')!.hasError('required') && empresaForm.get('direccionemisor')!.touched"> La dirección es obligatoria</mat-error>
             </mat-form-field> 
 
             <mat-form-field class="marco2 w-50" appearance="outline">
                 <mat-label>Ubigeo </mat-label>
                 <input type="text" matInput formControlName="ubigeoemisor" [required]="true" placeholder="Ingrese el ubigeo emisor"/>
-                <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-              <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-             <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+                <mat-error *ngIf="empresaForm.get('ubigeoemisor')!.hasError('required') && empresaForm.get('ubigeoemisor')!.touched"> El ubigeo es obligatorio</mat-error>
             </mat-form-field>           
         </div>
 
@@ -65,19 +50,13 @@
             <mat-form-field class="marco1 w-50" appearance="outline">
                 <mat-label>País </mat-label>
                 <input type="text" matInput formControlName="paisemisor" [required]="true" placeholder="Ingrese el país"/>
-                <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-              <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-             <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+                <mat-error *ngIf="empresaForm.get('paisemisor')!.hasError('required') && empresaForm.get('paisemisor')!.touched"> El país es obligatorio</mat-error>
             </mat-form-field> 
 
             <mat-form-field class="marco2 w-50" appearance="outline">
                 <mat-label>Distrito </mat-label>
                 <input type="text" matInput formControlName="distritoemisor" [required]="true" placeholder="Ingrese el ubigeo emisor"/>
-                <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-              <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-             <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+                <mat-error *ngIf="empresaForm.get('distritoemisor')!.hasError('required') && empresaForm.get('distritoemisor')!.touched"> El distrito es obligatorio</mat-error>
             </mat-form-field>            
         </div>
 
@@ -85,25 +64,20 @@
             <mat-form-field class="marco1 w-50" appearance="outline">
                 <mat-label>Provincia empresa</mat-label>
                 <input type="text" matInput formControlName="provinciaemisor" [required]="true" placeholder="Ingrese la provincia de empresa"/>
-                <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-              <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-             <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+                <mat-error *ngIf="empresaForm.get('provinciaemisor')!.hasError('required') && empresaForm.get('provinciaemisor')!.touched"> La provincia es obligatoria</mat-error>
             </mat-form-field>
 
             <mat-form-field class="marco2 w-50" appearance="outline">
                 <mat-label>Departamento empresa</mat-label>
                 <input type="text" matInput formControlName="departamentoemisor" [required]="true" placeholder="Ingrese el departamento de la empresa"/>
-                <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-              <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-             <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+                <mat-error *ngIf="empresaForm.get('departamentoemisor')!.hasError('required') && empresaForm.get('departamentoemisor')!.touched"> El departamento es obligatorio</mat-error>
             </mat-form-field>            
         </div>
 
         <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label>Razón comercial emisor</mat-label>
             <input type="text" matInput  formControlName="razoncomercialemisor" placeholder="Ingrese la razon comercial emisor"/>
+            <mat-error *ngIf="empresaForm.get('razoncomercialemisor')!.hasError('required') && empresaForm.get('razoncomercialemisor')!.touched"> La razón social es obligatoria</mat-error>
         </mat-form-field>
     </mat-dialog-content>
     

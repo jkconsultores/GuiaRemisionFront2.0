@@ -1,17 +1,20 @@
+#titulo {
+  margin-bottom: -15px;
+}
+
 .example mat-form-field + mat-form-field {
-    /* margin-left: 15px;  */
+    padding-left: 5px; 
+    padding-right: 5px; 
   }
 
-mat-form-field {
+/* mat-form-field {
   margin: -8px !important;
-  /* padding: -8px !important; */
 }
 
 .marco1 {
-  /* margin-right: 5px !important; */
   padding-right: 15px !important;
 }
 
 .marco2 {
   margin-left: 5px !important;
-}
+} */
