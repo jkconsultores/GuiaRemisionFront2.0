@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 export class EmpresaModalComponent {
   @Input()
   titulo!:string;
-  @Output()  
+  @Output()
   submitClicked  = new EventEmitter<AAA_EMPRESA>();
   clickedRows  = new Set<PeriodicElement>();
 
@@ -63,7 +63,7 @@ export class EmpresaModalComponent {
           this.dataSource=new MatTableDataSource(this.data);
         }
       }
-    });
+    });    
   }
 
   editarEmpresa(event:AAA_EMPRESA){
@@ -73,6 +73,10 @@ export class EmpresaModalComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.empresaService.getEmpresas().subscribe((resp:AAA_EMPRESA[])=>{
+        this.data=resp;
+        this.dataSource=new MatTableDataSource(this.data);
+      })
     });
   }
 

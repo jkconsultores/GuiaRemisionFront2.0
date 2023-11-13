@@ -35,7 +35,7 @@ export class EditEmpresaComponentComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: AAA_EMPRESA,public dialogRef: MatDialogRef<EmpresaModalComponent>,public empresaService:EmpresaService){}
   
   ngOnInit(): void {
-    if(this.data==undefined || this.data == null){
+    if(this.data.numerodocumentoemisor==undefined || this.data.numerodocumentoemisor.length==0){
       this.boton="Crear empresa"
     }else{
       this.empresaForm.get('numerodocumentoemisor')?.patchValue(this.data.numerodocumentoemisor!)
@@ -83,11 +83,13 @@ export class EditEmpresaComponentComponent {
     
     if(this.data.numerodocumentoemisor==undefined || this.data.numerodocumentoemisor.length==0){
       this.crearEmpresa(desti,"Se agrego satisfactoriamente la empresa")
+      
     }else{
       this.empresaService.eliminarEmpresa(this.data).subscribe(resp=>{
         this.crearEmpresa(desti,"Se actualizo satisfactoriamente la empresa")
       })
     }
+    
   }
   
   crearEmpresa(desti:any,dato:string){
@@ -99,7 +101,8 @@ export class EditEmpresaComponentComponent {
       }
       else {
         Swal.fire('No se pudo guardar', '', 'error');
-      }        
+      }
+              
     })
   }
   
