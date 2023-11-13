@@ -16,6 +16,14 @@ export class EmpresaService {
     return this.http.get<AAA_EMPRESA[]>(this.url+'AAA/GetEmpresas');
   }
 
+  public crearEmpresa(body: any){
+    return this.http.post(this.url+'AAA/empresa', body);
+  }
+
+  public eliminarEmpresa(body:AAA_EMPRESA ){
+    return this.http.get<any>(this.url+'AAA/BorrarEmpresa/'+ body.numerodocumentoemisor);
+  }
+
   public AgregarRelacionEmpresas(body:any){
     return this.http.post(this.url+'Usuario/Agregar/Relacion/empresa',body);
   }

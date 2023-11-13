@@ -33,6 +33,7 @@ import { EmpresaComponentComponent } from './componentes/empresa-component/empre
 import { DestinoComponentComponent } from './componentes/destinatario-guia/destino-component/destino-component.component';
 import { EditDestinoComponentComponent } from './modals/destino-modal/edit-destino-component/edit-destino-component.component';
 import { EditOrigenComponentComponent } from './modals/origen-modal/edit-origen-component/edit-origen-component.component';
+import { EditEmpresaComponentComponent } from './modals/empresa-modal/edit-empresa-component/edit-empresa-component.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -61,6 +62,7 @@ registerLocaleData(myLocaleEs)
     DestinoComponentComponent,
     EditDestinoComponentComponent,
     EditOrigenComponentComponent,
+    EditEmpresaComponentComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,9 @@ import { AAA_EMPRESA } from 'src/models/Empresa';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PeriodicElement } from '../destino-modal/destino-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { EditEmpresaComponentComponent } from './edit-empresa-component/edit-empresa-component.component';
+import { EmpresaService } from 'src/services/empresa.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,15 +21,17 @@ export class EmpresaModalComponent {
   submitClicked  = new EventEmitter<AAA_EMPRESA>();
   clickedRows  = new Set<PeriodicElement>();
 
-  constructor(
-    
+  constructor(    
     @Inject(MAT_DIALOG_DATA) public data: AAA_EMPRESA[],
     public dialogRef: MatDialogRef<EmpresaModalComponent>,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public empresaService:EmpresaService
+    )
+    {
+      console.log(data)
+    }  
 
-    ){console.log(data)}  
-
-    displayedColumns: string[] = ['nombreempresa', 'numerodocumentoemisor', 'paisemisor', 'provinciaemisor', 'options'];
+    displayedColumns: string[] = ['nombreempresa', 'numerodocumentoemisor', 'tipodocumentoemisor', 'paisemisor', 'provinciaemisor', 'options'];
     dataSource = new MatTableDataSource(this.data);
 
     applyFilter(event: Event) {
@@ -44,10 +49,66 @@ export class EmpresaModalComponent {
     this.dialogRef.close();
   }
 
+  crearEmpresa(){
+    let datos:AAA_EMPRESA={numerodocumentoemisor:'',nombreempresa:'',tipodocumentoemisor:'',razonsocialemisor:'',ubigeoemisor:''};
+    const dialogRef = this.dialog.open(EditEmpresaComponentComponent, { 
+      data: datos!, width:'800px',
+    });
 
-  editarDireccion(event:AAA_EMPRESA){
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result!=undefined){
+        if(result.numerodocumentoemisor.length>0){
+          this.data.push(result);
+          this.dataSource=new MatTableDataSource(this.data);
+        }
+      }
+    });
   }
 
-  async eliminarDireccion(){
+  editarEmpresa(event:AAA_EMPRESA){
+    console.log(event);
+    const dialogRef = this.dialog.open(EditEmpresaComponentComponent, {
+      data: event,width:'800px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
+
+  async eliminarEmpresa(event:AAA_EMPRESA){
+    const result = await Swal.fire({
+      title: 'Esta acción no se puede deshacer',
+      text: '¿Estás seguro de eliminar la empresa: '+event.nombreempresa+'?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons:true,
+      cancelButtonColor:'red',
+      confirmButtonColor:'green'
+    });
+    if (!result.isConfirmed) {
+      return;
+    }
+    this.empresaService.eliminarEmpresa(event).subscribe(
+      (resp:any) => {
+        Swal.fire('Destino eliminado satisfactoriamente', '', 'success');
+        this.data=this.removerObjetoDeArray(this.data,event);
+        this.dataSource=new MatTableDataSource(this.data);
+      },
+      error => {
+        Swal.fire('No se pudo eliminar el destino', '', 'error');
+      }
+    );
+  }
+
+  removerObjetoDeArray(arr: any[], objeto: any): any[] {
+    const index = arr.findIndex(item => item === objeto);
+    if (index !== -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
+  }
+
 }

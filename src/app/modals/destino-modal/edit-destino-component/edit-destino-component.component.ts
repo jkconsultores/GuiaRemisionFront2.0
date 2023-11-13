@@ -74,7 +74,7 @@ AgregarDestino(desti:any,dato:string){
         if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
           this.AgregarDestino(desti,"Se agrego satisfactoriamente la direccion")
           this.dialogRef.close(resp);
-        }else{
+        }else{ 
         this.dialogRef.close();
         }
   })
