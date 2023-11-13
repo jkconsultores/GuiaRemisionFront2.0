@@ -4,3 +4,7 @@ export interface producto{
   unidadmedida:string,
   descripcion:String
 }
+export interface productoPaginacionDTO{
+  productos:producto[],
+  totalRegistros:number,
+}
