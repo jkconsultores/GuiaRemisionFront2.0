@@ -2,7 +2,7 @@
   <div class="w-100">
     <mat-form-field class="example-full-width w-100" appearance="outline">
       <mat-label>Destino</mat-label>
-      <input type="text" placeholder="Seleccione un destino" aria-label="Number" matInput
+      <input type="text" placeholder="Seleccione un destino"  aria-label="Number" matInput
         [formControl]="myControl" [matAutocomplete]="auto" >
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)" [displayWith]="displayFn">
         <mat-option  *ngFor="let option of filteredOptions | async" [value]="option" >

@@ -4,7 +4,7 @@
     <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
   </mat-card-header>
   <mat-card-body class="p-3">
-    <div class="col-md-6 float-end d-flex bd-highlight">
+    <div class="col-md-6 float-end d-flex bd-highlight p-3">
       <div class="w-100 bd-highlight">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Filtro</mat-label>
@@ -13,28 +13,28 @@
         </mat-form-field>
       </div>
       <div class="p-2 flex-shrink-1 bd-highlight ">
-    <button mat-stroke-button color="primary" class="btn btn-primary" style="white-space: nowrap;" (click)="openDialogItems()">Agregar detalle</button>
+    <button mat-stroke-button color="primary" class="btn btn-primary " style="white-space: nowrap;" (click)="openDialogItems()">Agregar detalle</button>
   </div>
   </div>
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+<div class="mat-elevation-z0">
+    <table mat-table [dataSource]="dataSource" >
 
       <!-- Codigo de item -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Codigo </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <th mat-header-cell *matHeaderCellDef style="width: 14% !important;text-align: start;"> Codigo </th>
+        <td mat-cell *matCellDef="let element" style="width: 14% !important;text-align: start"> {{element.codigo}} </td>
       </ng-container>
 
       <!-- Cantidad de items -->
-      <ng-container matColumnDef="Cantidad">
-        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-        <td mat-cell *matCellDef="let element"> {{element.Cantidad}} </td>
+      <ng-container matColumnDef="cantidad">
+        <th mat-header-cell *matHeaderCellDef style="width: 9% !important;text-align: center;"> Cantidad </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.cantidad}} </td>
       </ng-container>
 
       <!-- Unidad de medida -->
-      <ng-container matColumnDef="unidad">
+      <ng-container matColumnDef="unidad" style="width: 9% !important;text-align: center;">
         <th mat-header-cell *matHeaderCellDef> Unidad de medida </th>
-        <td mat-cell *matCellDef="let element"> {{element.unidad}} </td>
+        <td mat-cell *matCellDef="let element" style="width: 9% !important;text-align: center"> {{element.unidadMedida}} </td>
       </ng-container>
       <!-- Descripcion -->
       <ng-container matColumnDef="descripcion">
@@ -43,8 +43,9 @@
       </ng-container>
       <!-- Opciones -->
       <ng-container matColumnDef="Opt">
-        <th mat-header-cell *matHeaderCellDef> Opt </th>
-        <td mat-cell *matCellDef="let element"> {{element.Opt}} </td>
+        <th mat-header-cell *matHeaderCellDef style="width: 7% !important;text-align: end;"> Opt </th>
+        <td mat-cell *matCellDef="let element">  <button mat-raised-button color="warn" class="buttonchunqued" (click)="eliminarProducto(element)" matTooltip="Eliminar el producto"
+          aria-label="Eliminar el producto"><mat-icon>delete</mat-icon></button> </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -53,8 +54,14 @@
       <!-- Row shown when there is no matching data. -->
       <tr class="mat-row" *matNoDataRow>
         <td *ngIf="input.value!=''" class="mat-cell" colspan="4">No se encontro datos filtrando por: "{{input.value}}"</td>
-        <td *ngIf="ELEMENT_DATA.length<1" class="mat-cell text-center" colspan="4">No existen items asignados a la guia</td>
+        <!-- <td *ngIf="ELEMENT_DATA.length<1" class="mat-cell text-center" colspan="4">No existen items asignados a la guia</td> -->
       </tr>
     </table>
+    <mat-paginator [length]="cantidad"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10]"
+              aria-label="Select page">
+</mat-paginator>
+  </div>
   </mat-card-body>
 </mat-card>

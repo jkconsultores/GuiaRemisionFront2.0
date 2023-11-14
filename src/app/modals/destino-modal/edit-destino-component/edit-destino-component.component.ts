@@ -69,8 +69,8 @@ AgregarDestino(desti:any,dato:string){
         Swal.fire("Felicidades",dato,"success")  ;
         if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
           this.dialogRef.close(resp);
-        }else{ 
-        this.dialogRef.close();
+        }else{
+          this.dialogRef.close();
         }
   })
 }

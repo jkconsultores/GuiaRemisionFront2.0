@@ -1,19 +1,22 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>Crear producto</mat-card-title>
+    <mat-card-title>{{Crearproducto}}</mat-card-title>
     <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
   </mat-card-header>
+  <form novalidate [formGroup]="destinoForm" (ngSubmit)="EnvioDatos()" >
   <mat-card-body>
     <div class="p-3">
       <!-- <form class="example-form"> -->
         <mat-form-field class="example-full-width w-100" appearance="outline">
           <mat-label>Codigo</mat-label>
-          <input type="text" matInput [(ngModel)]="data.codigo" [required]="true" placeholder="ingrese un codigo">
+          <input type="text" matInput formControlName="codigo" [required]="true" placeholder="ingrese un codigo">
+          <mat-error *ngIf="destinoForm.get('codigo')!.hasError('required') && destinoForm.get('codigo')!.touched"> El codigo es obligatorio</mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width w-100" appearance="outline">
           <mat-label>Producto</mat-label>
-          <input type="text" matInput [(ngModel)]="data.descripcion" [required]="true" placeholder="ingrese el nombre del producto">
+          <input type="text" matInput formControlName="descripcion" [required]="true" placeholder="ingrese el nombre del producto">
+          <mat-error *ngIf="destinoForm.get('descripcion')!.hasError('required') && destinoForm.get('descripcion')!.touched"> La descripcion es obligatoria</mat-error>
         </mat-form-field>
 
         <!-- <mat-form-field  class="w-100" appearance="outline" >
@@ -30,20 +33,22 @@
                  placeholder="Pick one"
                  aria-label="Number"
                  matInput
-                 [formControl]="stateCtrl"
+                 formControlName="unidad"
                 [required]="true"
                 [matAutocomplete]="auto">
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="CambiarValor($event)">
             <mat-option [value]="item.valor" *ngFor="let item of filteredOptions | async">{{item.valor}} - {{item.descripcion}}
             </mat-option>
           </mat-autocomplete>
+           <!-- <mat-error *ngIf="destinoForm.get('Unidad')!.hasError('required') && destinoForm.get('Unidad')!.touched"> La Unidad de medida es obligatoria</mat-error> -->
         </mat-form-field>
 
       <!-- </form> -->
     </div>
   </mat-card-body>
   <mat-card-actions align="end" class="p-3">
-    <button mat-stroke-button color="primary"  (click)="onNoClick()" class="btn btn-danger me-3">Cancelar</button>
-    <button mat-stroke-button color="primary" [mat-dialog-close]="data" [disabled]="EnvioDatos()" class="btn btn-primary">Aceptar</button>
+    <button mat-stroke-button color="primary"  (click)="onNoClick($event)" class="btn btn-danger me-3">Cancelar</button>
+    <button mat-stroke-button color="primary" type="submit"  [disabled]="destinoForm.invalid" class="btn btn-primary">Aceptar</button>
   </mat-card-actions>
+</form>
 </mat-card>

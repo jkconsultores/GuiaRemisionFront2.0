@@ -26,6 +26,7 @@ options: AAA_DESTINO[]=[];
 
   ngOnInit(): void {
     //RucAdquiriente
+    if(this.RucAdquiriente!=undefined && this.RucAdquiriente!=''){
       this.destinosService.ObtenerTodosLosDestinosDeUnAdquiriente(this.RucAdquiriente).subscribe((resp:AAA_DESTINO[])=>{
         this.Destinos=resp;
         this.options=resp;
@@ -35,6 +36,7 @@ options: AAA_DESTINO[]=[];
         startWith(''),
         map(value => this._filter(value || '')),
       );
+    }
 
   }
   onSelectionChange(event: any){
@@ -48,7 +50,7 @@ options: AAA_DESTINO[]=[];
 
     dialogRef.componentInstance.submitClicked.subscribe(result => {
       console.log(result);
-      this.myControl.setValue(result);
+      this.myControl.setValue(result.direcciondestino!);
     });
   }
   private _filter(value: string): AAA_DESTINO[] {
