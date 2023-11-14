@@ -17,7 +17,11 @@ export class EditEmpresaComponentComponent {
   [x: string]: any;
   boton:string="guardar"
   DatosEditables:AAA_EMPRESA|undefined;
-  
+  Pais:any[] = [];
+  Departamento:any[] = [];
+  Provincia:any[] = [];
+  Distrito:any[] = [];
+
   empresaForm = new FormGroup({
     numerodocumentoemisor: new FormControl("", [Validators.minLength(8),Validators.maxLength(11),Validators.required,Validators.pattern(/^\d+$/)]),
     nombreempresa: new FormControl("", [Validators.required]),
@@ -29,12 +33,23 @@ export class EditEmpresaComponentComponent {
     tipodocumentoemisor: new FormControl("", [Validators.required]),
     distritoemisor: new FormControl("", [Validators.required]),
     razonsocialemisor: new FormControl("", [Validators.required]),
-    paisemisor: new FormControl("", [Validators.required]),
+    paisemisor: new FormControl("111", [Validators.required]),    
   });
   
-  constructor(@Inject(MAT_DIALOG_DATA) public data: AAA_EMPRESA,public dialogRef: MatDialogRef<EmpresaModalComponent>,public empresaService:EmpresaService){}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: AAA_EMPRESA,
+    public dialogRef: MatDialogRef<EmpresaModalComponent>,
+    public empresaService:EmpresaService,){}
   
   ngOnInit(): void {
+
+    this.empresaService.getPais().subscribe((res:any[])=>{
+      this.Pais= res;
+    })
+    this.empresaService.getDepartamento().subscribe((res:any[])=>{
+      this.Departamento= res;
+    })
+
     if(this.data.numerodocumentoemisor==undefined || this.data.numerodocumentoemisor.length==0){
       this.boton="Crear empresa"
     }else{
@@ -52,6 +67,21 @@ export class EditEmpresaComponentComponent {
     }
     let parsedo = JSON.stringify(this.data);
     this.DatosEditables = JSON.parse(parsedo);
+  }
+
+  selectProvincias(event:any){
+    let dep = event.value
+     this.empresaService.getProvincia(dep).subscribe((res:any[])=>{
+       this.Provincia= res;
+     })
+  }
+
+  selectDistrito(event:any){
+    let prov = event.value;
+    let dep = this.empresaForm.get('departamentoemisor')!.value!;
+     this.empresaService.getDistrito(prov, dep).subscribe((res:any[])=>{
+       this.Distrito= res;
+     })
   }
   
   onNoClick(event :any){
