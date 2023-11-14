@@ -1,8 +1,9 @@
 export interface producto{
+  id?:number,
   cantidad:string,
   codigo:string,
   unidadmedida:string,
-  descripcion:String
+  descripcion:string
 }
 export interface productoPaginacionDTO{
   productos:producto[],

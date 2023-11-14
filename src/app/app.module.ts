@@ -38,8 +38,6 @@ import { EditEmpresaComponentComponent } from './modals/empresa-modal/edit-empre
 
 registerLocaleData(myLocaleEs)
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +71,8 @@ registerLocaleData(myLocaleEs)
     ReactiveFormsModule,
     FormsModule,
     SweetAlert2Module.forRoot(),
-    MaterialModule
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [{provide:LOCALE_ID,useValue:'es'},{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorServiceService, multi: true }],
   bootstrap: [AppComponent],

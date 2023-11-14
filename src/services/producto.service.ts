@@ -31,4 +31,7 @@ export class ProductoService {
     }
     return this.http.get<productoPaginacionDTO>(this.url+'Producto/'+inicio+"/"+cantidad+url);
   }
+  public ActualziarUnProducto(destino:producto ){
+    return this.http.post<producto>(this.url+'Producto/actualizar',destino);
+  }
 }

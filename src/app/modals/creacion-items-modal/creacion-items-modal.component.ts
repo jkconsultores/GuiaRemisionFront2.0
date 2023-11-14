@@ -20,7 +20,7 @@ export class CreacionItemsModalComponent implements OnInit {
   public unidadesDeMedida: T_UnidadMedida[] = [];
   // stateCtrl = new FormControl('');
   public filteredOptions: Observable<T_UnidadMedida[]> | undefined;
-
+  Crearproducto:string="Crear producto";
   destinoForm = new FormGroup({
     codigo: new FormControl("", [Validators.required]),
     descripcion: new FormControl("", [Validators.required]),
@@ -29,12 +29,18 @@ export class CreacionItemsModalComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ItemsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: SPE_DESPATCH_ITEM, private motivosService: MotivosService, private productosService: ProductoService
+    @Inject(MAT_DIALOG_DATA) public data: producto, private motivosService: MotivosService, private productosService: ProductoService
   ) { }
   _filterStates(state: any) {
     throw new Error('Method not implemented.');
   }
   ngOnInit(): void {
+    if(this.data.id!=undefined && this.data.id!=null){
+      this.destinoForm.get('codigo')?.patchValue(this.data.codigo)
+      this.destinoForm.get('descripcion')?.patchValue(this.data.descripcion)
+      this.destinoForm.get('unidad')?.patchValue(this.data.unidadmedida)
+      this.Crearproducto="Editar producto"
+    }
     this.motivosService.GetUnidadesDeMedida().subscribe((resp: any) => {
       this.unidadesDeMedida = resp;
     })
@@ -44,20 +50,34 @@ export class CreacionItemsModalComponent implements OnInit {
     );
   }
   CambiarValor(dataOption: any) {
-    this.data.unidadMedida = dataOption.option.value;
+    this.data.unidadmedida = dataOption.option.value;
   }
   onNoClick(event: any) {
     event.preventDefault();
     this.dialogRef.close();
   }
   EnvioDatos() {
-    let producto: producto = {
-      cantidad: '1',
-      codigo: this.destinoForm!.get('codigo')!.value!,
-      descripcion: this.destinoForm!.get('descripcion')!.value!,
-      unidadmedida: this.destinoForm!.get('unidad')!.value!,
+    if(this.data.id!=undefined && this.data.id!=null){
+      let producto: producto = {
+        id:this.data.id,
+        cantidad: '1',
+        codigo: this.destinoForm!.get('codigo')!.value!,
+        descripcion: this.destinoForm!.get('descripcion')!.value!,
+        unidadmedida: this.destinoForm!.get('unidad')!.value!,
+      }
+      this.productosService.ActualziarUnProducto(producto).subscribe(resp=>{
+        Swal.fire("Felicidades", "Producto actualizado correctamente", "success");
+        this.dialogRef.close({end:resp,last:this.data})
+      })
+    }else{
+      let producto: producto = {
+        cantidad: '1',
+        codigo: this.destinoForm!.get('codigo')!.value!,
+        descripcion: this.destinoForm!.get('descripcion')!.value!,
+        unidadmedida: this.destinoForm!.get('unidad')!.value!,
+      }
+      this.AgregarProducto(producto,"Producto agregado correctamente");
     }
-    this.AgregarProducto(producto,"Producto agregado correctamente");
   }
 
   AgregarProducto(data: producto, texto: string) {

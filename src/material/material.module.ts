@@ -60,7 +60,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatDialogModule,
     MatTooltipModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }
