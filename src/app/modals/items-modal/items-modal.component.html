@@ -54,6 +54,6 @@
       <!-- <td *ngIf="ELEMENT_DATA.length<1" class="mat-cell text-center" colspan="4">No existen items asignados a la guia</td> -->
     </tr>
   </table>
-    <mat-paginator #paginator (page)="yourHandler($event.pageIndex, $event.pageSize)" previousPageLabel="Pagina anterior" nextPageLabel="Pagina siguiente" [pageSizeOptions]="[5, 10, 20]" [length]="cantidad" itemsPerPageLabel="Items por pagina" aria-label="Select page"></mat-paginator>
+    <mat-paginator #paginator (page)="yourHandler($event.pageIndex, $event.pageSize)" previousPageLabel="Pagina anterior" nextPageLabel="Pagina siguiente" pageSize="5" [length]="cantidad" itemsPerPageLabel="Items por pagina" aria-label="Select page"></mat-paginator>
   </div>
   </mat-dialog-content>

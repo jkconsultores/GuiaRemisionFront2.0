@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
 import { EditOrigenComponentComponent } from './edit-origen-component/edit-origen-component.component';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,17 +7,20 @@ import { DestinosService } from 'src/services/destinos.service';
 import Swal from 'sweetalert2';
 import { DestinoModalComponent } from '../destino-modal/destino-modal.component';
 import { OrigenService } from 'src/services/origen.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-origen-modal',
   templateUrl: './origen-modal.component.html',
   styleUrls: ['./origen-modal.component.css']
 })
-export class OrigenModalComponent {
+export class OrigenModalComponent implements AfterViewInit {
   @Input()
   titulo: string='Origenes';
   @Output()
   submitClicked = new EventEmitter<Aaa_OrigenDTO>();
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
+  cantidad: number = 0;
 
   clickedRows = new Set<Aaa_OrigenDTO>();
 
@@ -25,6 +28,14 @@ export class OrigenModalComponent {
 
   displayedColumns: string[] = ['ubigeo', 'codigolocalanexo', 'direccion', 'numerdoc', 'options'];
   dataSource = new MatTableDataSource(this.data);
+
+  ngAfterViewInit() {
+    this.paginator._intl.itemsPerPageLabel = "Items por pagina";
+    this.paginator._intl.previousPageLabel = "Pagina anterior";
+    this.paginator._intl.nextPageLabel = "Pagina siguiente";
+    this.dataSource.paginator = this.paginator;
+    this.cantidad=this.data.length;
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -71,7 +82,11 @@ export class OrigenModalComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      if (result != undefined) {
+        this.data = this.removerObjetoDeArray(this.data,result.after);
+        this.data.push(result.before);
+        this.dataSource.data=this.data;
+      }
     });
   }
 

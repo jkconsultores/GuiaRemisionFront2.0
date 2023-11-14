@@ -70,7 +70,7 @@ AgregarDestino(desti:any,dato:string){
         if(this.data.numerodocumentoemisor==undefined || this.data.numerodocumentoemisor==""){
           this.dialogRef.close(resp);
         }else{
-        this.dialogRef.close();
+        this.dialogRef.close({after:this.data,before:resp});
         }
   })
 }

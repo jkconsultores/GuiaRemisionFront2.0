@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { AAA_EMPRESA } from 'src/models/Empresa';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { PeriodicElement } from '../destino-modal/destino-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { EditEmpresaComponentComponent } from './edit-empresa-component/edit-empresa-component.component';
 import { EmpresaService } from 'src/services/empresa.service';
@@ -17,11 +16,10 @@ import Swal from 'sweetalert2';
 export class EmpresaModalComponent {
   @Input()
   titulo!:string;
-  @Output()  
+  @Output()
   submitClicked  = new EventEmitter<AAA_EMPRESA>();
-  clickedRows  = new Set<PeriodicElement>();
 
-  constructor(    
+  constructor(
     @Inject(MAT_DIALOG_DATA) public data: AAA_EMPRESA[],
     public dialogRef: MatDialogRef<EmpresaModalComponent>,
     public dialog: MatDialog,
@@ -29,7 +27,7 @@ export class EmpresaModalComponent {
     )
     {
       console.log(data)
-    }  
+    }
 
     displayedColumns: string[] = ['nombreempresa', 'numerodocumentoemisor', 'tipodocumentoemisor', 'paisemisor', 'provinciaemisor', 'options'];
     dataSource = new MatTableDataSource(this.data);
@@ -38,20 +36,19 @@ export class EmpresaModalComponent {
       const filterValue = (event.target as HTMLInputElement).value;
       this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-  
+
     onNoClick(){
       this.dialogRef.close();
     }
 
   ElemntoElegido(dato:any){
-    this.clickedRows.clear()
     this.submitClicked.emit(dato)
     this.dialogRef.close();
   }
 
   crearEmpresa(){
     let datos:AAA_EMPRESA={numerodocumentoemisor:'',nombreempresa:'',tipodocumentoemisor:'',razonsocialemisor:'',ubigeoemisor:''};
-    const dialogRef = this.dialog.open(EditEmpresaComponentComponent, { 
+    const dialogRef = this.dialog.open(EditEmpresaComponentComponent, {
       data: datos!, width:'800px',
     });
 
