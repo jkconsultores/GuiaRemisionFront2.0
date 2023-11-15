@@ -21,7 +21,6 @@ export class EmpresaComponentComponent {
   constructor(public dialog: MatDialog,private empresaService:EmpresaService){}
 
   ngOnInit(): void {
-    //RucAdquiriente
       this.empresaService.getEmpresas().subscribe((resp:AAA_EMPRESA[])=>{
         this.Empresas=resp;
         this.options=resp;
@@ -31,7 +30,6 @@ export class EmpresaComponentComponent {
         startWith(''),
         map(value => this._filter(value || '')),
       );
-
   }
 
   AbrirModalDeEmpresa(){

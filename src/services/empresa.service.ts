@@ -15,23 +15,18 @@ export class EmpresaService {
   public getEmpresas(){
     return this.http.get<AAA_EMPRESA[]>(this.url+'Empresa/GetEmpresas');
   }
-
   public crearEmpresa(body: any){
     return this.http.post(this.url+'Empresa/empresa', body);
   }
-
   public eliminarEmpresa(body:AAA_EMPRESA ){
     return this.http.get<any>(this.url+'Empresa/BorrarEmpresa/'+ body.numerodocumentoemisor);
   }
-
   public AgregarRelacionEmpresas(body:any){
     return this.http.post(this.url+'Usuario/Agregar/Relacion/empresa',body);
   }
-
   public getPais() {
     return this.http.get<any>(this.url+'Nacionalidad');
-  }  
-
+  }
   public getDepartamento() {
     return this.http.get<any>(this.url+'Nacionalidad/Departamento/111');
   } 

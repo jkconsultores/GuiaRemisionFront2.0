@@ -25,15 +25,15 @@ export class EditEmpresaComponentComponent {
   empresaForm = new FormGroup({
     numerodocumentoemisor: new FormControl("", [Validators.minLength(8),Validators.maxLength(11),Validators.required,Validators.pattern(/^\d+$/)]),
     nombreempresa: new FormControl("", [Validators.required]),
+    paisemisor: new FormControl("111", [Validators.required]),    
+    departamentoemisor: new FormControl("", [Validators.required]),
+    provinciaemisor: new FormControl("", [Validators.required]),
     direccionemisor : new FormControl("", [Validators.required]),
     ubigeoemisor : new FormControl("", [Validators.required]),
-    provinciaemisor: new FormControl("", [Validators.required]),
-    departamentoemisor: new FormControl("", [Validators.required]),
     razoncomercialemisor: new FormControl("", [Validators.required]),
     tipodocumentoemisor: new FormControl("", [Validators.required]),
     distritoemisor: new FormControl("", [Validators.required]),
     razonsocialemisor: new FormControl("", [Validators.required]),
-    paisemisor: new FormControl("111", [Validators.required]),    
   });
   
   constructor(
@@ -41,29 +41,30 @@ export class EditEmpresaComponentComponent {
     public dialogRef: MatDialogRef<EmpresaModalComponent>,
     public empresaService:EmpresaService,){}
   
-  ngOnInit(): void {
-
+  ngOnInit(): void {    
+    this.empresaForm.get('paisemisor')!.disable();
     this.empresaService.getPais().subscribe((res:any[])=>{
       this.Pais= res;
     })
     this.empresaService.getDepartamento().subscribe((res:any[])=>{
       this.Departamento= res;
+      console.log(res);
+      if(this.data.numerodocumentoemisor){
+        this.empresaForm.get('departamentoemisor')?.patchValue(this.Departamento.find(t => t.name == this.data.departamentoemisor!).id)
+        this.selectProvincias({value:this.empresaForm.get('departamentoemisor')!.value!});
+      }
     })
-
     if(this.data.numerodocumentoemisor==undefined || this.data.numerodocumentoemisor.length==0){
       this.boton="Crear empresa"
     }else{
       this.empresaForm.get('numerodocumentoemisor')?.patchValue(this.data.numerodocumentoemisor!)
-      this.empresaForm.get('direccionemisor')?.patchValue(this.data.direccionemisor!)
-      this.empresaForm.get('ubigeoemisor')?.patchValue(this.data.ubigeoemisor!)
-      this.empresaForm.get('provinciaemisor')?.patchValue(this.data.provinciaemisor!)
-      this.empresaForm.get('departamentoemisor')?.patchValue(this.data.departamentoemisor!)
-      this.empresaForm.get('razoncomercialemisor')?.patchValue(this.data.razoncomercialemisor!)
       this.empresaForm.get('nombreempresa')?.patchValue(this.data.nombreempresa!)
-      this.empresaForm.get('distritoemisor')?.patchValue(this.data.distritoemisor!)
       this.empresaForm.get('tipodocumentoemisor')?.patchValue(this.data.tipodocumentoemisor!)
       this.empresaForm.get('razonsocialemisor')?.patchValue(this.data.razonsocialemisor!)
-      this.empresaForm.get('paisemisor')?.patchValue(this.data.paisemisor!)
+      this.empresaForm.get('razoncomercialemisor')?.patchValue(this.data.razoncomercialemisor!)
+      this.empresaForm.get('paisemisor')?.patchValue('111');
+      this.empresaForm.get('direccionemisor')?.patchValue(this.data.direccionemisor!)
+      this.empresaForm.get('ubigeoemisor')?.patchValue(this.data.ubigeoemisor!)
     }
     let parsedo = JSON.stringify(this.data);
     this.DatosEditables = JSON.parse(parsedo);
@@ -71,17 +72,24 @@ export class EditEmpresaComponentComponent {
 
   selectProvincias(event:any){
     let dep = event.value
-     this.empresaService.getProvincia(dep).subscribe((res:any[])=>{
-       this.Provincia= res;
-     })
+    this.empresaService.getProvincia(dep).subscribe((res:any[])=>{
+      this.Provincia= res;
+      if(this.data.numerodocumentoemisor){
+        this.empresaForm.get('provinciaemisor')?.patchValue(this.Provincia.find(t => t.nombre == this.data.provinciaemisor!).id)
+        this.selectDistrito({value:this.empresaForm.get('provinciaemisor')!.value!});
+      }
+    })
   }
 
   selectDistrito(event:any){
     let prov = event.value;
     let dep = this.empresaForm.get('departamentoemisor')!.value!;
-     this.empresaService.getDistrito(prov, dep).subscribe((res:any[])=>{
-       this.Distrito= res;
-     })
+    this.empresaService.getDistrito(prov, dep).subscribe((res:any[])=>{
+      this.Distrito= res;
+      if(this.data.numerodocumentoemisor){
+        this.empresaForm.get('distritoemisor')?.patchValue(this.Distrito.find(t => t.nombre == this.data.distritoemisor!).id)        
+      }
+    })
   }
   
   onNoClick(event :any){
@@ -95,22 +103,21 @@ export class EditEmpresaComponentComponent {
     console.log(this.data)
     console.log(this.empresaForm.value)
     console.log("Esta fuera de action")
-
+    
     let desti={
       numerodocumentoemisor:this.empresaForm.get('numerodocumentoemisor')!.value!,
-      direccionemisor:this.empresaForm.get('direccionemisor')!.value!,
-      ubigeoemisor:this.empresaForm.get('ubigeoemisor')!.value!,
-      provinciaemisor:this.empresaForm.get('provinciaemisor')!.value!,
-      departamentoemisor: this.empresaForm.get('departamentoemisor')!.value!,
-      razoncomercialemisor: this.empresaForm.get('razoncomercialemisor')!.value!,
       nombreempresa: this.empresaForm.get('nombreempresa')!.value!,
       tipodocumentoemisor: this.empresaForm.get('tipodocumentoemisor')!.value!,
-      distritoemisor: this.empresaForm.get('distritoemisor')!.value!,
+      razoncomercialemisor: this.empresaForm.get('razoncomercialemisor')!.value!,
+      paisemisor:this.Pais.find(t =>t.id ==  this.empresaForm.get('paisemisor')!.value!).pais, 
+      departamentoemisor: this.Departamento.find(t => t.id == this.empresaForm.get('departamentoemisor')!.value!).name,
+      provinciaemisor: this.Provincia.find(t => t.id == this.empresaForm.get('provinciaemisor')!.value!).nombre,
+      distritoemisor: this.Distrito.find(t => t.id == this.empresaForm.get('distritoemisor')!.value!).nombre,
       razonsocialemisor: this.empresaForm.get('razonsocialemisor')!.value!, 
-      paisemisor:this.empresaForm.get('paisemisor')!.value!, 
+      direccionemisor:this.empresaForm.get('direccionemisor')!.value!,
+      ubigeoemisor:this.empresaForm.get('ubigeoemisor')!.value!,
       id:0
     }
-    
     if(this.data.numerodocumentoemisor==undefined || this.data.numerodocumentoemisor.length==0){
       this.crearEmpresa(desti,"Se agrego satisfactoriamente la empresa")
       
@@ -132,7 +139,6 @@ export class EditEmpresaComponentComponent {
       else {
         Swal.fire('No se pudo guardar', '', 'error');
       }
-              
     })
   }
   

@@ -33,20 +33,18 @@
         </mat-form-field>
 
         <div class="example w-100 "> 
-            <mat-form-field class="marco1 w-50" appearance="outline">
-                <mat-label>País </mat-label>
-                <!-- <input type="text" matInput formControlName="paisemisor" [required]="true" placeholder="Ingrese el país"/> -->
-                <mat-select formControlName="paisemisor">
-                    <mat-option *ngFor="let item of Pais" [value]="item.id">{{item.pais}}</mat-option>
+            <mat-form-field class=" w-50" appearance="outline" >
+                <mat-label >País </mat-label>
+                <mat-select  formControlName="paisemisor">
+                    <mat-option *ngFor="let item of Pais"  [value]="item.id">{{item.pais}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="empresaForm.get('paisemisor')!.hasError('required') && empresaForm.get('paisemisor')!.touched"> El país es obligatorio</mat-error>
             </mat-form-field> 
             
             <mat-form-field class="marco2 w-50" appearance="outline">
                 <mat-label>Departamento empresa</mat-label>
-                <!-- <input type="text" matInput formControlName="departamentoemisor" [required]="true" placeholder="Ingrese el departamento de la empresa"/> -->
                 <mat-select formControlName="departamentoemisor" (selectionChange)="selectProvincias($event)">
-                    <mat-option *ngFor="let item of Departamento" [value]="item.id">{{item.name}}</mat-option>
+                    <mat-option *ngFor="let item of Departamento"   [value]="item.id">{{item.name}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="empresaForm.get('departamentoemisor')!.hasError('required') && empresaForm.get('departamentoemisor')!.touched"> El departamento es obligatorio</mat-error>
             </mat-form-field>
@@ -62,7 +60,6 @@
                 <mat-error *ngIf="empresaForm.get('provinciaemisor')!.hasError('required') && empresaForm.get('provinciaemisor')!.touched"> La provincia es obligatoria</mat-error>
             </mat-form-field>
             
-
             <mat-form-field class="marco2 w-50" appearance="outline">
                 <mat-label>Distrito </mat-label>
                 <!-- <input type="text" matInput formControlName="distritoemisor" [required]="true" placeholder="Ingrese el ubigeo emisor"/> -->
