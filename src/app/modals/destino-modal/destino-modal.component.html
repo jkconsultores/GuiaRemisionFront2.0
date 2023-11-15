@@ -10,8 +10,8 @@
   class="btn btn-primary mb-4 butondeadd" matTooltip="Agregar un nuevo destino"
   aria-label="Agregar un nuevo destino"><mat-icon>add</mat-icon></button>
     </div>
-
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+<div class="mat-elevation-z3">
+  <table mat-table [dataSource]="dataSource"  >
 
     <!-- Position Column -->
     <ng-container matColumnDef="ubigeo">
@@ -55,10 +55,11 @@
 
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">Ninguna direccion coincide con "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4" class="ps-3">Ninguna direccion coincide con "{{input.value}}"</td>
     </tr>
   </table>
-
+  <mat-paginator #paginator  previousPageLabel="Pagina anterior" nextPageLabel="Pagina siguiente" [pageSizeOptions]="[5, 10, 20]" [length]="cantidad" itemsPerPageLabel="Items por pagina" aria-label="Select page"></mat-paginator>
+</div>
 </mat-dialog-content>
 <mat-dialog-actions align="end" class="p-3">
   <button mat-stroke-button color="primary"  (click)="onNoClick()" class="btn btn-danger me-3">Cancelar</button>
