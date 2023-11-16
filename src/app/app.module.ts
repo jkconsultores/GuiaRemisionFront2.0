@@ -35,6 +35,7 @@ import { EditDestinoComponentComponent } from './modals/destino-modal/edit-desti
 import { EditOrigenComponentComponent } from './modals/origen-modal/edit-origen-component/edit-origen-component.component';
 import { OrigenComponentComponent } from './componentes/origen-component/origen-component.component';
 import { EditEmpresaComponentComponent } from './modals/empresa-modal/edit-empresa-component/edit-empresa-component.component';
+import { EditDestinatarioComponentComponent } from './modals/destinatario-modal/edit-destinatario-component/edit-destinatario-component.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -63,6 +64,7 @@ registerLocaleData(myLocaleEs)
     EditOrigenComponentComponent,
     OrigenComponentComponent,
     EditEmpresaComponentComponent,
+    EditDestinatarioComponentComponent,
   ],
   imports: [
     BrowserModule,

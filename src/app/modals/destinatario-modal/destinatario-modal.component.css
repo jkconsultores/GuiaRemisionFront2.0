@@ -1,0 +1,16 @@
+.butondeadd {
+  height: 56px !important;
+}
+
+.butondeadd > mat-icon {
+  font-size: 25px !important;
+  width: 25px;
+  height: 25px;
+  padding-right: 0px !important;
+  margin-right: 0px !important;
+}
+
+.buttonchunqued {
+  width: 10px !important;
+  margin: 5px;
+}

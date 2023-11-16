@@ -24,9 +24,7 @@ export class EmpresaModalComponent {
     public dialogRef: MatDialogRef<EmpresaModalComponent>,
     public dialog: MatDialog,
     public empresaService:EmpresaService
-    )
-    {
-      console.log(data)
+    ){
     }
 
     displayedColumns: string[] = ['nombreempresa', 'numerodocumentoemisor', 'tipodocumentoemisor', 'paisemisor', 'provinciaemisor', 'options'];
@@ -60,7 +58,7 @@ export class EmpresaModalComponent {
           this.dataSource=new MatTableDataSource(this.data);
         }
       }
-    });    
+    });
   }
 
   editarEmpresa(event:AAA_EMPRESA){

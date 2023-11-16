@@ -1,1 +1,56 @@
-<p>destinatario-modal works!</p>
+<h2 mat-dialog-title> </h2>
+<mat-dialog-content class="mat-typography pt-2">
+    <div class="d-flex align-items-center">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo " #input>
+        </mat-form-field>
+        <button mat-raised-button (click)="crearDestinatario()" class="btn btn-primary mb-4 butondeadd" matTooltip="Agregar un nuevo destino"
+            aria-label="Agregar un nuevo destino"><mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <div class="mat-elevation-z3">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="numerodocumentoadquiriente">
+                <th mat-header-cell *matHeaderCellDef> Nro Documento </th>
+                <td mat-cell *matCellDef="let element" (click)="ElementoElegido(element)"> {{element.numerodocumentoadquiriente}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipodocumentoadquiriente">
+                <th mat-header-cell *matHeaderCellDef> Tipo Doc </th>
+                <td mat-cell *matCellDef="let element" (click)="ElementoElegido(element)"> {{element.tipodocumentoadquiriente}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="razonsocialadquiriente">
+                <th mat-header-cell *matHeaderCellDef> Razón Social </th>
+                <td mat-cell *matCellDef="let element" (click)="ElementoElegido(element)"> {{element.razonsocialadquiriente}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="direccionadquiriente">
+                <th mat-header-cell *matHeaderCellDef> Direccion </th>
+                <td mat-cell *matCellDef="let element" (click)="ElementoElegido(element)"> {{element.direccionadquiriente}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="options">
+                <th mat-header-cell *matHeaderCellDef> Opciones </th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="d-flex align-items-center">
+                        <button mat-raised-button color="warn" class="buttonchunqued" (click)="eliminarDestinatario(element)" matTooltip="Eliminar el destinatario"
+                            aria-label="Eliminar el destinatario"><mat-icon>delete</mat-icon></button>
+                        <button mat-raised-button class="ms-3 btn btn-primary buttonchunqued" (click)="editarDestinatario(element)" matTooltip="Modificar el destinatario"
+                            aria-label="Modificar el destinatario"><mat-icon>edit</mat-icon></button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+
+        </table>
+        <mat-paginator #paginator  previousPageLabel="Pagina anterior" nextPageLabel="Pagina siguiente" [pageSizeOptions]="[5, 10, 20]" [length]="cantidad" itemsPerPageLabel="Items por pagina" aria-label="Select page"></mat-paginator>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="p-3">
+    <button mat-stroke-button color="primary"  (click)="onNoClick()" class="btn btn-danger me-3">Cancelar</button>
+</mat-dialog-actions>

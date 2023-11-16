@@ -35,5 +35,6 @@ export class EmpresaService {
   } 
   public getDistrito(id: string, id2: string) {
     return this.http.get<any>(this.url+'Nacionalidad/Distrito/'+ id + '/' + id2);
-  } 
+  }
+  
 }

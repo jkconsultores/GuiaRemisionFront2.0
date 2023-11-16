@@ -48,7 +48,6 @@ export class EditEmpresaComponentComponent {
     })
     this.empresaService.getDepartamento().subscribe((res:any[])=>{
       this.Departamento= res;
-      console.log(res);
       if(this.data.numerodocumentoemisor){
         this.empresaForm.get('departamentoemisor')?.patchValue(this.Departamento.find(t => t.name == this.data.departamentoemisor!).id)
         this.selectProvincias({value:this.empresaForm.get('departamentoemisor')!.value!});
@@ -125,8 +124,7 @@ export class EditEmpresaComponentComponent {
       this.empresaService.eliminarEmpresa(this.data).subscribe(resp=>{
         this.crearEmpresa(desti,"Se actualizo satisfactoriamente la empresa")
       })
-    }
-    
+    }    
   }
   
   crearEmpresa(desti:any,dato:string){
