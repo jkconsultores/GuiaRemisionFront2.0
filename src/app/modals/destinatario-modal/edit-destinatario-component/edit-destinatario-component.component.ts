@@ -24,10 +24,10 @@ export class EditDestinatarioComponentComponent {
   Ubigeo:string = '';
 
   destiForm = new FormGroup ({
-    numerodocumentoadquiriente : new FormControl("", [Validators.required]),
+    numerodocumentoadquiriente: new FormControl("", [Validators.minLength(8),Validators.maxLength(11),Validators.required,Validators.pattern(/^\d+$/)]),
     razonsocialadquiriente : new FormControl("", [Validators.required]),
     tipodocumentoadquiriente : new FormControl("", [Validators.required]),
-    correo : new FormControl("", [Validators.required]),
+    correo : new FormControl("", [Validators.required, Validators.email]),
     direccionadquiriente : new FormControl("", [Validators.required]),
     paisadquiriente : new FormControl("111", [Validators.required]),
     departamentoadquiriente : new FormControl("", [Validators.required]),
