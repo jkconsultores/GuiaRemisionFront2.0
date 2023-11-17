@@ -3,6 +3,8 @@ import { DestinatarioModalComponent } from 'src/app/modals/destinatario-modal/de
 import { DestinatariosService } from 'src/services/destinatarios.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
+import { destinatario } from 'src/models/destinatario';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-destinatario-guia',
@@ -19,26 +21,24 @@ export class DestinatarioGuiaComponent implements OnInit{
   myControl = new FormControl();
   Destinatario:any;
   RucAdquiriente:string='';
+  filteredOptions!: Observable<destinatario[]>;
 
   constructor(
     public dialog: MatDialog,
     private destinosService:DestinatariosService){
-
   }
 
   ngOnInit(): void {
-
     this.ObtenerDestinatario();
   }
 
+  onSelectionChange(event: any){
+  }
 
-  AbrirModalDestinatario(){
-    
+  AbrirModalDestinatario(){    
     console.log ('des', this.Destinatario)
-    const dialogRef = this.dialog.open(DestinatarioModalComponent, {
-      
+    const dialogRef = this.dialog.open(DestinatarioModalComponent, {      
       data: this.Destinatario,width:'1000px'
-
     });
 
     dialogRef.componentInstance.submitClicked.subscribe(result => {
@@ -52,5 +52,9 @@ export class DestinatarioGuiaComponent implements OnInit{
       this.Destinatario=res;
       console.log('res'+ res)
     })
+  }
+
+  displayFn(data: destinatario): string {
+    return data && data.razonsocialadquiriente ? data.razonsocialadquiriente : '';
   }
 }

@@ -21,6 +21,7 @@ export class EditEmpresaComponentComponent {
   Departamento:any[] = [];
   Provincia:any[] = [];
   Distrito:any[] = [];
+  Ubigeo:string = '';
 
   empresaForm = new FormGroup({
     numerodocumentoemisor: new FormControl("", [Validators.minLength(8),Validators.maxLength(11),Validators.required,Validators.pattern(/^\d+$/)]),
@@ -39,7 +40,8 @@ export class EditEmpresaComponentComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AAA_EMPRESA,
     public dialogRef: MatDialogRef<EmpresaModalComponent>,
-    public empresaService:EmpresaService,){}
+    public empresaService:EmpresaService,){      
+    }
   
   ngOnInit(): void {    
     this.empresaForm.get('paisemisor')!.disable();
@@ -63,7 +65,6 @@ export class EditEmpresaComponentComponent {
       this.empresaForm.get('razoncomercialemisor')?.patchValue(this.data.razoncomercialemisor!)
       this.empresaForm.get('paisemisor')?.patchValue('111');
       this.empresaForm.get('direccionemisor')?.patchValue(this.data.direccionemisor!)
-      this.empresaForm.get('ubigeoemisor')?.patchValue(this.data.ubigeoemisor!)
     }
     let parsedo = JSON.stringify(this.data);
     this.DatosEditables = JSON.parse(parsedo);
@@ -86,8 +87,23 @@ export class EditEmpresaComponentComponent {
     this.empresaService.getDistrito(prov, dep).subscribe((res:any[])=>{
       this.Distrito= res;
       if(this.data.numerodocumentoemisor){
-        this.empresaForm.get('distritoemisor')?.patchValue(this.Distrito.find(t => t.nombre == this.data.distritoemisor!).id)        
+        this.empresaForm.get('distritoemisor')?.patchValue(this.Distrito.find(t => t.nombre == this.data.distritoemisor!).id);
+        this.selectUbigeo({});      
       }
+    })
+  }
+
+  selectUbigeo(event:any){
+    if(this.data.numerodocumentoemisor){
+      this.empresaForm.get('ubigeoemisor')?.patchValue(this.data.ubigeoemisor!);
+      return;
+    }
+    let prov = this.empresaForm.get('provinciaemisor')!.value!;
+    let dep = this.empresaForm.get('departamentoemisor')!.value!;
+    let dist = this.empresaForm.get('distritoemisor')!.value!;
+    this.empresaService.getUbigeo(prov, dep, dist).subscribe((res:string)=>{
+      this.Ubigeo= res;
+      this.empresaForm.get('ubigeoemisor')?.patchValue(this.Ubigeo)  
     })
   }
   
@@ -131,7 +147,6 @@ export class EditEmpresaComponentComponent {
     this.empresaService.crearEmpresa(desti).subscribe(resp=>{
       if (this.data.numerodocumentoemisor != undefined ) {
         Swal.fire("Felicidades",dato,"success");
-        console.log(resp)  
         this.dialogRef.close(resp);  
       }
       else {

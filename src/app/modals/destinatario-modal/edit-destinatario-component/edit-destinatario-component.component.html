@@ -3,21 +3,25 @@
 <form novalidate [formGroup]="destiForm" (ngSubmit)="action()" >    
     <mat-dialog-content class="mat-typography ">
 
-        <mat-form-field class="example-full-width w-100" appearance="outline">
-            <mat-label>Número de documento</mat-label>
-            <input type="text" matInput formControlName="numerodocumentoadquiriente" [readonly]="data.numerodocumentoadquiriente != undefined && data.numerodocumentoadquiriente.length > 0 "[required]="true" placeholder="Ingrese el número de documento"/>
-            <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
-            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-            <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width w-100" appearance="outline">
-            <mat-label>Tipo de documento</mat-label>
-            <input type="text" matInput formControlName="tipodocumentoadquiriente" [required]="true" placeholder="Ingrese el tipo de documento"/>
-            <!-- <mat-error *ngIf="destiForm.get('tipodocumentoadquiriente')!.hasError('required') && destiForm.get('tipodocumentoadquiriente')!.touched"> Tipo de documento</mat-error> -->
-        </mat-form-field>
-
+        <div class="example w-100 "> 
+            <mat-form-field class="w-50 " appearance="outline">
+                <mat-label>Número de documento</mat-label>
+                <input type="text" matInput formControlName="numerodocumentoadquiriente" [readonly]="data.numerodocumentoadquiriente != undefined && data.numerodocumentoadquiriente.length > 0 "[required]="true" placeholder="Ingrese el número de documento"/>
+                <!-- <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('required') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento es obligatorio</mat-error>
+                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('maxlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
+                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('minlength') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
+                <mat-error *ngIf="empresaForm.get('numerodocumentoemisor')!.hasError('pattern') && empresaForm.get('numerodocumentoemisor')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+            </mat-form-field>
+            
+            <mat-form-field class="w-50" appearance="outline">
+                <mat-label>Tipo de documento</mat-label>
+                <mat-select formControlName="tipodocumentoadquiriente" [required]="true" placeholder="Seleccione el tipo de documento">
+                  <mat-option value="1">DNI</mat-option>
+                  <mat-option value="6">RUC</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        
         <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label> Razón social </mat-label>
             <input type="text" matInput formControlName="razonsocialadquiriente" [required]="true" placeholder="Ingrese la razón social"/>
@@ -59,7 +63,7 @@
             
             <mat-form-field class="marco2 w-50" appearance="outline">
                 <mat-label>Distrito </mat-label>
-                <mat-select formControlName="distritoadquiriente">
+                <mat-select formControlName="distritoadquiriente" (selectionChange)="selectUbigeo($event)">
                     <mat-option *ngFor="let item of Distrito" [value]="item.id">{{item.nombre}}</mat-option>
                 </mat-select>
                 <!-- <mat-error *ngIf="empresaForm.get('distritoemisor')!.hasError('required') && empresaForm.get('distritoemisor')!.touched"> El distrito es obligatorio</mat-error> -->

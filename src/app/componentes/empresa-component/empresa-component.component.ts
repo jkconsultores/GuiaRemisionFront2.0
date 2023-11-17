@@ -32,6 +32,9 @@ export class EmpresaComponentComponent {
       );
   }
 
+  onSelectionChange(event: any){
+  }
+
   AbrirModalDeEmpresa(){
     const dialogRef = this.dialog.open(EmpresaModalComponent, {
       data: this.Empresas, width:'1000px'
@@ -42,10 +45,12 @@ export class EmpresaComponentComponent {
       this.myControl.setValue(result);
     });
   }
+
   private _filter(value: string): AAA_EMPRESA[] {
     let filterValue = value.toLowerCase();
     return this.options.filter(option => option!.nombreempresa!.toLowerCase().includes(filterValue));
   }
+  
   displayFn(country: AAA_EMPRESA): string {
     return country && country.nombreempresa ? country.nombreempresa : '';
   }

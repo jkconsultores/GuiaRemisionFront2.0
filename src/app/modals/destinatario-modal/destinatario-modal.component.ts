@@ -7,6 +7,7 @@ import { DestinatariosService } from 'src/services/destinatarios.service';
 import { EditDestinatarioComponentComponent } from './edit-destinatario-component/edit-destinatario-component.component';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-destinatario-modal',
   templateUrl: './destinatario-modal.component.html',

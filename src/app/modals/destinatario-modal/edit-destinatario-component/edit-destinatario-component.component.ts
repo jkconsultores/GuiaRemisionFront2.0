@@ -20,7 +20,8 @@ export class EditDestinatarioComponentComponent {
   Pais:any[] = [];
   Departamento:any[] = [];
   Provincia:any[] = [];
-  Distrito:any[] = [];  
+  Distrito:any[] = []; 
+  Ubigeo:string = '';
 
   destiForm = new FormGroup ({
     numerodocumentoadquiriente : new FormControl("", [Validators.required]),
@@ -38,11 +39,11 @@ export class EditDestinatarioComponentComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: destinatario,
     public dialogRef: MatDialogRef<DestinatarioModalComponent>,
-    public destinatarioService:DestinatariosService,
-  ){
+    public destinatarioService:DestinatariosService,){
   }
+
   ngOnInit(): void {  
-    // this.destiForm.get('paisadquiriente')!.disable();
+    this.destiForm.get('paisadquiriente')!.disable();
     this.destinatarioService.getPais().subscribe((res:any[])=>{
       this.Pais= res;
     })
@@ -55,7 +56,7 @@ export class EditDestinatarioComponentComponent {
     })
 
     if(this.data.numerodocumentoadquiriente==undefined || this.data.numerodocumentoadquiriente.length==0){
-      this.boton="Crear empresa"
+      this.boton="Crear destinatario"
     }else{
       this.destiForm.get('numerodocumentoadquiriente')?.patchValue(this.data.numerodocumentoadquiriente!)
       this.destiForm.get('tipodocumentoadquiriente')?.patchValue(this.data.tipodocumentoadquiriente!)
@@ -63,7 +64,6 @@ export class EditDestinatarioComponentComponent {
       this.destiForm.get('correo')?.patchValue(this.data.correo!)
       this.destiForm.get('paisadquiriente')?.patchValue('111');
       this.destiForm.get('direccionadquiriente')?.patchValue(this.data.direccionadquiriente!)
-      this.destiForm.get('ubigeoadquiriente')?.patchValue(this.data.ubigeoadquiriente!)
     }
     let parsedo = JSON.stringify(this.data);
     this.DatosEditables = JSON.parse(parsedo);
@@ -86,8 +86,20 @@ export class EditDestinatarioComponentComponent {
     this.destinatarioService.getDistrito(prov, dep).subscribe((res:any[])=>{
       this.Distrito= res;
       if(this.data.numerodocumentoadquiriente){
-        this.destiForm.get('distritoadquiriente')?.patchValue(this.Distrito.find(t => t.nombre == this.data.distritoadquiriente!).id)        
+        this.destiForm.get('distritoadquiriente')?.patchValue(this.Distrito.find(t => t.nombre == this.data.distritoadquiriente!).id)
+        this.destiForm.get('ubigeoadquiriente')?.patchValue(this.data.ubigeoadquiriente!);
       }
+    })
+  }
+
+  selectUbigeo(event:any){
+    let prov = this.destiForm.get('provinciaadquiriente')!.value!;
+    let dep = this.destiForm.get('departamentoadquiriente')!.value!;
+    let dist = this.destiForm.get('distritoadquiriente')!.value!;
+    this.destinatarioService.getUbigeo(prov, dep, dist).subscribe((res:string)=>{
+      this.Ubigeo= res;
+      console.log (res)
+      this.destiForm.get('ubigeoadquiriente')?.patchValue(this.Ubigeo)  
     })
   }
 
@@ -130,7 +142,6 @@ export class EditDestinatarioComponentComponent {
     this.destinatarioService.crearDestinatario(desti).subscribe(resp=>{
       if (this.data.numerodocumentoadquiriente != undefined ) {
         Swal.fire("Felicidades",dato,"success");
-        console.log(resp)
         this.dialogRef.close(resp);
       }
       else {

@@ -36,5 +36,10 @@ export class EmpresaService {
   public getDistrito(id: string, id2: string) {
     return this.http.get<any>(this.url+'Nacionalidad/Distrito/'+ id + '/' + id2);
   }
+  public getUbigeo(id: string, id2: string, id3:string) {
+    return this.http.get(this.url+'Nacionalidad/Ubigeo/'+ id + '/' + id2 + '/' + id3, {
+      responseType: 'text'
+    });
+  }
   
 }
