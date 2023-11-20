@@ -18,8 +18,7 @@ export class EditChoferComponent {
   DatosEditables : chofer|undefined;
 
   choForm = new FormGroup ({
-    // numerodocumentochofer: new FormControl("", [Validators.minLength(8),Validators.maxLength(11),Validators.required,Validators.pattern(/^\d+$/)]),
-    numerodocumentochofer : new FormControl("", [Validators.required]),
+    numerodocumentochofer: new FormControl("", [Validators.minLength(8),Validators.maxLength(11),Validators.required,Validators.pattern(/^\d+$/)]),
     tipodocumentochofer : new FormControl("", [Validators.required]),
     nombre : new FormControl("", [Validators.required]),
     apellido : new FormControl("", [Validators.required]),
