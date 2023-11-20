@@ -7,10 +7,8 @@ import { destinatario } from 'src/models/destinatario';
   providedIn: 'root'
 })
 export class DestinatariosService {
-
   private url=environment.urlApi;
-
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {}
 
   public getDestinatario(){
     return this.http.get<destinatario[]>(this.url+'GreTransportista/Destinatario')

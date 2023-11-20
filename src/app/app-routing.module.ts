@@ -10,6 +10,8 @@ import { DestinoComponentComponent } from './componentes/destinatario-guia/desti
 import { OrigenComponentComponent } from './componentes/origen-component/origen-component.component';
 import { DestinatarioGuiaComponent } from './componentes/destinatario-guia/destinatario-guia.component';
 import { ChoferGuiaComponent } from './componentes/chofer-guia/chofer-guia.component';
+import { GreReportesComponent } from './reportes/gre-reportes/gre-reportes.component';
+
 
 const routes: Routes = [
   {path:'',component:LoginComponentComponent},
@@ -22,7 +24,8 @@ const routes: Routes = [
     {path:'origenes',component:OrigenComponentComponent},
     {path:'destinos',component:DestinoComponentComponent},
     {path:'destinatario',component:DestinatarioGuiaComponent},
-    {path: 'chofer', component:ChoferGuiaComponent }
+    {path: 'chofer', component:ChoferGuiaComponent },
+    {path: 'reporte', component:GreReportesComponent}
   ]}
 ];
 

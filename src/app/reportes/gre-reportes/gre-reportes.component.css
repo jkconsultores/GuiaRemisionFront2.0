@@ -1,0 +1,11 @@
+
+.Table {
+  width: 98%;
+  position:relative;
+  margin:auto;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}

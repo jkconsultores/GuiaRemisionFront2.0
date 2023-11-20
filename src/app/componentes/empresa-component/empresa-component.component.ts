@@ -25,7 +25,6 @@ export class EmpresaComponentComponent {
     this.empresaService.getEmpresas().subscribe((resp:AAA_EMPRESA[])=>{
       this.Empresas=resp;
       this.options=resp;
-      console.log(this.Empresas)
     })
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -42,7 +41,6 @@ export class EmpresaComponentComponent {
     });
 
     dialogRef.componentInstance.submitClicked.subscribe(result => {
-      console.log(result);
       this.myControl.setValue(result);
     });
   }

@@ -36,13 +36,11 @@ export class DestinatarioGuiaComponent implements OnInit{
   }
 
   AbrirModalDestinatario(){    
-    console.log ('des', this.Destinatario)
     const dialogRef = this.dialog.open(DestinatarioModalComponent, {      
       data: this.Destinatario,width:'1000px'
     });
 
     dialogRef.componentInstance.submitClicked.subscribe(result => {
-      console.log(result);
       this.myControl.setValue(result);
     });
   }
@@ -50,7 +48,6 @@ export class DestinatarioGuiaComponent implements OnInit{
   ObtenerDestinatario(){
     this.destinosService.getDestinatario().subscribe((res:any)=>{
       this.Destinatario=res;
-      console.log('res'+ res)
     })
   }
 
