@@ -1,0 +1,8 @@
+#titulo {
+  margin-bottom: -15px;
+}
+
+.example mat-form-field + mat-form-field {
+  padding-left: 5px;
+  padding-right: 5px;
+}

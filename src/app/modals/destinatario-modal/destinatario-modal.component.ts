@@ -26,11 +26,10 @@ export class DestinatarioModalComponent {
     public dialogRef: MatDialogRef<DestinatarioModalComponent>,
     public dialog: MatDialog,
     public destinatarioService: DestinatariosService,
-  ){  console.log('data' , this.data)  
+  ){
   }
 
   displayedColumns: string[] = ['numerodocumentoadquiriente', 'tipodocumentoadquiriente', 'razonsocialadquiriente', 'direccionadquiriente', 'options'];
-  
   dataSource = new MatTableDataSource(this.data);
 
 
@@ -61,7 +60,6 @@ export class DestinatarioModalComponent {
     const dialogRef = this.dialog.open(EditDestinatarioComponentComponent, {
       data: datos!, width:'800px',
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       if(result!=undefined){

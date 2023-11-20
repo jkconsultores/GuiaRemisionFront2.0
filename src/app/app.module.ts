@@ -37,6 +37,8 @@ import { OrigenComponentComponent } from './componentes/origen-component/origen-
 import { EditEmpresaComponentComponent } from './modals/empresa-modal/edit-empresa-component/edit-empresa-component.component';
 import { EditDestinatarioComponentComponent } from './modals/destinatario-modal/edit-destinatario-component/edit-destinatario-component.component';
 import { ChoferGuiaComponent } from './componentes/chofer-guia/chofer-guia.component';
+import { ChoferModalComponent } from './modals/chofer-modal/chofer-modal.component';
+import { EditChoferComponent } from './modals/chofer-modal/edit-chofer/edit-chofer.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -67,6 +69,8 @@ registerLocaleData(myLocaleEs)
     EditEmpresaComponentComponent,
     EditDestinatarioComponentComponent,
     ChoferGuiaComponent,
+    ChoferModalComponent,
+    EditChoferComponent,
   ],
   imports: [
     BrowserModule,

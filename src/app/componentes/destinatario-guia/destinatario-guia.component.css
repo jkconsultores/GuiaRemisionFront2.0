@@ -1,11 +1,11 @@
-button{
-    height: 56px!important;
-  }
-  button > mat-icon{
-    font-size: 25px!important;
-    width: 25px;
-    height: 25px;
-    padding-right: 0px!important;
-    margin-right: 0px!important;
-  }
-  
+button {
+  height: 56px !important;
+}
+
+button > mat-icon {
+  font-size: 25px !important;
+  width: 25px;
+  height: 25px;
+  padding-right: 0px !important;
+  margin-right: 0px !important;
+}

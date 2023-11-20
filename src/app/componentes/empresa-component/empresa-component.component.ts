@@ -6,6 +6,7 @@ import { EmpresaModalComponent } from 'src/app/modals/empresa-modal/empresa-moda
 import { AAA_EMPRESA } from 'src/models/Empresa';
 import { EmpresaService } from 'src/services/empresa.service';
 
+
 @Component({
   selector: 'app-empresa-component',
   templateUrl: './empresa-component.component.html',
@@ -21,15 +22,15 @@ export class EmpresaComponentComponent {
   constructor(public dialog: MatDialog,private empresaService:EmpresaService){}
 
   ngOnInit(): void {
-      this.empresaService.getEmpresas().subscribe((resp:AAA_EMPRESA[])=>{
-        this.Empresas=resp;
-        this.options=resp;
-        console.log(this.Empresas)
-      })
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value || '')),
-      );
+    this.empresaService.getEmpresas().subscribe((resp:AAA_EMPRESA[])=>{
+      this.Empresas=resp;
+      this.options=resp;
+      console.log(this.Empresas)
+    })
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
   }
 
   onSelectionChange(event: any){

@@ -7,15 +7,24 @@
 
     <form class="example-form">
       <div class="row">
+
         <div class="col-md-4">
-          <mat-form-field  class="w-100" appearance="outline">
-            <mat-label>Chofer</mat-label>
-            <mat-select >
-              <mat-option value="01">Publico</mat-option>
-              <mat-option value="02">Privado</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="d-flex align-items-center">
+            <div class="w-100">
+              <mat-form-field class="example-full-width w-100" appearance="outline">
+                <mat-label>Chofer</mat-label>
+                  <input type="text" placeholder="Seleccione un chofer" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)" [displayWith]="displayFn">
+                  <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">{{option.nombre}}</mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <button mat-raised-button (click)="AbrirModalChofer()" class="btn btn-primary mb-4">
+              <mat-icon>edit</mat-icon>
+            </button>          
+          </div>
         </div>
+
         <div class="col-md-4">
           <mat-form-field  class="w-100" appearance="outline">
             <mat-label>Placa</mat-label>
