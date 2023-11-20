@@ -75,7 +75,7 @@ registerLocaleData(myLocaleEs)
     EditChoferComponent,
     GreTransportistaComponent,
     GreReportesComponent
-    ],
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
