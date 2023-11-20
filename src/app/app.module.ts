@@ -39,6 +39,8 @@ import { EditDestinatarioComponentComponent } from './modals/destinatario-modal/
 import { ChoferGuiaComponent } from './componentes/chofer-guia/chofer-guia.component';
 import { ChoferModalComponent } from './modals/chofer-modal/chofer-modal.component';
 import { EditChoferComponent } from './modals/chofer-modal/edit-chofer/edit-chofer.component';
+import { GreTransportistaComponent } from './dashboard/gre-transportista/gre-transportista.component';
+import { GreReportesComponent } from './reportes/gre-reportes/gre-reportes.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -71,7 +73,9 @@ registerLocaleData(myLocaleEs)
     ChoferGuiaComponent,
     ChoferModalComponent,
     EditChoferComponent,
-  ],
+    GreTransportistaComponent,
+    GreReportesComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
