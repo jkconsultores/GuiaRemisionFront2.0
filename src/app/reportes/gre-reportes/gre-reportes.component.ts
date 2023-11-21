@@ -1,63 +1,57 @@
-import { Component } from '@angular/core';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ReporteGreService } from 'src/services/reporte-gre.service';
-
-export interface PeriodicElement {
-  
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gre-reportes',
   templateUrl: './gre-reportes.component.html',
   styleUrls: ['./gre-reportes.component.css'],
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule],
-  
 })
-
-
-export class GreReportesComponent  {
+export class GreReportesComponent implements OnInit {
   spe_despatch: any[] = [];
-  desde: string;  
-  hasta: string;
+  desde: string = '';
+  hasta: string = '';
+
+  displayedColumns: string[] = ['serieNumeroGuia', 'tipodocumentoGuia', 'bl_estadoRegistro', 'tipoDocumentoRemitente'];
+  dataSource = new MatTableDataSource<any>([]); 
+
+  constructor(
+    private reporteGreService: ReporteGreService
+  ) {}
   
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  api: any;
-
-  constructor(private reporteGreService: ReporteGreService) {
-
+  ngOnInit() {
+    this.desde = "05-05-2023";
+    this.hasta = "05-25-2023";
+    this.getSpe_despatch();
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   getSpe_despatch() {
-    this.reporteGreService.getSpe_despatch(desde, hasta).subscribe((res: any) => {
-      console.log(res.result);
-      this.spe_despatch = res.result;
-    });
+    Swal.showLoading();
+    this.reporteGreService.getSpe_despatch(this.desde, this.hasta).subscribe(
+      (res: any) => {
+        console.log(res.result);
+        Swal.close();
+        this.spe_despatch = res.result;
+        this.dataSource = new MatTableDataSource<any>(this.spe_despatch);
+      },
+      error => {
+        console.error('Error al obtener los datos:', error);
+        Swal.fire({ icon: 'error', title: 'Hubo un error al obtener los datos' });
+      }
+    );
   }
-  
+
+  fechaActual() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString().padStart(2, '0');
+    let day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 }

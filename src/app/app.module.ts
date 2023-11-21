@@ -74,6 +74,7 @@ registerLocaleData(myLocaleEs)
     ChoferModalComponent,
     EditChoferComponent,
     GreTransportistaComponent,
+    GreReportesComponent,
     ],
   imports: [
     BrowserModule,
@@ -83,8 +84,7 @@ registerLocaleData(myLocaleEs)
     FormsModule,
     SweetAlert2Module.forRoot(),
     MaterialModule,
-    BrowserAnimationsModule,
-    GreReportesComponent
+    BrowserAnimationsModule
   ],
   providers: [{provide:LOCALE_ID,useValue:'es'},{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorServiceService, multi: true }],
   bootstrap: [AppComponent],

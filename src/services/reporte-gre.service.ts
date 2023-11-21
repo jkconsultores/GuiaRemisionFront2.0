@@ -12,7 +12,7 @@ export class ReporteGreService {
   public declararGuia(form: any){
     return this.http.post(this.url+'SPE_DESPATCH/declarar',form);
   }
-  public getSpe_despatch(desde : string,hasta: string){
+  public getSpe_despatch(desde : string, hasta: string){
     return this.http.get(this.url+'SPE_DESPATCH/SPE_DESPATCH/'+desde+'/'+hasta);
   }
   public getSpe_despatch_item(serie : string){
