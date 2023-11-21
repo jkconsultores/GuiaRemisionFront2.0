@@ -35,7 +35,6 @@ export class ChoferGuiaComponent {
     this.choferService.getChofer().subscribe((resp:chofer[])=>{
       this.Chofer=resp;
       this.options=resp;
-      console.log(this.Chofer)
     })
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -53,7 +52,6 @@ export class ChoferGuiaComponent {
       data: this.Chofer, width:'1200px'
     });
     dialogRef.componentInstance.submitClicked.subscribe(result => {
-      console.log(result);
       this.myControl.setValue(result);
       this.TransporteDeguia.Chofer=result;
       this.emitirChoferDeGre();
