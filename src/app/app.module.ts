@@ -41,6 +41,10 @@ import { ChoferModalComponent } from './modals/chofer-modal/chofer-modal.compone
 import { EditChoferComponent } from './modals/chofer-modal/edit-chofer/edit-chofer.component';
 import { GreTransportistaComponent } from './dashboard/gre-transportista/gre-transportista.component';
 import { GreReportesComponent } from './reportes/gre-reportes/gre-reportes.component';
+import { PlacaComponent } from './componentes/placa/placa.component';
+import { VehiculosModalComponent } from './modals/vehiculos-modal/vehiculos-modal.component';
+import { EditVehiculoComponentComponent } from './modals/vehiculos-modal/edit-vehiculo-component/edit-vehiculo-component.component';
+import { ObservacionGuiaComponent } from './componentes/observacion-guia/observacion-guia.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -74,7 +78,11 @@ registerLocaleData(myLocaleEs)
     ChoferModalComponent,
     EditChoferComponent,
     GreTransportistaComponent,
-    GreReportesComponent
+    GreReportesComponent,
+    PlacaComponent,
+    VehiculosModalComponent,
+    EditVehiculoComponentComponent,
+    ObservacionGuiaComponent
    ],
   imports: [
     BrowserModule,

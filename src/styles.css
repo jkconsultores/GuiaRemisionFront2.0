@@ -86,3 +86,7 @@ mat-card-header{
   background-color: #0d6efd!important;
   border-color: #0d6efd!important;
 }
+mat-card{
+  border-radius: 1rem!important;
+  box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.1)!important;
+}

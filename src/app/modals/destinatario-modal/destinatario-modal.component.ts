@@ -15,7 +15,6 @@ import Swal from 'sweetalert2';
 })
 
 export class DestinatarioModalComponent {
-  @Input()
   @Output()
   submitClicked = new EventEmitter<destinatario>();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
@@ -34,11 +33,13 @@ export class DestinatarioModalComponent {
 
 
   ngAfterViewInit() {
-    // this.paginator._intl.itemsPerPageLabel = "Items por pagina";
-    // this.paginator._intl.previousPageLabel = "Pagina anterior";
-    // this.paginator._intl.nextPageLabel = "Pagina siguiente";
-    // this.dataSource.paginator = this.paginator;
-    // this.cantidad=this.data.length;
+    setTimeout(() => {
+    this.paginator._intl.itemsPerPageLabel = "Items por pagina";
+    this.paginator._intl.previousPageLabel = "Pagina anterior";
+    this.paginator._intl.nextPageLabel = "Pagina siguiente";
+    this.dataSource.paginator = this.paginator;
+    this.cantidad=this.data.length;
+  },0);
   }
 
   applyFilter(event: Event) {

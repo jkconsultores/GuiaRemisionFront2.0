@@ -11,7 +11,7 @@ export class EmpresaService {
   private url=environment.urlApi;
 
   constructor(public http:HttpClient) { }
-  
+
   public getEmpresas(){
     return this.http.get<AAA_EMPRESA[]>(this.url+'Empresa/GetEmpresas');
   }
@@ -29,10 +29,10 @@ export class EmpresaService {
   }
   public getDepartamento() {
     return this.http.get<any>(this.url+'Nacionalidad/Departamento/111');
-  } 
+  }
   public getProvincia(id: string) {
     return this.http.get<any>(this.url+'Nacionalidad/Provincia/'+ id);
-  } 
+  }
   public getDistrito(id: string, id2: string) {
     return this.http.get<any>(this.url+'Nacionalidad/Distrito/'+ id + '/' + id2);
   }
@@ -41,5 +41,5 @@ export class EmpresaService {
       responseType: 'text'
     });
   }
-  
+
 }

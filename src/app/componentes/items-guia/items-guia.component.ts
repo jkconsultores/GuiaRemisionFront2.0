@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./items-guia.component.css']
 })
 export class ItemsGuiaComponent implements OnInit,AfterViewInit {
+  @Output()
+  submitClicked = new EventEmitter<SPE_DESPATCH_ITEM[]>();
   ELEMENT_DATA: SPE_DESPATCH_ITEM[] = [];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
 cantidad:number=this.ELEMENT_DATA.length;
@@ -51,7 +53,11 @@ cantidad:number=this.ELEMENT_DATA.length;
       console.log(this.ELEMENT_DATA);
       this.dataSource.data = this.ELEMENT_DATA;
       this.cantidad=this.ELEMENT_DATA.length
+      this.emitirItems();
     });
+  }
+  emitirItems(){
+    this.submitClicked.emit(this.ELEMENT_DATA);
   }
   async eliminarProducto(data:SPE_DESPATCH_ITEM){
     const result = await Swal.fire({
@@ -70,6 +76,7 @@ cantidad:number=this.ELEMENT_DATA.length;
     }
     this.ELEMENT_DATA=this.removerObjetoDeArray(this.ELEMENT_DATA,data)
     this.dataSource.data = this.ELEMENT_DATA;
+    this.emitirItems();
   }
   removerObjetoDeArray(arr: any[], objeto: any): any[] {
     const index = arr.findIndex(item => item === objeto);

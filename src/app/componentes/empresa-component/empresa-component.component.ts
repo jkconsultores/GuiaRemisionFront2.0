@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
@@ -14,6 +14,8 @@ import { EmpresaService } from 'src/services/empresa.service';
 })
 
 export class EmpresaComponentComponent {
+  @Output()
+  submitClicked = new EventEmitter<AAA_EMPRESA>();
   myControl = new FormControl();
   options: AAA_EMPRESA[]=[];
   Empresas:AAA_EMPRESA[]=[];
@@ -25,15 +27,15 @@ export class EmpresaComponentComponent {
     this.empresaService.getEmpresas().subscribe((resp:AAA_EMPRESA[])=>{
       this.Empresas=resp;
       this.options=resp;
-      console.log(this.Empresas)
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '')),
+      );
     })
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
   }
 
   onSelectionChange(event: any){
+    this.submitClicked.emit(event.option.value)
   }
 
   AbrirModalDeEmpresa(){
@@ -42,18 +44,18 @@ export class EmpresaComponentComponent {
     });
 
     dialogRef.componentInstance.submitClicked.subscribe(result => {
-      console.log(result);
       this.myControl.setValue(result);
+      this.submitClicked.emit(result)
     });
   }
 
   private _filter(value: string): AAA_EMPRESA[] {
-    let filterValue = value.toLowerCase();
+    let filterValue = (typeof value === 'string') ? value.toLowerCase() : '';
     return this.options.filter(option => option!.nombreempresa!.toLowerCase().includes(filterValue));
   }
-  
+
   displayFn(country: AAA_EMPRESA): string {
     return country && country.nombreempresa ? country.nombreempresa : '';
   }
-  
+
 }

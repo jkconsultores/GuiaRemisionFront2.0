@@ -8,39 +8,34 @@
     <form class="example-form">
       <div class="row">
         <div class="col-md-3">
-          <app-empresa-component></app-empresa-component>
+          <app-empresa-component (submitClicked)="EmpresaSeleccionada($event)"></app-empresa-component>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" >
+          <app-origen-component  [RucEmisor]="SeleccionEmpresa?.numerodocumentoemisor" (submitClicked)="OrigenSelecionado($event)"></app-origen-component>
+        </div>
+        <div class="col-md-2">
           <mat-form-field  class="w-100" appearance="outline">
             <mat-label>Serie</mat-label>
-            <mat-select >
+            <mat-select (selectionChange)="SerieSeleccionada($event)" [required]="true">
               <mat-option *ngFor="let item of tablaSeries" [value]="item.serie">{{item.serie| slice : 0 : 4}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <mat-form-field class="example-form-field w-100" appearance="outline">
             <mat-label>Fecha de emision</mat-label>
-            <input matInput [matDatepicker]="datepicker">
+            <input matInput [matDatepicker]="datepicker" [formControl]="FechaEnvio"(dateChange)="CambioFechaEnvio($event)" [min]="ObtenerFechaMinima()">
             <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
             <mat-datepicker #datepicker>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-              </mat-datepicker-actions>
             </mat-datepicker>
           </mat-form-field>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <mat-form-field class="example-form-field w-100" appearance="outline">
             <mat-label>Fecha de translado</mat-label>
-            <input matInput [matDatepicker]="datepicker1">
+            <input matInput [matDatepicker]="datepicker1" [formControl]="FechaTrnaslado" (dateChange)="CambioFechaTrnaslado($event)" [min]="ObtenerFechaMinima()">
             <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
             <mat-datepicker #datepicker1>
-              <mat-datepicker-actions>
-                <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-              </mat-datepicker-actions>
             </mat-datepicker>
           </mat-form-field>
         </div>
@@ -48,18 +43,19 @@
 
       <div class="row">
         <div class="col-md-3">
-          <mat-form-field  class="w-100" appearance="outline">
+          <mat-form-field  class="w-100" appearance="outline" >
             <mat-label>Seleccione una modalidad</mat-label>
-            <mat-select >
+            <mat-select (selectionChange)="ModalidadSelected($event)" [required]="true">
               <mat-option value="01">Publico</mat-option>
               <mat-option value="02">Privado</mat-option>
+              <mat-option value="03">Privado (M1 o L)</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-md-3">
           <mat-form-field  class="w-100" appearance="outline">
             <mat-label>Seleccione un motivo</mat-label>
-            <mat-select >
+            <mat-select  (selectionChange)="MotivoSelected($event)" [required]="true">
               <mat-option *ngFor="let item of Motivos" [value]="item.codigo">{{item.descripcion}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -67,7 +63,7 @@
         <div class="col-md-3">
           <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label>Nro bultos</mat-label>
-            <input matInput placeholder="Ingrese el numero de bultos" type="number" value="">
+            <input matInput placeholder="Ingrese el numero de bultos" type="number" value="" (keyup)="NroButlosChange($event)">
           </mat-form-field>
         </div>
         <div class="col-md-3" >
@@ -75,7 +71,7 @@
             <div class="col-md-7">
               <mat-form-field class="example-full-width w-100" appearance="outline">
                 <mat-label>Peso bruto</mat-label>
-                <input matInput placeholder="Ingrese el peso bruto" type="number" value="">
+                <input matInput placeholder="Ingrese el peso bruto" type="number" value="" [required]="true" (keyup)="PesoBrutoChange($event)">
               </mat-form-field>
             </div>
             <div class="col-md-5">
@@ -87,8 +83,8 @@
                        matInput
                        [formControl]="stateCtrl"
                       [required]="true"
-                      [matAutocomplete]="auto">
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                      [matAutocomplete]="auto" >
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="unidadesDeMedidaChange($event)">
                   <mat-option [value]="item.valor" *ngFor="let item of filteredOptions | async">{{item.valor}} - {{item.descripcion}}
                   </mat-option>
                 </mat-autocomplete>

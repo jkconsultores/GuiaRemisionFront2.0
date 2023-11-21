@@ -13,7 +13,7 @@ export class DestinatariosService {
   constructor(private http:HttpClient) { }
 
   public getDestinatario(){
-    return this.http.get<destinatario[]>(this.url+'GreTransportista/Destinatario')
+    return this.http.get<destinatario[]>(this.url+'aaa/adquirientes')
   }
   public crearDestinatario(body: any){
     return this.http.post(this.url+'Aaa', body);
@@ -26,10 +26,10 @@ export class DestinatariosService {
   }
   public getDepartamento() {
     return this.http.get<any>(this.url+'Nacionalidad/Departamento/111');
-  } 
+  }
   public getProvincia(id: string) {
     return this.http.get<any>(this.url+'Nacionalidad/Provincia/'+ id);
-  } 
+  }
   public getDistrito(id: string, id2: string) {
     return this.http.get<any>(this.url+'Nacionalidad/Distrito/'+ id + '/' + id2);
   }
@@ -38,5 +38,5 @@ export class DestinatariosService {
       responseType: 'text'
     });
   }
-  
+
 }

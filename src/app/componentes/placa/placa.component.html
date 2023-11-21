@@ -1,18 +1,22 @@
 <div class="d-flex align-items-center">
   <div class="w-100">
     <mat-form-field class="example-full-width w-100" appearance="outline">
-      <mat-label>Empresa</mat-label>
+      <mat-label>Placa</mat-label>
       <input type="text" placeholder="Seleccione una empresa" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)" [displayWith]="displayFn">
       <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option.nombreempresa}}
+        {{option.placaVehiculo}}
       </mat-option>
     </mat-autocomplete>
+    <button *ngIf="myControl" matSuffix mat-icon-button aria-label="Clear" (click)="myControl.setValue('')" matTooltip="Remover el vehiculo seleccionado"
+    aria-label="Remover seleccion de vehiculos">
+      <mat-icon color="warn">close</mat-icon>
+    </button>
     </mat-form-field>
   </div>
   <button
-    mat-raised-button (click)="AbrirModalDeEmpresa()" class="btn btn-primary mb-4" matTooltip="Editar, crear o seleccionar una empresa emisora"
-    aria-label="Seleccion de emrpesas">
+    mat-raised-button (click)="AbrirModalDeEmpresa()" class="btn btn-primary mb-4" matTooltip="Editar, crear o seleccionar un vehiculo"
+    aria-label="Seleccion de vehiculos">
     <mat-icon>search</mat-icon>
   </button>
 </div>

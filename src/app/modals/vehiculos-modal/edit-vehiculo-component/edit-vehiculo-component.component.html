@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>{{boton}}</h2>
+<form novalidate [formGroup]="destinoForm" (ngSubmit)="acction()" >
+<mat-dialog-content class="mat-typography pt-2">
+
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>placaVehiculo</mat-label>
+        <input type="text" matInput formControlName="placaVehiculo" [required]="true" oninput="this.value = this.value.toUpperCase()"  placeholder="Ingrese una placa de vehiculo (ejemplo 123ABC)">
+        <mat-error *ngIf="destinoForm.get('placaVehiculo')!.hasError('required') && destinoForm.get('placaVehiculo')!.touched"> La placa de vehiculo es obligatoria</mat-error>
+        <mat-error *ngIf="destinoForm.get('placaVehiculo')!.hasError('maxlength') && destinoForm.get('placaVehiculo')!.touched"> La placa de vehiculo no puede ser mayor a 6 digitos</mat-error>
+        <mat-error *ngIf="destinoForm.get('placaVehiculo')!.hasError('minlength') && destinoForm.get('placaVehiculo')!.touched"> La placa de vehiculo no puede ser menor a 6 digitos</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>Color</mat-label>
+        <input type="text" matInput formControlName="color"  placeholder="Ingrese un color (opcional)">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>Inscripcion MTC</mat-label>
+        <input type="text" matInput formControlName="inscripcionMtc"  placeholder="Ingrese un valor (opcional)">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>marca</mat-label>
+        <input type="text" matInput formControlName="marca"  placeholder="Ingrese una marca (opcional)">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>modelo</mat-label>
+        <input type="text" matInput formControlName="modelo"  placeholder="Ingrese el  modelo (opcional)">
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width w-100" appearance="outline">
+        <mat-label>T. Circulacion</mat-label>
+        <input type="text" matInput formControlName="mtc"  placeholder="Ingrese el codigo de mtc (opcional)">
+      </mat-form-field>
+
+
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="p-3">
+  <button mat-stroke-button color="primary"  (click)="onNoClick($event)" class="btn btn-danger me-3">Cancelar</button>
+  <button mat-stroke-button color="primary" type="submit" [disabled]="destinoForm.invalid" class="btn btn-primary">{{boton}}</button>
+</mat-dialog-actions>
+</form>
+
