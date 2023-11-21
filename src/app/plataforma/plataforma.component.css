@@ -141,4 +141,39 @@ a {
 .menu-desplegado mat-icon{
   color: #7c8db5!important;
 }
-
+.nav-content-material{
+  padding-top: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 2rem;
+}
+.nav-content-material .nav-section{
+  text-align: left;
+}
+.nav-content-material mat-icon{
+  font-size: 1.7em;
+  margin-right: 10px;
+  color: #8f8f8f;
+  vertical-align: middle;
+  display: inline-block;
+}
+.nav-content-material .nav-item{
+  margin-bottom: 0.7rem;
+  margin-top: 0.7rem;
+  padding: 0.7rem;
+}
+.nav-content-material .nav-item:hover{
+  background-color: #0d6efd4d;
+  border-radius: 8px;
+}
+.nav-content-material .nav-item:hover > mat-icon{
+  color: #ffffff;
+  border-radius: 8px;
+}
+.nav-content-material .active{
+  background-color: #0d6efd4d;
+  border-radius: 8px;
+}
+.nav-content-material .active > mat-icon{
+  color: #ffffff;
+}

@@ -3,20 +3,20 @@
     <mat-card-title>Datos del destinatario</mat-card-title>
     <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
   </mat-card-header>
-  
+
   <mat-card-body class="p-3">
     <div class="row">
-      
-      <div class="col-md-4">
-        <div class="d-flex align-items-center">          
+
+      <div class="col-md-5">
+        <div class="d-flex align-items-center">
           <div class="w-100">
             <mat-form-field class="example-full-width w-100" appearance="outline">
               <mat-label>Destinatario</mat-label>
               <input type="text" placeholder="Seleccione un destinatario" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto" >
               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)" [displayWith]="displayFn">
                 <mat-option  *ngFor="let option of filteredOptions | async" [value]="option"> {{option.razonsocialadquiriente}} </mat-option>
-              </mat-autocomplete>      
-            </mat-form-field> 
+              </mat-autocomplete>
+            </mat-form-field>
           </div>
           <button mat-raised-button (click)="AbrirModalDestinatario()" class="btn btn-primary mb-4" matTooltip="Editar, crear o seleccionar un destinatario">
             <mat-icon>editar</mat-icon>
@@ -24,11 +24,14 @@
         </div>
       </div>
 
-      <div class="col-md-4">
-        <app-destino-component [RucAdquiriente]="RucAdquiriente"></app-destino-component>
+      <div class="col-md-5">
+        <app-destino-component [RucAdquiriente]="RucAdquiriente" (submitClicked)="ObtenerDestino($event)"></app-destino-component>
       </div>
-      <div class="col-md-4">
-        <app-origen-component [RucEmisor]="'11111111111'"></app-origen-component>
+      <div class="col-md-2">
+        <mat-form-field class="example-full-width w-100" appearance="outline">
+          <mat-label>Ubigeo</mat-label>
+          <input type="text" placeholder="Seleccione un destinatario" aria-label="Number" (change)="UbigeoChange($event)" matInput [disabled]="SelectDestino==undefined" [value]="SelectDestino?.ubigeodestino">
+        </mat-form-field>
       </div>
     </div>
   </mat-card-body>

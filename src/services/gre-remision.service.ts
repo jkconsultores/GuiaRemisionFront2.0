@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
-import { serie } from 'src/models/serie';
+import { SPE_DESPATCH } from 'src/models/Spe_Despatch';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SerieService {
+export class GreRemisionService {
 
   private url=environment.urlApi;
 
   constructor(public http:HttpClient) { }
 
-  public getSerie(){
-    return this.http.get<serie[]>(this.url+'serie/getSerie');
+  public emitirGuia(guia:SPE_DESPATCH){
+    return this.http.post<any>(this.url+'Spe_Despatch/declarar',guia);
   }
 }

@@ -8,9 +8,11 @@ export interface T_Vehiculo {
   marca: string;
 }
 export interface VehiculoDTO {
+  id: number;
   placaVehiculo: string;
   modelo: string;
   color: string;
   marca: string;
-  mtc:string;
+  inscripcionMtc: string | null;
+  mtc: string;
 }

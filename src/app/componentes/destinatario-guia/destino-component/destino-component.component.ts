@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,10 +12,11 @@ import { DestinosService } from 'src/services/destinos.service';
   templateUrl: './destino-component.component.html',
   styleUrls: ['./destino-component.component.css']
 })
-export class DestinoComponentComponent implements OnInit {
+export class DestinoComponentComponent  {
 @Input()
-RucAdquiriente!:string;
-
+RucAdquiriente:string | undefined;
+@Output()
+submitClicked = new EventEmitter<AAA_DESTINO>();
 @ViewChild(MatAutocompleteTrigger) _auto!: MatAutocompleteTrigger;
 myControl = new FormControl();
 options: AAA_DESTINO[]=[];
@@ -24,24 +25,25 @@ options: AAA_DESTINO[]=[];
 
   constructor(public dialog: MatDialog,private destinosService:DestinosService){}
 
-  ngOnInit(): void {
-    //RucAdquiriente
+  ngOnChanges() {
+    if(this.RucAdquiriente==undefined){
+      this.myControl.disable();
+    }else{this.myControl.enable();}
     if(this.RucAdquiriente!=undefined && this.RucAdquiriente!=''){
       this.destinosService.ObtenerTodosLosDestinosDeUnAdquiriente(this.RucAdquiriente).subscribe((resp:AAA_DESTINO[])=>{
         this.Destinos=resp;
         this.options=resp;
-        console.log(this.Destinos)
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value || '')),
+        );
       })
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value || '')),
-      );
     }
 
   }
-  onSelectionChange(event: any){
-    console.log(event.option.value);
 
+  onSelectionChange(event: any){
+    this.submitClicked.emit(event.option.value);
   }
   AbrirModalDeDestino(){
     const dialogRef = this.dialog.open(DestinoModalComponent, {
@@ -49,12 +51,12 @@ options: AAA_DESTINO[]=[];
     });
 
     dialogRef.componentInstance.submitClicked.subscribe(result => {
-      console.log(result);
-      this.myControl.setValue(result.direcciondestino!);
+      this.myControl.setValue(result);
+      this.submitClicked.emit(result);
     });
   }
   private _filter(value: string): AAA_DESTINO[] {
-    let filterValue = value.toLowerCase();
+    let filterValue = (typeof value === 'string') ? value.toLowerCase() : '';
     return this.options.filter(option => option!.direcciondestino!.toLowerCase().includes(filterValue));
   }
   displayFn(country: AAA_DESTINO): string {

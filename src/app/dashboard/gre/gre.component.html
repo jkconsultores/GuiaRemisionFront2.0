@@ -1,10 +1,26 @@
-<app-cabecera-guia [tituloGuia]="'Guia de remision - Remitente'"></app-cabecera-guia>
+<app-cabecera-guia [tituloGuia]="'Guia de remision - Remitente'" (submitClicked)="CabeceraData($event)"></app-cabecera-guia>
 <div class="mt-3">
-<app-destinatario-guia [RucEmisor]="RucEmisor"></app-destinatario-guia>
+<app-destinatario-guia [RucEmisor]="RucEmisor" (submitClicked)="AdquirienteData($event)"></app-destinatario-guia>
+</div>
+<div class="mt-3" *ngIf="datosDeGreEnvio?.modalidadTraslado!='03'" >
+  <app-chofer-guia (submitClicked)="chofer1Changed($event)" [title]="'Transporte 1'"></app-chofer-guia>
+  <div class="mt-3"  *ngIf="datosDeGreEnvio?.modalidadTraslado!='01' && datosDeGreEnvio?.modalidadTraslado!='03'">
+    <app-chofer-guia (submitClicked)="chofer2Changed($event)" [title]="'Transporte 2'"></app-chofer-guia>
+  </div>
 </div>
 <div class="mt-3">
-  <app-chofer-guia></app-chofer-guia>
+  <app-observacion-guia (submitClicked)="ObservacionChange($event)"></app-observacion-guia>
 </div>
 <div class="mt-3">
-  <app-items-guia></app-items-guia>
+  <div class="row">
+    <div class="col-md-10">
+  <app-items-guia (submitClicked)="ItemsChange($event)"></app-items-guia>
 </div>
+<div class="col-md-2">
+  <mat-card>
+    <button mat-stroke-button color="primary" class="btn btn-primary " style="white-space: nowrap;" (click)="EmitirGuia()">Emitir guia</button>
+  </mat-card>
+</div>
+</div>
+</div>
+

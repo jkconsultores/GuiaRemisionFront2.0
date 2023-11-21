@@ -1,0 +1,23 @@
+<mat-card>
+
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header matTooltip="Para agregar o editar una observacion presione el texto o el icono de &#709;"
+      aria-label="Agregar observacion">
+        <mat-panel-title>
+          Observaciones:
+        </mat-panel-title>
+        <mat-panel-description>
+          <ng-container *ngIf="!panelOpenState && observacion==undefined">No se cuenta con observaciones en la guia</ng-container>
+          <ng-container *ngIf="!panelOpenState && observacion!=undefined">{{observacion}}</ng-container>
+          <ng-container *ngIf="panelOpenState">{{observacion}}</ng-container>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-form-field  appearance="outline" class="w-100">
+        <mat-label>Observacion</mat-label>
+        <textarea matInput placeholder="Ingrese su observacion" (keyup)="ObservacionChanged($event)"></textarea>
+      </mat-form-field>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-card>

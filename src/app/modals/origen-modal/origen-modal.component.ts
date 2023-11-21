@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Inject, Input, NgZone, Output, ViewChild } from '@angular/core';
 import { EditOrigenComponentComponent } from './edit-origen-component/edit-origen-component.component';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,17 +24,19 @@ export class OrigenModalComponent implements AfterViewInit {
 
   clickedRows = new Set<Aaa_OrigenDTO>();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Aaa_OrigenDTO[], public dialogRef: MatDialogRef<OrigenModalComponent>, public destinoService: OrigenService, public dialog: MatDialog) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Aaa_OrigenDTO[], public dialogRef: MatDialogRef<OrigenModalComponent>, public destinoService: OrigenService, public dialog: MatDialog) {  }
 
   displayedColumns: string[] = ['ubigeo', 'codigolocalanexo', 'direccion', 'numerdoc', 'options'];
   dataSource = new MatTableDataSource(this.data);
 
   ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = "Items por pagina";
-    this.paginator._intl.previousPageLabel = "Pagina anterior";
-    this.paginator._intl.nextPageLabel = "Pagina siguiente";
-    this.dataSource.paginator = this.paginator;
-    this.cantidad=this.data.length;
+    setTimeout(() => {
+      this.paginator._intl.itemsPerPageLabel = "Items por pagina";
+      this.paginator._intl.previousPageLabel = "Pagina anterior";
+      this.paginator._intl.nextPageLabel = "Pagina siguiente";
+      this.dataSource.paginator = this.paginator;
+      this.cantidad=this.data.length;
+    },0);
   }
 
   applyFilter(event: Event) {

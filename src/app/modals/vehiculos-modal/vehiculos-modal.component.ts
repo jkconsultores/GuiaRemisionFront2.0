@@ -1,30 +1,31 @@
-import { AfterViewInit, Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { USUARIO } from 'src/models/Usuarios';
-import { AAA_DESTINO } from 'src/models/destino';
-import { DestinosService } from 'src/services/destinos.service';
-import Swal from 'sweetalert2';
-import { EditDestinoComponentComponent } from './edit-destino-component/edit-destino-component.component';
+import { Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import {  VehiculoDTO } from 'src/models/Vehiculos';
+import { VehiculoService } from 'src/services/vehiculo.service';
+import Swal from 'sweetalert2';
+import { EditOrigenComponentComponent } from '../origen-modal/edit-origen-component/edit-origen-component.component';
+import { EditVehiculoComponentComponent } from './edit-vehiculo-component/edit-vehiculo-component.component';
 
 @Component({
-  selector: 'app-destino-modal',
-  templateUrl: './destino-modal.component.html',
-  styleUrls: ['./destino-modal.component.css']
+  selector: 'app-vehiculos-modal',
+  templateUrl: './vehiculos-modal.component.html',
+  styleUrls: ['./vehiculos-modal.component.css']
 })
-export class DestinoModalComponent implements AfterViewInit {
+export class VehiculosModalComponent {
   @Input()
-  titulo: string = 'Destinos';
+  titulo: string='Origenes';
   @Output()
-  submitClicked = new EventEmitter<AAA_DESTINO>();
+  submitClicked = new EventEmitter<VehiculoDTO>();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
-  clickedRows = new Set<AAA_DESTINO>();
   cantidad: number = 0;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: AAA_DESTINO[], public dialogRef: MatDialogRef<DestinoModalComponent>, public destinoService: DestinosService, public dialog: MatDialog) { }
+  clickedRows = new Set<VehiculoDTO>();
 
-  displayedColumns: string[] = ['ubigeo', 'codigolocalanexo', 'direccion', 'numerdoc', 'options'];
+  constructor(@Inject(MAT_DIALOG_DATA) public data: VehiculoDTO[], public dialogRef: MatDialogRef<VehiculosModalComponent>, public vehiculoService: VehiculoService, public dialog: MatDialog) {  }
+
+  displayedColumns: string[] = ['ubigeo', 'codigolocalanexo', 'direccion', 'numerdoc','numeromtc','mtc', 'options'];
   dataSource = new MatTableDataSource(this.data);
 
   ngAfterViewInit() {
@@ -49,10 +50,10 @@ export class DestinoModalComponent implements AfterViewInit {
     this.submitClicked.emit(dato)
     this.dialogRef.close();
   }
-  async eliminarDireccion(event: AAA_DESTINO) {
+  async eliminarDireccion(event: VehiculoDTO) {
     const result = await Swal.fire({
       title: 'Esta acción no se puede deshacer',
-      text: '¿Estás seguro de eliminar la direccion: ' + event.direcciondestino + '?',
+      text: '¿Estás seguro de eliminar el vehiculo con placa: ' + event.placaVehiculo + '?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
@@ -64,7 +65,7 @@ export class DestinoModalComponent implements AfterViewInit {
     if (!result.isConfirmed) {
       return;
     }
-    this.destinoService.EliminarDestino(event).subscribe(
+    this.vehiculoService.deleteVehiculo(event.id.toString()).subscribe(
       (resp: any) => {
         Swal.fire('Destino eliminado satisfactoriamente', '', 'success');
         this.data = this.removerObjetoDeArray(this.data, event);
@@ -75,9 +76,9 @@ export class DestinoModalComponent implements AfterViewInit {
       }
     );
   }
-  editarDireccion(event: AAA_DESTINO) {
+  editarDireccion(event: VehiculoDTO) {
     console.log(event);
-    const dialogRef = this.dialog.open(EditDestinoComponentComponent, {
+    const dialogRef = this.dialog.open(EditVehiculoComponentComponent, {
       data: event, width: '500px',
     });
 
@@ -100,15 +101,15 @@ export class DestinoModalComponent implements AfterViewInit {
     return arr;
   }
   CrearDireccion() {
-    let datos: AAA_DESTINO = { codigolocalanexo: '', direcciondestino: '', numerodocumentoadquiriente: '', tienda: '', usuarioid: 0, ubigeodestino: '', datestamp: new Date() };
-    const dialogRef = this.dialog.open(EditDestinoComponentComponent, {
+    let datos: VehiculoDTO = { color: '', inscripcionMtc: '', marca: '', modelo:'', mtc: '', placaVehiculo: '',id :0 };
+    const dialogRef = this.dialog.open(EditVehiculoComponentComponent, {
       data: datos!, width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       if (result != undefined) {
-        if (result.numerodocumentoadquiriente.length > 0) {
+        if (result.numerodocumentoemisor.length > 0) {
           this.data.push(result);
           this.dataSource = new MatTableDataSource(this.data);
         }

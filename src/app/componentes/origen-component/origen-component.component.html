@@ -13,5 +13,5 @@
   </div>
   <button mat-raised-button (click)="AbrirModalDeDestino()"
     class="btn btn-primary mb-4" matTooltip="Editar, crear o seleccionar un destino"
-    aria-label="Editar, crear o seleccionar un destino"><mat-icon>edit</mat-icon></button>
+    aria-label="Editar, crear o seleccionar un destino" [disabled]="RucEmisor==undefined"><mat-icon>edit</mat-icon></button>
 </div>
