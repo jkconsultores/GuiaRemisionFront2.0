@@ -1,24 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReporteGreService } from 'src/services/reporte-gre.service';
 import Swal from 'sweetalert2';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as XLSX from 'xlsx';
 import {MatIconModule} from '@angular/material/icon';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
 
 @Component({
   selector: 'app-gre-reportes',
   templateUrl: './gre-reportes.component.html',
   styleUrls: ['./gre-reportes.component.css'],
-  standalone: true,
-  imports: [MatPaginatorModule],
+  standalone: false,
 })
-export class GreReportesComponent implements OnInit {
+export class GreReportesComponent implements OnInit, AfterViewInit {
   spe_despatch: any[] = [];
   desde: any = '';
   hasta: any = '';
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
+  cantidad: number = 0;
 
   displayedColumns: string[] = ['serieNumeroGuia', 'bl_estadoRegistro', 'fechaEmisionGuia', 'correoDestinatario', 'numeroDocumentoRemitente',
   'tipoDocumentoRemitente', 'razonSocialDestinatario', 'motivoTraslado', 'descripcionMotivoTraslado', 'pesoBrutoTotalBienes', 
@@ -28,6 +29,16 @@ export class GreReportesComponent implements OnInit {
   constructor(
     private reporteGreService: ReporteGreService
   ) {}
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.paginator._intl.itemsPerPageLabel = "Items por pagina";
+      this.paginator._intl.previousPageLabel = "Pagina anterior";
+      this.paginator._intl.nextPageLabel = "Pagina siguiente";
+      this.dataSource.paginator = this.paginator;
+      this.cantidad=this.spe_despatch.length;
+    },0);
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
