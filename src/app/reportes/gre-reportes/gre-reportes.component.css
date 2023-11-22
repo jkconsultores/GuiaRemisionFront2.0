@@ -9,3 +9,13 @@
   font-size: 14px;
   width: 100%;
 }
+
+.botonExcel {
+  height: 55px;
+  width: 140px;
+  background-color: rgb(101, 196, 137) !important;
+  color: white !important;
+  font-size: 20px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}

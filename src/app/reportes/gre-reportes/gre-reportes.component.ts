@@ -4,12 +4,16 @@ import { ReporteGreService } from 'src/services/reporte-gre.service';
 import Swal from 'sweetalert2';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as XLSX from 'xlsx';
+import {MatIconModule} from '@angular/material/icon';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @Component({
   selector: 'app-gre-reportes',
   templateUrl: './gre-reportes.component.html',
   styleUrls: ['./gre-reportes.component.css'],
+  standalone: true,
+  imports: [MatPaginatorModule],
 })
 export class GreReportesComponent implements OnInit {
   spe_despatch: any[] = [];
@@ -56,6 +60,7 @@ export class GreReportesComponent implements OnInit {
         Swal.close();
         this.spe_despatch = res.result;
         this.dataSource = new MatTableDataSource<any>(this.spe_despatch);
+
       },
       error => {
         console.error('Error al obtener los datos:', error);
@@ -79,5 +84,5 @@ export class GreReportesComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, this.fileName);
   }
-  
+
 }
