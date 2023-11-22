@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReporteGreService } from 'src/services/reporte-gre.service';
 import Swal from 'sweetalert2';
@@ -22,9 +22,9 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
   cantidad: number = 0;
 
   displayedColumns: string[] = ['serieNumeroGuia', 'bl_estadoRegistro', 'fechaEmisionGuia', 'correoDestinatario', 'numeroDocumentoRemitente',
-  'tipoDocumentoRemitente', 'razonSocialDestinatario', 'motivoTraslado', 'descripcionMotivoTraslado', 'pesoBrutoTotalBienes', 
+  'tipoDocumentoRemitente', 'razonSocialDestinatario', 'motivoTraslado', 'descripcionMotivoTraslado', 'pesoBrutoTotalBienes',
   'fechaInicioTraslado', 'bl_estadoProceso'];
-  dataSource = new MatTableDataSource<any>([]); 
+  dataSource = new MatTableDataSource<any>([]);
 
   constructor(
     private reporteGreService: ReporteGreService
@@ -39,7 +39,6 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
       this.cantidad=this.spe_despatch.length;
     },0);
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -61,7 +60,7 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
   }
 
   getSpe_despatch() {
-    Swal.showLoading();  
+    Swal.showLoading();
     const formatDesde = this.formatDate(this.desde);
     const formatHasta = this.formatDate(this.hasta);
 
@@ -71,7 +70,11 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
         Swal.close();
         this.spe_despatch = res.result;
         this.dataSource = new MatTableDataSource<any>(this.spe_despatch);
-
+        this.paginator._intl.itemsPerPageLabel = "Items por pagina";
+        this.paginator._intl.previousPageLabel = "Pagina anterior";
+        this.paginator._intl.nextPageLabel = "Pagina siguiente";
+        this.dataSource.paginator = this.paginator;
+        this.cantidad=this.spe_despatch.length;
       },
       error => {
         console.error('Error al obtener los datos:', error);
