@@ -1,11 +1,7 @@
-
-
-
 .mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
 }
-
 .botonExcel {
   height: 55px;
   width: 140px;
@@ -15,7 +11,6 @@
   margin-left: 2px;
   margin-bottom: 2px;
 }
-
 .botonBuscar{
   height: 55px;
   width: 140px;
@@ -25,7 +20,6 @@
   margin-right: 5px;
   margin-bottom: 2px;
 }
-
 th.mat-mdc-header-cell.mdc-data-table__header-cell.cdk-header-cell.cdk-column-fechaInicioTraslado.mat-column-fechaInicioTraslado.ng-star-inserted{
   white-space: nowrap !important;
 }

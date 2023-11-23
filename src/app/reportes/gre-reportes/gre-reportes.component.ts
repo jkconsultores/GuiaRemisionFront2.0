@@ -2,10 +2,8 @@ import { AfterViewInit, Component, OnChanges, OnInit, ViewChild } from '@angular
 import { MatTableDataSource } from '@angular/material/table';
 import { ReporteGreService } from 'src/services/reporte-gre.service';
 import Swal from 'sweetalert2';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as XLSX from 'xlsx';
-import {MatIconModule} from '@angular/material/icon';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { FormControl } from '@angular/forms';
 
 
@@ -27,10 +25,7 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
   'fechaInicioTraslado', 'bl_estadoProceso'];
   dataSource = new MatTableDataSource<any>([]);
 
-  constructor(
-    private reporteGreService: ReporteGreService
-  ){}
-
+  constructor(private reporteGreService: ReporteGreService){}
   ngAfterViewInit() {
     setTimeout(() => {
       this.paginator._intl.itemsPerPageLabel = "Items por pagina";
