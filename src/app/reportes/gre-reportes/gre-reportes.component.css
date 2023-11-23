@@ -1,9 +1,5 @@
 
-.Table {
-  width: 98%;
-  position:relative;
-  margin:auto;
-}
+
 
 .mat-mdc-form-field {
   font-size: 14px;
@@ -16,6 +12,23 @@
   background-color: rgb(101, 196, 137) !important;
   color: white !important;
   font-size: 20px;
-  margin-bottom: 15px;
-  margin-left: 10px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+
+.botonBuscar{
+  height: 55px;
+  width: 140px;
+  background-color: rgb(72, 188, 255) !important;
+  color: white !important;  
+  font-size: 20px;
+  margin-right: 5px;
+  margin-bottom: 2px;
+}
+
+th.mat-mdc-header-cell.mdc-data-table__header-cell.cdk-header-cell.cdk-column-fechaInicioTraslado.mat-column-fechaInicioTraslado.ng-star-inserted{
+  white-space: nowrap !important;
+}
+.mat-mdc-table tbody, .mat-mdc-table tfoot, .mat-mdc-table thead, .mat-mdc-cell, .mat-mdc-footer-cell, .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell{
+  white-space: nowrap !important;
 }

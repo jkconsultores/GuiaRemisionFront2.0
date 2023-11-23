@@ -1,104 +1,98 @@
-<div class="Table">
+<div>
   <h2> Listado de Reportes GRE</h2>
 
   <div>
-    <!-- <mat-form-field style="width: 20%; margin-right: 10px;">
-      <mat-label>Seleccionar rango de fechas</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Inicio" [(ngModel)]="desde" >
-        <input matEndDate placeholder="Fin" [(ngModel)]="hasta" (dateChange)="getSpe_despatch()">
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field> -->
-
-
-    <mat-form-field color="accent" style="width: 15%; margin-right: 10px;">
+    <mat-form-field color="accent" appearance="outline" style="width: 15%; margin-right: 5px;">
       <mat-label>Seleccionar fecha de inicio</mat-label>
-      <input matInput [matDatepicker]="picker1" placeholder="Inicio" [(ngModel)]="desde">
-      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <input matInput [matDatepicker]="picker1" [formControl]="desde" placeholder="Inicio">
+      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
-    
-    <mat-form-field color="accent" style="width: 15%; margin-right: 10px;">
+    <mat-form-field color="accent" appearance="outline" style="width: 15%; margin-right: 5px;">
       <mat-label>Seleccionar fecha de fin</mat-label>
-      <input matInput [matDatepicker]="picker2" placeholder="Fin" [(ngModel)]="hasta">
+      <input matInput [matDatepicker]="picker2" [formControl]="hasta" placeholder="Fin">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
-    </mat-form-field>
-    
-    <button mat-button color="primary" (click)="getSpe_despatch()">Buscar</button>
-    
-
-
-    <mat-form-field style="width: 30%;">
-      <mat-label>Filter para buscar en tabla</mat-label>
+    </mat-form-field>    
+    <button mat-button class="botonBuscar" color="primary" (click)="getSpe_despatch()">Buscar</button>
+    <mat-form-field appearance="outline" style="width:30%; margin-right: 5px;">
+      <mat-label>Ingrese un dato para buscar en tabla</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="filtro por cualquier dato de la tabla" #input>
     </mat-form-field>
-
+    <mat-form-field style="width: 10%; margin-right: 5px;" appearance="outline">
+      <mat-label> Estado</mat-label>
+      <mat-select [required]="true" (selectionChange)="llenarFiltro()" [(ngModel)]="filtroEstado" placeholder="Filtrar por estado">
+          <mat-option value=" "> Todos </mat-option>
+          <mat-option value="N"> Generado </mat-option>
+          <mat-option value="A"> En proceso </mat-option>
+          <mat-option value="E"> Error </mat-option>
+          <mat-option value="L"> Enviado </mat-option>
+      </mat-select>
+    </mat-form-field>
     <button mat-raised-button color="warning" (click)="exportExcel()" class="botonExcel"> Excel 
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.12979372698077785 0 32.12979372698078 32" width="40" height="40"><g data-name="STYLE = COLOR"><path d="M20 2H9.333A1.333 1.333 0 0 0 8 3.333V9l12 7 6 2.532L32 16V9z" fill="#21a366"/><path fill="#107c41" d="M8 9h12v7H8z"/><path d="M30.667 2H20v7h12V3.333A1.333 1.333 0 0 0 30.667 2z" fill="#33c481"/><path d="M20 16H8v12.667A1.333 1.333 0 0 0 9.333 30h21.334A1.333 1.333 0 0 0 32 28.667V23z" fill="#185c37"/><path fill="#107c41" d="M20 16h12v7H20z"/><path d="M16.667 7H8v19h8.667A1.337 1.337 0 0 0 18 24.667V8.333A1.337 1.337 0 0 0 16.667 7z" opacity=".1"/><path d="M15.667 8H8v19h7.667A1.337 1.337 0 0 0 17 25.667V9.333A1.337 1.337 0 0 0 15.667 8z" opacity=".2"/><path d="M15.667 8H8v17h7.667A1.337 1.337 0 0 0 17 23.667V9.333A1.337 1.337 0 0 0 15.667 8z" opacity=".2"/><path d="M14.667 8H8v17h6.667A1.337 1.337 0 0 0 16 23.667V9.333A1.337 1.337 0 0 0 14.667 8z" opacity=".2"/><path data-name="Back Plate" d="M1.333 8h13.334A1.333 1.333 0 0 1 16 9.333v13.334A1.333 1.333 0 0 1 14.667 24H1.333A1.333 1.333 0 0 1 0 22.667V9.333A1.333 1.333 0 0 1 1.333 8z" fill="#107c41"/><path d="M3.533 21l3.236-5.014L3.805 11H6.19l1.618 3.187q.223.453.307.676h.021q.16-.362.335-.704L10.2 11h2.189l-3.04 4.958L12.466 21h-2.33l-1.869-3.5a2.922 2.922 0 0 1-.223-.468h-.028a2.207 2.207 0 0 1-.216.453L5.877 21z" fill="#fff"/><path fill="none" d="M0 0h32v32H0z"/></g></svg>
     </button>
+  </div>   
 
-  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="tablaData">
+    <ng-container matColumnDef="serieNumeroGuia">
+      <th mat-header-cell *matHeaderCellDef> No. Guía </th>
+      <td mat-cell *matCellDef="let element"> {{element.serieNumeroGuia}} </td>
+    </ng-container>
+    <ng-container matColumnDef="bl_estadoRegistro">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let element"> {{element.bl_estadoRegistro}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fechaEmisionGuia" id="Fecha">
+      <th mat-header-cell *matHeaderCellDef> Fecha Emisión </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaEmisionGuia}} </td>
+    </ng-container>
+    <ng-container matColumnDef="correoDestinatario">
+      <th mat-header-cell *matHeaderCellDef> Correo </th>
+      <td mat-cell *matCellDef="let element"> {{element.correoDestinatario}} </td>
+    </ng-container>
     
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" id="tablaData">
-      <ng-container matColumnDef="serieNumeroGuia">
-        <th mat-header-cell *matHeaderCellDef> No. Guía </th>
-        <td mat-cell *matCellDef="let element"> {{element.serieNumeroGuia}} </td>
-      </ng-container>
-      <ng-container matColumnDef="bl_estadoRegistro">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let element"> {{element.bl_estadoRegistro}} </td>
-      </ng-container>
-      <ng-container matColumnDef="fechaEmisionGuia">
-        <th mat-header-cell *matHeaderCellDef> Fecha Emisión </th>
-        <td mat-cell *matCellDef="let element"> {{element.fechaEmisionGuia}} </td>
-      </ng-container>
-      <ng-container matColumnDef="correoDestinatario">
-        <th mat-header-cell *matHeaderCellDef> Correo </th>
-        <td mat-cell *matCellDef="let element"> {{element.correoDestinatario}} </td>
-      </ng-container>
-      
-      <ng-container matColumnDef="numeroDocumentoRemitente">
-        <th mat-header-cell *matHeaderCellDef> No. Doc Remitente </th>
-        <td mat-cell *matCellDef="let element"> {{element.numeroDocumentoRemitente}} </td>
-      </ng-container> 
-      <ng-container matColumnDef="tipoDocumentoRemitente">
-        <th mat-header-cell *matHeaderCellDef> Tipo Doc Remitente </th>
-        <td mat-cell *matCellDef="let element"> {{element.tipoDocumentoRemitente}} </td>
-      </ng-container>
-      <ng-container matColumnDef="razonSocialDestinatario">
-        <th mat-header-cell *matHeaderCellDef> Adquiriente </th>
-        <td mat-cell *matCellDef="let element"> {{element.razonSocialDestinatario}} </td>
-      </ng-container>
+    <ng-container matColumnDef="numeroDocumentoRemitente">
+      <th mat-header-cell *matHeaderCellDef> No. Doc Remitente </th>
+      <td mat-cell *matCellDef="let element"> {{element.numeroDocumentoRemitente}} </td>
+    </ng-container> 
+    <ng-container matColumnDef="tipoDocumentoRemitente">
+      <th mat-header-cell *matHeaderCellDef> Tipo Doc Remitente </th>
+      <td mat-cell *matCellDef="let element"> {{element.tipoDocumentoRemitente}} </td>
+    </ng-container>
+    <ng-container matColumnDef="razonSocialDestinatario">
+      <th mat-header-cell *matHeaderCellDef> Adquiriente </th>
+      <td mat-cell *matCellDef="let element"> {{element.razonSocialDestinatario}} </td>
+    </ng-container>
 
-      <ng-container matColumnDef="motivoTraslado">
-        <th mat-header-cell *matHeaderCellDef> Motivo traslado </th>
-        <td mat-cell *matCellDef="let element"> {{element.motivoTraslado}} </td>
-      </ng-container>
-      <ng-container matColumnDef="descripcionMotivoTraslado">
-        <th mat-header-cell *matHeaderCellDef> Descripción </th>
-        <td mat-cell *matCellDef="let element"> {{element.descripcionMotivoTraslado}} </td>
-      </ng-container>
-      <ng-container matColumnDef="pesoBrutoTotalBienes">
-        <th mat-header-cell *matHeaderCellDef> Peso total </th>
-        <td mat-cell *matCellDef="let element"> {{element.pesoBrutoTotalBienes}} </td>
-      </ng-container>
-      <ng-container matColumnDef="fechaInicioTraslado">
-        <th mat-header-cell *matHeaderCellDef> Fecha inicio </th>
-        <td mat-cell *matCellDef="let element"> {{element.fechaInicioTraslado}} </td>
-      </ng-container>
-      <ng-container matColumnDef="bl_estadoProceso">
-        <th mat-header-cell *matHeaderCellDef> Estado Bl </th>
-        <td mat-cell *matCellDef="let element"> {{element.bl_estadoProceso}} </td>
-      </ng-container>
+    <ng-container matColumnDef="motivoTraslado">
+      <th mat-header-cell *matHeaderCellDef> Motivo traslado </th>
+      <td mat-cell *matCellDef="let element"> {{element.motivoTraslado}} </td>
+    </ng-container>
+    <ng-container matColumnDef="descripcionMotivoTraslado">
+      <th mat-header-cell *matHeaderCellDef> Descripción </th>
+      <td mat-cell *matCellDef="let element"> {{element.descripcionMotivoTraslado}} </td>
+    </ng-container>
+    <ng-container matColumnDef="pesoBrutoTotalBienes">
+      <th mat-header-cell *matHeaderCellDef> Peso total </th>
+      <td mat-cell *matCellDef="let element"> {{element.pesoBrutoTotalBienes}} </td>
+    </ng-container>
+    <ng-container matColumnDef="fechaInicioTraslado">
+      <th mat-header-cell *matHeaderCellDef> Fecha inicio </th>
+      <td mat-cell *matCellDef="let element" class="colFechaInicio"> {{element.fechaInicioTraslado}} </td>
+    </ng-container>
+    <ng-container matColumnDef="bl_estadoProceso">
+      <th mat-header-cell *matHeaderCellDef> Estado Bl </th>
+      <td mat-cell *matCellDef="let element"> {{element.bl_estadoProceso}} </td>
+    </ng-container>
 
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
-      <tr class="mat-row" *matNoDataRow><td class="mat-cell" colspan="4"> "{{input.value}} "</td></tr>
-    </table>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> 
+    <tr class="mat-row" *matNoDataRow><td class="mat-cell" colspan="4"> "{{input.value}} "</td></tr>      
+  </table>
 
-    <mat-paginator #paginator  previousPageLabel="Pagina anterior" nextPageLabel="Pagina siguiente" [pageSizeOptions]="[5, 10, 20]" [length]="cantidad" itemsPerPageLabel="Items por pagina" aria-label="Select page"></mat-paginator>
+  <mat-paginator #paginator  previousPageLabel="Pagina anterior" nextPageLabel="Pagina siguiente" 
+  [pageSizeOptions]="[10, 15, 20]" [length]="cantidad" itemsPerPageLabel="Items por pagina" aria-label="Select page">
+  </mat-paginator>
 </div>

@@ -6,6 +6,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as XLSX from 'xlsx';
 import {MatIconModule} from '@angular/material/icon';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -16,11 +17,11 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 })
 export class GreReportesComponent implements OnInit, AfterViewInit {
   spe_despatch: any[] = [];
-  desde: any = '';
-  hasta: any = '';
+  filtroEstado:any='';
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
   cantidad: number = 0;
-
+  hasta = new FormControl(new Date());
+  desde = new FormControl(new Date());
   displayedColumns: string[] = ['serieNumeroGuia', 'bl_estadoRegistro', 'fechaEmisionGuia', 'correoDestinatario', 'numeroDocumentoRemitente',
   'tipoDocumentoRemitente', 'razonSocialDestinatario', 'motivoTraslado', 'descripcionMotivoTraslado', 'pesoBrutoTotalBienes',
   'fechaInicioTraslado', 'bl_estadoProceso'];
@@ -28,7 +29,7 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private reporteGreService: ReporteGreService
-  ) {}
+  ){}
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -43,14 +44,9 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
   ngOnInit() {
-    this.desde = this.fechaActual();
-    this.hasta = this.fechaActual();
-    console.log("desde", this.desde)
     this.getSpe_despatch();
   }
-
   fechaActual() {
     let date = new Date();
     let year = date.getFullYear();
@@ -58,12 +54,10 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
     let day = date.getDate().toString().padStart(2, '0');
     return `${month}-${day}-${year}`;
   }
-
   getSpe_despatch() {
     Swal.showLoading();
-    const formatDesde = this.formatDate(this.desde);
-    const formatHasta = this.formatDate(this.hasta);
-
+    const formatDesde = this.formatDate(this.desde.value);
+    const formatHasta = this.formatDate(this.hasta.value);
     this.reporteGreService.getSpe_despatch(formatDesde, formatHasta).subscribe(
       (res: any) => {
         console.log(res.result);
@@ -82,14 +76,12 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-  formatDate(dateString: string) {
+  formatDate(dateString: any) {
     const options: Intl.DateTimeFormatOptions = { month: '2-digit', day: '2-digit', year: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     const [month, day, year] = formattedDate.split('/');
     return `${month}-${day}-${year}`;
   }
-
   fileName = 'reporteGRE.xlsx';
   exportExcel() {
     let data = document.getElementById('tablaData');
@@ -98,5 +90,12 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, this.fileName);
   }
-
+  llenarFiltro(){
+    debugger
+    this.dataSource.filter = this.filtroEstado.trim().toLowerCase();
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      return data.bl_estadoRegistro.toLowerCase().includes(filter);
+    };
+  }
+  
 }
