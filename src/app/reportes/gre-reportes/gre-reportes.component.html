@@ -21,7 +21,7 @@
     </mat-form-field>
     <mat-form-field style="width: 10%; margin-right: 5px;" appearance="outline">
       <mat-label> Estado</mat-label>
-      <mat-select [required]="true" (selectionChange)="llenarFiltro()" [(ngModel)]="filtroEstado" placeholder="Filtrar por estado">
+      <mat-select [required]="true" (selectionChange)="Estado()" [(ngModel)]="filtroEstado" placeholder="Filtrar por estado">
           <mat-option value=" "> Todos </mat-option>
           <mat-option value="N"> Generado </mat-option>
           <mat-option value="A"> En proceso </mat-option>

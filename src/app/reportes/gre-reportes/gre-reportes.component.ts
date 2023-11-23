@@ -90,7 +90,7 @@ export class GreReportesComponent implements OnInit, AfterViewInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, this.fileName);
   }
-  llenarFiltro(){
+  Estado(){
     debugger
     this.dataSource.filter = this.filtroEstado.trim().toLowerCase();
     this.dataSource.filterPredicate = (data: any, filter: string) => {
