@@ -48,8 +48,7 @@ export class LoginComponentComponent implements OnInit{
     this.validarUsuario(res);
     }, err => {
       Swal.fire({ icon: 'warning', text: 'hubo un error en la conexion al servidor' });
-    });
-
+    });    
   }
 
 /*   this.api.obtenerPermisoToken().subscribe((res: any) => {
@@ -59,7 +58,6 @@ export class LoginComponentComponent implements OnInit{
       if (this.recordarme) {
         localStorage.setItem('user', this.usuario.nombreusuario);
         localStorage.setItem('emp', this.usuario.empresa.toLowerCase());
-
       }else{
         localStorage.removeItem('user');
         localStorage.removeItem('emp');
@@ -72,7 +70,7 @@ export class LoginComponentComponent implements OnInit{
       this.menu.getMenu().subscribe((resp:T_MenuGre[])=>{
         console.log(resp)
         if(resp.length < 1){
-           return Swal.fire({
+          return Swal.fire({
           title: 'Mensaje',
           icon: 'warning',
           text: 'Las rutas no han sido configuradas'
@@ -80,6 +78,9 @@ export class LoginComponentComponent implements OnInit{
         }
         return this.router.navigateByUrl("plataforma/"+resp[0].ruta);
       })
+      localStorage.setItem('contrasena', this.usuario.contrasena);
+      localStorage.setItem('usuario', this.usuario.nombreusuario);
+      localStorage.setItem('empresa', this.usuario.empresa);
     } else {
       return Swal.fire({
         title: 'Mensaje',

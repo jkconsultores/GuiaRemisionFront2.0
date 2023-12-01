@@ -9,6 +9,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { DocValidationsService } from 'src/services/docValidations.service';
 import * as XLSX from 'xlsx';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-doc-validation',
@@ -33,21 +34,24 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['numeroDocumentoRemision', 'serieNumero', 'tipoDocumento', 'fechaEmision', 'montoTotal', 'procesado',
   'nombreUsuario', 'fechaDeConsulta', 'estadoCp', 'estadoRuc', 'condDomiRuc', 'estadoDoc'];
   dataSource = new MatTableDataSource<any>([]);
+  isLoading: boolean = false;
 
   constructor(
     private docValidationsService:DocValidationsService)
     {
     }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
+
   }    
   
 
   getDocValidations(){
+    this.isLoading = true;
     let body2= {
-      "nombreusuario": "Rodrigo",
-      "contrasena": "1234",
-      "empresa": "PRUEBA1"
+      "nombreusuario": localStorage.getItem('usuario'),
+      "contrasena":  localStorage.getItem('contrasena'),
+      "empresa": localStorage.getItem('empresa'),
     };
 
     this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
@@ -61,7 +65,7 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
       localStorage.setItem('tokenValidacion', resp.token);
       
       this.docValidationsService.getDocValidations(resp, body).subscribe((resp2:any)=>{
-        console.log('resp2',resp2);   
+        console.log('resp2',resp2);
         this.DocValidations=resp2;
         this.options=resp2;
         this.dataSource = new MatTableDataSource<any>(resp2);
@@ -69,15 +73,16 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
           startWith(''),
           map(value => this._filter(value || '')),
         );
+        this.isLoading = false;
       })
     })
   }
 
   AllValidations(){
     let body2= {
-      "nombreusuario": "Rodrigo",
-      "contrasena": "1234",
-      "empresa": "PRUEBA1"
+      "nombreusuario": localStorage.getItem('usuario'),
+      "contrasena":  localStorage.getItem('contrasena'),
+      "empresa": localStorage.getItem('empresa'),
     };
     
     this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
