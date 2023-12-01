@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatSort, MatSortModule} from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -10,11 +10,19 @@ import { FormControl } from '@angular/forms';
 import { DocValidationsService } from 'src/services/docValidations.service';
 import * as XLSX from 'xlsx';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ExcludeTokenInterceptor } from 'src/services/interceptor/api-interceptor-validations.service';
 
 @Component({
   selector: 'app-doc-validation',
   templateUrl: './doc-validation.component.html',
-  styleUrls: ['./doc-validation.component.css']
+  styleUrls: ['./doc-validation.component.css'],
+  providers: [
+    {provide:LOCALE_ID,useValue:'es'},{
+    provide: HTTP_INTERCEPTORS,
+    useClass: ExcludeTokenInterceptor,
+    multi: true
+  }]
   //standalone: false,
   //imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
 })
@@ -51,13 +59,13 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
 
     this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
       let body  = {
-        desde: this.formatDate(this.desde.value),       
-        hasta: this.formatDate(this.hasta.value), 
+        desde: this.formatDate(this.desde.value),
+        hasta: this.formatDate(this.hasta.value),
       }
 
       console.log('resp ', resp)
       console.log('resp ', resp.token)
-      localStorage.setItem('tokenValidacion', resp.token);      
+      localStorage.setItem('tokenValidacion', resp.token);
       this.docValidationsService.getDocValidations(resp, body).subscribe((resp2:any)=>{
         console.log('resp2',resp2);
         this.DocValidations=resp2;
@@ -78,9 +86,9 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
       "contrasena":  localStorage.getItem('contrasena'),
       "empresa": localStorage.getItem('empresa'),
     };
-    
+
     this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
-    let body = { }    
+    let body = { }
     this.docValidationsService.getAllValidations(resp,body)
     })
   }

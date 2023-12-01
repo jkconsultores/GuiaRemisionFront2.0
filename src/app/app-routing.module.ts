@@ -22,6 +22,7 @@ const routes: Routes = [
     canActivate: [SessionGuardGuard],
     component:PlataformaComponent,
     children:[
+      {path:'',component:GreComponent},
       {path:'main',component:GreComponent},
       {path:'usuarios',component:UsuariosComponent},
       {path:'empresas',component:EmpresaComponentComponent},

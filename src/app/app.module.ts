@@ -95,16 +95,11 @@ registerLocaleData(myLocaleEs)
     FormsModule,
     SweetAlert2Module.forRoot(),
     MaterialModule,
-    BrowserAnimationsModule    
+    BrowserAnimationsModule
   ],
   providers: [
     {provide:LOCALE_ID,useValue:'es'},
-    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorServiceService, multi: true },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ExcludeTokenInterceptor,
-      multi: true
-    }
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorServiceService, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
