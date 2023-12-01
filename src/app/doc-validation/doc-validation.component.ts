@@ -20,10 +20,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 
 export class DocValidationComponent implements OnInit, AfterViewInit {
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  //
   submitClicked = new EventEmitter<docValidations>();
   myControl = new FormControl();
   DocValidations:docValidations[]=[];
@@ -38,13 +36,10 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
 
   constructor(
     private docValidationsService:DocValidationsService)
-    {
-    }
+    { }
 
   ngOnInit(): void {
-
-  }    
-  
+  }
 
   getDocValidations(){
     this.isLoading = true;
@@ -62,8 +57,7 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
 
       console.log('resp ', resp)
       console.log('resp ', resp.token)
-      localStorage.setItem('tokenValidacion', resp.token);
-      
+      localStorage.setItem('tokenValidacion', resp.token);      
       this.docValidationsService.getDocValidations(resp, body).subscribe((resp2:any)=>{
         console.log('resp2',resp2);
         this.DocValidations=resp2;
@@ -91,7 +85,6 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
     })
   }
 
-
   formatDate(dateString: any) {
     const options: Intl.DateTimeFormatOptions = { month: '2-digit', day: '2-digit', year: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
@@ -112,7 +105,6 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
