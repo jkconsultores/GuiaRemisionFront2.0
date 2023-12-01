@@ -45,6 +45,8 @@ import { PlacaComponent } from './componentes/placa/placa.component';
 import { VehiculosModalComponent } from './modals/vehiculos-modal/vehiculos-modal.component';
 import { EditVehiculoComponentComponent } from './modals/vehiculos-modal/edit-vehiculo-component/edit-vehiculo-component.component';
 import { ObservacionGuiaComponent } from './componentes/observacion-guia/observacion-guia.component';
+import { DocValidationComponent } from './doc-validation/doc-validation.component';
+import { ExcludeTokenInterceptor } from 'src/services/interceptor/api-interceptor-validations.service';
 
 registerLocaleData(myLocaleEs)
 
@@ -82,7 +84,8 @@ registerLocaleData(myLocaleEs)
     PlacaComponent,
     VehiculosModalComponent,
     EditVehiculoComponentComponent,
-    ObservacionGuiaComponent
+    ObservacionGuiaComponent,
+    DocValidationComponent
    ],
   imports: [
     BrowserModule,
@@ -92,9 +95,17 @@ registerLocaleData(myLocaleEs)
     FormsModule,
     SweetAlert2Module.forRoot(),
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule    
   ],
-  providers: [{provide:LOCALE_ID,useValue:'es'},{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorServiceService, multi: true }],
+  providers: [
+    {provide:LOCALE_ID,useValue:'es'},
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorServiceService, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ExcludeTokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

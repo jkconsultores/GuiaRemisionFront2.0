@@ -1,0 +1,23 @@
+<!-- <h2 mat-dialog-title id="titulo">Documentos referenciados</h2>
+
+<form novalidate [formGroup]="docuForm" (ngSubmit)="action()" >    
+    <mat-dialog-content class="mat-typography ">
+
+        <div class="example w-100 "> 
+            <mat-form-field class="w-50 " appearance="outline">
+                <mat-label>Número de documento</mat-label>
+                <input type="text" matInput formControlName="numerodocumento" [readonly]="data.numerodocumento != undefined && data.numerodocumento.length > 0 "[required]="true" placeholder="Ingrese el número de documento"/>
+                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('required') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento es obligatorio</mat-error>
+                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('maxlength') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
+                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('minlength') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
+                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('pattern') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
+          <!--   </mat-form-field>
+            
+            <mat-form-field class="w-50" appearance="outline">
+                <mat-label>Tipo de documento</mat-label>
+                <mat-select formControlName="tipodocumento" [required]="true" placeholder="Seleccione el tipo de documento">
+                    <mat-option value="1">DNI</mat-option>
+                    <mat-option value="6">RUC</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div> -->

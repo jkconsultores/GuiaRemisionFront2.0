@@ -11,22 +11,28 @@ import { OrigenComponentComponent } from './componentes/origen-component/origen-
 import { DestinatarioGuiaComponent } from './componentes/destinatario-guia/destinatario-guia.component';
 import { ChoferGuiaComponent } from './componentes/chofer-guia/chofer-guia.component';
 import { GreReportesComponent } from './reportes/gre-reportes/gre-reportes.component';
+import { DocValidationComponent } from './doc-validation/doc-validation.component';
 
 
 const routes: Routes = [
   {path:'',component:LoginComponentComponent},
   {path:'login',component:LoginComponentComponent},
   {path:'*',component:LoginComponentComponent},
-  {path:'plataforma',canActivate: [SessionGuardGuard],component:PlataformaComponent,children:[
-    {path:'main',component:GreComponent},
-    {path:'usuarios',component:UsuariosComponent},
-    {path:'empresas',component:EmpresaComponentComponent},
-    {path:'origenes',component:OrigenComponentComponent},
-    {path:'destinos',component:DestinoComponentComponent},
-    {path:'destinatario',component:DestinatarioGuiaComponent},
-    {path: 'chofer', component:ChoferGuiaComponent },
-    {path: 'reporte', component:GreReportesComponent}
-  ]}
+  {path:'plataforma',
+    canActivate: [SessionGuardGuard],
+    component:PlataformaComponent,
+    children:[
+      {path:'main',component:GreComponent},
+      {path:'usuarios',component:UsuariosComponent},
+      {path:'empresas',component:EmpresaComponentComponent},
+      {path:'origenes',component:OrigenComponentComponent},
+      {path:'destinos',component:DestinoComponentComponent},
+      {path:'destinatario',component:DestinatarioGuiaComponent},
+      {path:'chofer', component:ChoferGuiaComponent },
+      {path:'reporte', component:GreReportesComponent},
+      {path:'docvalidado', component:DocValidationComponent}
+    ]
+  }
 ];
 
 @NgModule({
