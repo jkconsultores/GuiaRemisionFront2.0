@@ -81,6 +81,8 @@
                 <mat-label>Ubigeo </mat-label>
                 <input type="text" matInput formControlName="ubigeoemisor" [required]="true" placeholder="Ingrese el ubigeo emisor"/>
                 <mat-error *ngIf="empresaForm.get('ubigeoemisor')!.hasError('required') && empresaForm.get('ubigeoemisor')!.touched"> El ubigeo es obligatorio</mat-error>
+                <mat-error *ngIf="empresaForm.get('ubigeoemisor')!.hasError('maxlength') && empresaForm.get('ubigeoemisor')!.touched"> El número de documento no puede ser mayor a 6 digitos</mat-error>
+                <mat-error *ngIf="empresaForm.get('ubigeoemisor')!.hasError('minlength') && empresaForm.get('ubigeoemisor')!.touched"> El nuúmero de documento no puede ser menor a 6 digitos</mat-error>                
             </mat-form-field>                        
         </div>
 

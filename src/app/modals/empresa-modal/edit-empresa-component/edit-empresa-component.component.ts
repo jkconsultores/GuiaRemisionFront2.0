@@ -30,7 +30,7 @@ export class EditEmpresaComponentComponent {
     departamentoemisor: new FormControl("", [Validators.required]),
     provinciaemisor: new FormControl("", [Validators.required]),
     direccionemisor : new FormControl("", [Validators.required]),
-    ubigeoemisor : new FormControl("", [Validators.required]),
+    ubigeoemisor : new FormControl("", [Validators.minLength(6),Validators.maxLength(6),Validators.required]),
     razoncomercialemisor: new FormControl("", [Validators.required]),
     tipodocumentoemisor: new FormControl("", [Validators.required]),
     distritoemisor: new FormControl("", [Validators.required]),
