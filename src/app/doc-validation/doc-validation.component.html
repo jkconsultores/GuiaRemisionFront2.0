@@ -31,51 +31,51 @@
     <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource"  id="tablaDoc">
         
-        <ng-container matColumnDef="numeroDocumentoRemision">
+        <ng-container matColumnDef="numeroDocumentoRemision" id="">
             <th mat-header-cell *matHeaderCellDef > N° Documento </th>
-            <td mat-cell *matCellDef="let row"> {{row.numeroDocumentoRemision}} </td>
+            <td mat-cell *matCellDef="let row" > {{row.numeroDocumentoRemision}} </td>
         </ng-container>
-        <ng-container matColumnDef="serieNumero">
-            <th mat-header-cell *matHeaderCellDef > Serie </th>
-            <td mat-cell *matCellDef="let row"> {{row.serieNumero}} </td>
+        <ng-container matColumnDef="serieNumero" id="colNro">
+            <th mat-header-cell *matHeaderCellDef  > Serie </th>
+            <td mat-cell *matCellDef="let row" > {{row.serieNumero}} </td>
         </ng-container>
-        <ng-container matColumnDef="tipoDocumento">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Doc </th>
-            <td mat-cell *matCellDef="let row"> {{row.tipoDocumento}} </td>
+        <ng-container matColumnDef="tipoDocumento"  >
+            <th mat-header-cell *matHeaderCellDef   > Tipo Doc </th>
+            <td mat-cell *matCellDef="let row"  > {{row.tipoDocumento}} </td>
         </ng-container>
-        <ng-container matColumnDef="fechaEmision">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Emision </th>
-            <td mat-cell *matCellDef="let row"> {{row.fechaEmision | date:'dd-MM-yyyy'}} </td>
+        <ng-container matColumnDef="fechaEmision"  >
+            <th mat-header-cell *matHeaderCellDef   > Fecha Emision </th>
+            <td mat-cell *matCellDef="let row"> {{ row.fechaEmision | date:'dd-MM-yyyy'}} </td>
         </ng-container>
-        <ng-container matColumnDef="montoTotal">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto Total </th>
-            <td mat-cell *matCellDef="let row"> {{row.montoTotal}} </td>
+        <ng-container matColumnDef="montoTotal"  >
+            <th mat-header-cell *matHeaderCellDef  > Monto Total </th>
+            <td mat-cell *matCellDef="let row"> {{ row.montoTotal}} </td>
         </ng-container>
-        <ng-container matColumnDef="procesado">
+        <ng-container matColumnDef="procesado"  >
             <th mat-header-cell *matHeaderCellDef> Procesado </th>
-            <td mat-cell *matCellDef="let row"> {{row.procesado}} </td>
+            <td mat-cell *matCellDef="let row"> {{ row.procesado==true?"Procesado":"No procesado"}} </td>
         </ng-container>
-        <ng-container matColumnDef="nombreUsuario">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
-            <td mat-cell *matCellDef="let row"> {{row.nombreUsuario}} </td>
+        <ng-container matColumnDef="nombreUsuario"  >
+            <th mat-header-cell *matHeaderCellDef> Usuario </th>
+            <td mat-cell *matCellDef="let row" > {{ row.nombreUsuario}} </td>
         </ng-container>
-        <ng-container matColumnDef="fechaDeConsulta">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Consulta </th>
-            <td mat-cell *matCellDef="let row"> {{row.fechaDeConsulta | date:'dd-MM-yyyy'}} </td>
+        <ng-container matColumnDef="fechaDeConsulta"  >
+            <th mat-header-cell *matHeaderCellDef   > Fecha Consulta </th>
+            <td mat-cell *matCellDef="let row"> {{ row.fechaDeConsulta | date:'dd-MM-yyyy'}} </td>
         </ng-container>
-        <ng-container matColumnDef="estadoCp">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado Cp </th>
-            <td mat-cell *matCellDef="let row"> {{ obtenerEstadoCp(row.estadoCp) }} </td>
+        <ng-container matColumnDef="estadoCp"  >
+            <th mat-header-cell *matHeaderCellDef  > Estado Cp </th>
+            <td mat-cell *matCellDef="let row" > {{ row.estadoCp.split(":")[1] }} </td>
         </ng-container>
-        <ng-container matColumnDef="estadoRuc">
+        <ng-container matColumnDef="estadoRuc" >
             <th mat-header-cell *matHeaderCellDef > Estado Ruc </th>
-            <td mat-cell *matCellDef="let row"> {{ obtenerEstadoRuc(row.estadoRuc) }} </td>
+            <td mat-cell *matCellDef="let row"> {{ row.estadoRuc && row.estadoRuc.split(":").length > 1 ? row.estadoRuc.split(":")[1] : '' }} </td>
         </ng-container>
-        <ng-container matColumnDef="condDomiRuc">
+        <ng-container matColumnDef="condDomiRuc"  >
             <th mat-header-cell *matHeaderCellDef > Cond Ruc </th>
-            <td mat-cell *matCellDef="let row"> {{ obtenercondDomiRuc(row.condDomiRuc) }}  </td>
+            <td mat-cell *matCellDef="let row"> {{ row.condDomiRuc && row.condDomiRuc.split(":").length > 1 ? row.condDomiRuc.split(":")[1] : '' }} <td>
         </ng-container>
-        <ng-container matColumnDef="estadoDoc">
+        <ng-container matColumnDef="estadoDoc"  >
             <th mat-header-cell *matHeaderCellDef > Estado Doc </th>
             <td mat-cell *matCellDef="let row"> {{row.estadoDoc}} </td>
         </ng-container>
@@ -87,6 +87,6 @@
             <td class="mat-cell" colspan="4"> No se encontró datos "{{input.value}}"</td>
         </tr>
     </table>
-    <!-- <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> 
     </div>
 </div>
