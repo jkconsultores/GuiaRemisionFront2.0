@@ -12,6 +12,7 @@ import { DestinatarioGuiaComponent } from './componentes/destinatario-guia/desti
 import { ChoferGuiaComponent } from './componentes/chofer-guia/chofer-guia.component';
 import { GreReportesComponent } from './reportes/gre-reportes/gre-reportes.component';
 import { DocValidationComponent } from './doc-validation/doc-validation.component';
+import { ConsultaSunatComponent } from './consulta-sunat/consulta-sunat.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
       {path:'destinatario',component:DestinatarioGuiaComponent},
       {path:'chofer', component:ChoferGuiaComponent },
       {path:'reporte', component:GreReportesComponent},
-      {path:'docvalidado', component:DocValidationComponent}
+      {path:'docvalidado', component:DocValidationComponent},
+      {path:'consultaSunat', component:ConsultaSunatComponent}
     ]
   }
 ];

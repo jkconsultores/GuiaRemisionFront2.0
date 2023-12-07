@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponentComponent } from './Session/login-component/login-component.component';
 import { RegisterComponentComponent } from './Session/register-component/register-component.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { ApiInterceptorServiceService } from 'src/services/interceptor/api-interceptor-service.service';
+import { InterceptorServiceService } from 'src/services/interceptor/api-interceptor-service.service';
 import { GreComponent } from './dashboard/gre/gre.component';
 import { PlataformaComponent } from './plataforma/plataforma.component';
 import { MaterialModule } from 'src/material/material.module';
@@ -46,7 +46,7 @@ import { VehiculosModalComponent } from './modals/vehiculos-modal/vehiculos-moda
 import { EditVehiculoComponentComponent } from './modals/vehiculos-modal/edit-vehiculo-component/edit-vehiculo-component.component';
 import { ObservacionGuiaComponent } from './componentes/observacion-guia/observacion-guia.component';
 import { DocValidationComponent } from './doc-validation/doc-validation.component';
-import { ExcludeTokenInterceptor } from 'src/services/interceptor/api-interceptor-validations.service';
+import { ConsultaSunatComponent } from './consulta-sunat/consulta-sunat.component';
 
 registerLocaleData(myLocaleEs)
 
@@ -85,7 +85,7 @@ registerLocaleData(myLocaleEs)
     VehiculosModalComponent,
     EditVehiculoComponentComponent,
     ObservacionGuiaComponent,
-    DocValidationComponent
+   
    ],
   imports: [
     BrowserModule,
@@ -99,7 +99,7 @@ registerLocaleData(myLocaleEs)
   ],
   providers: [
     {provide:LOCALE_ID,useValue:'es'},
-    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptorServiceService, multi: true }
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorServiceService, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

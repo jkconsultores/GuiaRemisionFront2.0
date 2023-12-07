@@ -7,7 +7,7 @@ import { AuthServiceServiceService } from '../auth-service-service.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiInterceptorServiceService implements HttpInterceptor  {
+export class InterceptorServiceService implements HttpInterceptor  {
 
   private accessTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>("");
 

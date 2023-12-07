@@ -2,16 +2,22 @@ import { AfterViewInit, Component, EventEmitter, LOCALE_ID, OnInit, ViewChild } 
 import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatSort, MatSortModule} from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { MatInputModule} from '@angular/material/input';
-import { MatFormFieldModule} from '@angular/material/form-field';
 import { docValidations } from 'src/models/docValidations';
 import { Observable, map, startWith } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DocValidationsService } from 'src/services/docValidations.service';
 import * as XLSX from 'xlsx';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from 'src/material/material.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ExcludeTokenInterceptor } from 'src/services/interceptor/api-interceptor-validations.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { InterceptorServiceService } from 'src/services/interceptor/api-interceptor-service.service';
+
 
 @Component({
   selector: 'app-doc-validation',
@@ -20,11 +26,12 @@ import { ExcludeTokenInterceptor } from 'src/services/interceptor/api-intercepto
   providers: [
     {provide:LOCALE_ID,useValue:'es'},{
     provide: HTTP_INTERCEPTORS,
-    useClass: ExcludeTokenInterceptor,
+    useClass: InterceptorServiceService,
     multi: true
-  }]
-  //standalone: false,
-  //imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule],
+  }],
+  standalone: true,
+  imports: [ HttpClientModule, ReactiveFormsModule, FormsModule, CommonModule, MatFormFieldModule,
+    MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatProgressBarModule, MatDatepickerModule],
 })
 
 export class DocValidationComponent implements OnInit, AfterViewInit {
@@ -43,8 +50,7 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   isLoading: boolean = false;
 
   constructor(
-    private docValidationsService:DocValidationsService)
-    { }
+    private docValidationsService:DocValidationsService){}
 
   ngOnInit(): void {
   }
@@ -62,7 +68,6 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
         desde: this.formatDate(this.desde.value),
         hasta: this.formatDate(this.hasta.value),
       }
-
       console.log('resp ', resp)
       console.log('resp ', resp.token)
       localStorage.setItem('tokenValidacion', resp.token);
