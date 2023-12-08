@@ -8,15 +8,13 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DocValidationsService } from 'src/services/docValidations.service';
 import * as XLSX from 'xlsx';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MaterialModule } from 'src/material/material.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { InterceptorServiceService } from 'src/services/interceptor/api-interceptor-service.service';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
@@ -30,12 +28,12 @@ import { InterceptorServiceService } from 'src/services/interceptor/api-intercep
     multi: true
   }],
   standalone: true,
-  imports: [ HttpClientModule, ReactiveFormsModule, FormsModule, CommonModule, MatFormFieldModule,
+  imports: [ HttpClientModule, ReactiveFormsModule, FormsModule, CommonModule, MatFormFieldModule, MatButtonModule, 
     MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatProgressBarModule, MatDatepickerModule],
 })
 
 export class DocValidationComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   submitClicked = new EventEmitter<docValidations>();
   myControl = new FormControl();
@@ -123,59 +121,6 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  obtenerEstadoCp(codigo: string): string {
-    switch (codigo) {
-      case '0':
-        return 'NO EXISTE';
-      case '1':
-        return 'ACEPTADO';
-      case '2':
-        return 'ANULADO';
-      case '3':
-        return 'AUTORIZADO';
-      case '4':
-        return 'NO AUTORIZADO';
-      default:
-        return codigo;
-    }
-  }  
-  obtenerEstadoRuc(codigo: string): string {
-    switch (codigo) {
-      case '00':
-        return 'ACTIVO';
-      case '01':
-        return 'BAJA PROVISIONAL';
-      case '02':
-        return 'BAJA PROV. POR OFICIO';
-      case '03':
-        return 'SUSPENSION TEMPORAL';
-      case '10':
-        return 'BAJA DEFINITIVA';
-      case '11':
-        return 'BAJA DE OFICIO';
-      case '22':
-        return 'INHABILITADO-VENT.UNICA';
-      default:
-        return codigo;
-    }
-  }
-  obtenercondDomiRuc(codigo: string): string {
-    switch (codigo) {
-      case '00':
-        return 'HABIDO';
-      case '09':
-        return 'PENDIENTE';
-      case '11':
-        return 'POR VERIFICAR';
-      case '12':
-        return 'NO HABIDO';
-      case '20':
-        return 'NO HALLADO';
-      default:
-        return codigo;
-    }
-  }
-
   fileName = 'reporteDocValidado.xlsx';
   descargaExcel() {
     let data = document.getElementById('tablaDoc');
@@ -186,4 +131,3 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   }
 
 }
-

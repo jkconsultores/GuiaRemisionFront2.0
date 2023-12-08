@@ -2,7 +2,7 @@ export interface consultaSunat {
     Ruc?: string;
     RazonSocial?: string;
     Periodo?: string;
-    CAR_SUNAT?: string;
+    caR_SUNAT?: string;
     FechaEmision?: string;
     FechaVctoPago?: string;
     TipoCPDoc?: string;

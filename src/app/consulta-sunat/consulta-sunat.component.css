@@ -1,0 +1,10 @@
+.botonBuscar{
+    height: 55px !important;
+    width: 140px;
+    background-color: rgb(72, 188, 255) !important;
+    color: white !important;  
+    font-size: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 2px;
+}

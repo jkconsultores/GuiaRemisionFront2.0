@@ -68,6 +68,7 @@ export class LoginComponentComponent implements OnInit{
       // localStorage.setItem('token',res.token);
       localStorage.setItem('emp',this.usuario.empresa.toLowerCase());
       this.menu.getMenu().subscribe((resp:T_MenuGre[])=>{
+        debugger;
         console.log(resp)
         if(resp.length < 1){
           return Swal.fire({

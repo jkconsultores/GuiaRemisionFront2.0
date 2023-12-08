@@ -10,7 +10,6 @@ export class ConsultaSunatService {
   constructor(public http:HttpClient) { }
 
   public obtenerLogin(body:any ){
-    debugger;
     return this.http.post<any[]>(this.url+'Session/Login/platafroma', body);
   }
 
