@@ -129,5 +129,15 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, this.fileName);
   }
+  yourHandler(page: any, pagesize: any) {
+    let cantidadDeRegistros = (page + 1) * pagesize;
+    console.log("pagina: " + page + " Tamaño de pagina: " + pagesize)
+    console.log("Cantidad de registros cosnumidos" + cantidadDeRegistros);
 
+    if (cantidadDeRegistros == this.dataSource.length - 5 || cantidadDeRegistros > this.dataSource.length - 5) {
+      this.ObtenerProductosSegundallamada(cantidadDeRegistros + 5, 50, this.dataSource.filter)
+
+    }
+
+  }
 }

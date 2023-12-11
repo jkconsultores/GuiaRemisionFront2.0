@@ -85,7 +85,7 @@ registerLocaleData(myLocaleEs)
     VehiculosModalComponent,
     EditVehiculoComponentComponent,
     ObservacionGuiaComponent,
-   
+
    ],
   imports: [
     BrowserModule,

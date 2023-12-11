@@ -33,7 +33,7 @@ const routes: Routes = [
       {path:'chofer', component:ChoferGuiaComponent },
       {path:'reporte', component:GreReportesComponent},
       {path:'docvalidado', component:DocValidationComponent},
-      {path:'consultaSunat', component:ConsultaSunatComponent}
+      {path:'ConsultasS', component:ConsultaSunatComponent}
     ]
   }
 ];
