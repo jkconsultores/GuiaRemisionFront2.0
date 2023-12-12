@@ -170,7 +170,7 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
       "numeroSerie":numeroSerie,
       "numero":numero,
       "fechaEmision": fechaEmision,
-      "monto": row.montoTotal
+      "monto": row.montoTotal.toFixed(2).toString()
     }
     this.docValidationsService.procesar(body).subscribe((resp:any)=>{    
       console.log('documento', resp);
