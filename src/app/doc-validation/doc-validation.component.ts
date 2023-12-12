@@ -15,6 +15,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { InterceptorServiceService } from 'src/services/interceptor/api-interceptor-service.service';
 import { MatButtonModule } from '@angular/material/button';
+import { D } from '@angular/cdk/keycodes';
+import moment from 'moment';
 
 
 @Component({
@@ -28,7 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
     multi: true
   }],
   standalone: true,
-  imports: [ HttpClientModule, ReactiveFormsModule, FormsModule, CommonModule, MatFormFieldModule, MatButtonModule, 
+  imports: [ HttpClientModule, ReactiveFormsModule, FormsModule, CommonModule, MatFormFieldModule, MatButtonModule,
     MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatProgressBarModule, MatDatepickerModule],
 })
 
@@ -42,38 +44,48 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   filteredOptions!: Observable<docValidations[]>;
   hasta = new FormControl(new Date());
   desde = new FormControl(new Date());
+  TotalRegistros: number = 0;
   displayedColumns: string[] = ['numeroDocumentoRemision', 'serieNumero', 'tipoDocumento', 'fechaEmision', 'montoTotal', 'procesado',
-  'nombreUsuario', 'fechaDeConsulta', 'estadoCp', 'estadoRuc', 'condDomiRuc', 'estadoDoc'];
+  'nombreUsuario', 'fechaDeConsulta', 'estadoCp', 'estadoRuc', 'condDomiRuc', 'estadoDoc', 'Opt'];
   dataSource = new MatTableDataSource<any>([]);
   isLoading: boolean = false;
-
-  constructor(
-    private docValidationsService:DocValidationsService){}
+  constructor(private docValidationsService:DocValidationsService){}
 
   ngOnInit(): void {
   }
 
   getDocValidations(){
-    this.isLoading = true;
+    this.getValidacionesPagina(10);
+  }
+
+  getValidacionesPagina(pagesize:any){
+    this.isLoading = true;  
     let body2= {
       "nombreusuario": localStorage.getItem('usuario'),
       "contrasena":  localStorage.getItem('contrasena'),
       "empresa": localStorage.getItem('empresa'),
     };
-
+    // this.dataSource.data=[];
     this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
       let body  = {
         desde: this.formatDate(this.desde.value),
         hasta: this.formatDate(this.hasta.value),
+        "inicio": 0,
+        "cantidad": pagesize
       }
       console.log('resp ', resp)
       console.log('resp ', resp.token)
       localStorage.setItem('tokenValidacion', resp.token);
       this.docValidationsService.getDocValidations(resp, body).subscribe((resp2:any)=>{
         console.log('resp2',resp2);
+        if(this.TotalRegistros==0){
+        this.TotalRegistros =resp2.length+1;
+        }else{
+          this.TotalRegistros+=resp2.length+1;
+        }
         this.DocValidations=resp2;
         this.options=resp2;
-        this.dataSource = new MatTableDataSource<any>(resp2);
+        this.dataSource.data=resp2;
         this.filteredOptions = this.myControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filter(value || '')),
@@ -89,7 +101,6 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
       "contrasena":  localStorage.getItem('contrasena'),
       "empresa": localStorage.getItem('empresa'),
     };
-
     this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
     let body = { }
     this.docValidationsService.getAllValidations(resp,body)
@@ -109,6 +120,9 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.paginator._intl.itemsPerPageLabel = "Items por pagina";
+    this.paginator._intl.previousPageLabel = "Pagina anterior";
+    this.paginator._intl.nextPageLabel = "Pagina siguiente";
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -116,9 +130,9 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    // if (this.dataSource.paginator) {
+    //   this.dataSource.paginator.firstPage();
+    // }
   }
 
   fileName = 'reporteDocValidado.xlsx';
@@ -129,15 +143,38 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, this.fileName);
   }
-  yourHandler(page: any, pagesize: any) {
+
+  yourHandler(page: any, pagesize: any) {   
     let cantidadDeRegistros = (page + 1) * pagesize;
     console.log("pagina: " + page + " Tamaño de pagina: " + pagesize)
-    console.log("Cantidad de registros cosnumidos" + cantidadDeRegistros);
+    console.log("Cantidad de registros cosumidos" + cantidadDeRegistros);
+    this.getValidacionesPagina(cantidadDeRegistros);
+    // if (cantidadDeRegistros == this.dataSource.length - 5 || cantidadDeRegistros > this.dataSource.length - 5) {
+    //   this.ObtenerProductosSegundallamada(cantidadDeRegistros + 5, 50, this.dataSource.filter)
 
-    if (cantidadDeRegistros == this.dataSource.length - 5 || cantidadDeRegistros > this.dataSource.length - 5) {
-      this.ObtenerProductosSegundallamada(cantidadDeRegistros + 5, 50, this.dataSource.filter)
-
+    // }
+    if(this.TotalRegistros >  cantidadDeRegistros+(cantidadDeRegistros+1)){
+      this.TotalRegistros-=cantidadDeRegistros+1;
     }
-
   }
+
+  procesarDoc(row: any){
+    const [numeroSerie, numero] = row.serieNumero.split('-');
+    const fechaEmision = moment(row.fechaEmision).format("DD/MM/YYYY");
+    if(row.montoTotal < 0){
+      row.montoTotal = row.montoTotal * -1;
+    }
+    let body={
+      "numRuc": row.numeroDocumentoRemision,
+      "codComp":row.tipoDocumento,
+      "numeroSerie":numeroSerie,
+      "numero":numero,
+      "fechaEmision": fechaEmision,
+      "monto": row.montoTotal
+    }
+    this.docValidationsService.procesar(body).subscribe((resp:any)=>{    
+      console.log('documento', resp);
+    })
+  }
+
 }

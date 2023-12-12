@@ -31,4 +31,8 @@ export class DocValidationsService {
         options = { headers: headers };
         return this.http.post(this.url+'Validation/all/documents', body);
     }
+
+    public procesar(body: any){
+        return this.http.post(this.url+'Validation/document', body);
+    }
 }
