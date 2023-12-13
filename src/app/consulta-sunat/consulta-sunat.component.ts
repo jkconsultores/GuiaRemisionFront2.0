@@ -32,6 +32,7 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
+
 @Component({
   selector: 'app-consulta-sunat',
   templateUrl: './consulta-sunat.component.html',
@@ -53,6 +54,7 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   mesSelectNumero: number; 
   mesFormat: string;
   añoSelect: number;
+  periodoMes: string;
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value ?? moment();
     ctrlValue.month(normalizedMonthAndYear.month());
@@ -61,6 +63,7 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
     this.mesSelectNumero = normalizedMonthAndYear.month();
     this.mesFormat = normalizedMonthAndYear.format('MM');
     this.añoSelect = normalizedMonthAndYear.year();
+    this.periodoMes = this.añoSelect+this.mesFormat;
     console.log('fecha', this.mesFormat,  'año', this.añoSelect );
     datepicker.close();
   }
@@ -74,13 +77,12 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   filteredOptions!: Observable<consultaSunat[]>;
   hasta = new FormControl(new Date());
   desde = new FormControl(new Date());
-  displayedColumns: string[] = ['ruc', 'razonSocial', 'periodo', 'caR_SUNAT', 'fechaEmision', 'fechaVctoPago',
-  'tipoCPDoc', 'serieCDP', 'nroCPDocInicial', 'nroFinal', 'tipoDocIdentidad', 'nroDocIdentidad'];
+  displayedColumns: string[] = ['ruc', 'periodo', 'tipoDocumento', 'numeroDocumentoSire', 'numeroDocumentoFe',
+  'baseImponibleSire', 'baseImponibleFe', 'igvSire', 'igvDFE', 'totalVentasSire', 'totalVentasFe'];
   dataSource = new MatTableDataSource<any>([]);
   isLoading: boolean = false;
 
-  constructor(
-    private ConsultaSunatService:ConsultaSunatService){}
+  constructor(private ConsultaSunatService:ConsultaSunatService){}
 
   ngOnInit(): void {
   }
@@ -92,10 +94,11 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   applyFilter(){
   }
 
-  getDocumentos(){
+  getDocumentosNo(){
     this.isLoading = true;
     let bodyConsul= {
       "nombreusuario": localStorage.getItem('usuario'),
+      "contrasena": "1234",
       "ruc": "20511465061"
     };
 
@@ -133,9 +136,17 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   descargaExcel(){
   }
 
-  AllValidations(){
+  getPeriodo(){
+    this.isLoading = true;
+    this.ConsultaSunatService.getPeriodoMes(this.periodoMes).subscribe((res:any[])=>{      
+      console.log('periodoMensual', res);
+      this.options=res;
+        this.dataSource = new MatTableDataSource<any>(res);
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filter(value || '')),
+        );
+        this.isLoading = false;
+      })    
   }
-
-
-
 }

@@ -151,7 +151,6 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
     this.getValidacionesPagina(cantidadDeRegistros);
     // if (cantidadDeRegistros == this.dataSource.length - 5 || cantidadDeRegistros > this.dataSource.length - 5) {
     //   this.ObtenerProductosSegundallamada(cantidadDeRegistros + 5, 50, this.dataSource.filter)
-
     // }
     if(this.TotalRegistros >  cantidadDeRegistros+(cantidadDeRegistros+1)){
       this.TotalRegistros-=cantidadDeRegistros+1;

@@ -22,4 +22,7 @@ export class ConsultaSunatService {
     return this.http.post<any>(this.url+'Consultas', body);
   }
 
+  public getPeriodoMes(periodotributario: any) {
+    return this.http.get<any>(this.url+'Sire/Periodo/'+ periodotributario);
+  }
 }
