@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { D } from '@angular/cdk/keycodes';
 import moment from 'moment';
 import { AuthServiceServiceService } from 'src/services/auth-service-service.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -64,23 +65,18 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
       this.auth.UserSaved(resp.usuario);
     });
   }
-
   getDocValidations(){
     this.getValidacionesPagina(10);
   }
 
   getValidacionesPagina(pagesize:any){
-    this.isLoading = true;  
-    
-    // this.dataSource.data=[];
-    
+    this.isLoading = true;      
       let body  = {
         desde: this.formatDate(this.desde.value),
         hasta: this.formatDate(this.hasta.value),
         "inicio": 0,
         "cantidad": pagesize
       }
-
       this.docValidationsService.getDocValidations( body).subscribe((resp2:any)=>{
         console.log('resp2',resp2);
         if(this.TotalRegistros==0){
@@ -96,18 +92,17 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
           map(value => this._filter(value || '')),
         );
         this.isLoading = false;
-      })
-    
+      })    
   }
 
   AllValidations(){
-    let body2= {
+    let body= {
       "nombreusuario": localStorage.getItem('usuario'),
       "contrasena":  localStorage.getItem('contrasena'),
       "empresa": localStorage.getItem('empresa'),
     };
     // this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
-    let body = { }
+    //let body = { }
     this.docValidationsService.getAllValidations(body)
     // })
   }
@@ -178,6 +173,13 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
     }
     this.docValidationsService.procesar(body).subscribe((resp:any)=>{    
       console.log('documento', resp);
+      if (resp.success == true)        
+        {
+          Swal.fire('Documento procesado', '', 'success');
+          this.getDocValidations();
+        } else{
+          Swal.fire('Documento no procesado', '', 'error');
+        }  
     })
   }
 
