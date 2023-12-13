@@ -19,6 +19,7 @@ import {default as _rollupMoment, Moment} from 'moment';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import moment from 'moment';
+import { AuthServiceServiceService } from 'src/services/auth-service-service.service';
 
 
 export const MY_FORMATS = {
@@ -82,9 +83,21 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<any>([]);
   isLoading: boolean = false;
 
-  constructor(private ConsultaSunatService:ConsultaSunatService){}
+  constructor(private ConsultaSunatService:ConsultaSunatService,private auth:AuthServiceServiceService){}
 
   ngOnInit(): void {
+      let bodyConsul= {
+      "nombreusuario": localStorage.getItem('usuario'),
+      "contrasena": "1234",
+      "ruc": "20511465061"
+    };
+
+    this.ConsultaSunatService.obtenerLogin(bodyConsul).subscribe((resp:any)=>{  
+      console.log('resp ', resp.token)     
+      localStorage.clear();
+      this.auth.SessionSaved(resp.token);
+      this.auth.UserSaved(resp.usuario);
+    })
   }
 
   ngAfterViewInit() {
@@ -95,25 +108,15 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   }
 
   getDocumentosNo(){
+    let body  = {
+      "perido": this.añoSelect+this.mesFormat,       
+      "ruc": "20511465061",
+      "busqueda": null,
+      "skip": 0,
+      "cantidad": 20
+    }      
     this.isLoading = true;
-    let bodyConsul= {
-      "nombreusuario": localStorage.getItem('usuario'),
-      "contrasena": "1234",
-      "ruc": "20511465061"
-    };
-
-    this.ConsultaSunatService.obtenerLogin(bodyConsul).subscribe((resp:any)=>{
-      let body  = {
-        "perido": this.añoSelect+this.mesFormat,       
-        "ruc": "20511465061",
-        "busqueda": null,
-        "skip": 0,
-        "cantidad": 20
-      }      
-      console.log('body ', body)
-      console.log('resp ', resp.token)
-      localStorage.setItem('tokenConsulta', resp.token);
-      this.ConsultaSunatService.getDocumentosSunat(resp, body).subscribe((resp2:any)=>{
+      this.ConsultaSunatService.getDocumentosSunat(body).subscribe((resp2:any)=>{
         console.log('resp2',resp2);
         debugger;
         this.ConsultaSunat=resp2;
@@ -124,8 +127,7 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
           map(value => this._filter(value || '')),
         );
         this.isLoading = false;
-      })
-    })
+      })    
   }
 
   private _filter(value: string): consultaSunat[] {

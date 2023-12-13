@@ -17,6 +17,7 @@ import { InterceptorServiceService } from 'src/services/interceptor/api-intercep
 import { MatButtonModule } from '@angular/material/button';
 import { D } from '@angular/cdk/keycodes';
 import moment from 'moment';
+import { AuthServiceServiceService } from 'src/services/auth-service-service.service';
 
 
 @Component({
@@ -49,9 +50,19 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   'nombreUsuario', 'fechaDeConsulta', 'estadoCp', 'estadoRuc', 'condDomiRuc', 'estadoDoc', 'Opt'];
   dataSource = new MatTableDataSource<any>([]);
   isLoading: boolean = false;
-  constructor(private docValidationsService:DocValidationsService){}
+  constructor(private docValidationsService:DocValidationsService,private auth:AuthServiceServiceService){}
 
   ngOnInit(): void {
+    let body2= {
+      "nombreusuario": localStorage.getItem('usuario'),
+      "contrasena":  localStorage.getItem('contrasena'),
+      "empresa": localStorage.getItem('empresa'),
+    };
+    this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
+      localStorage.clear();
+      this.auth.SessionSaved(resp.token);
+      this.auth.UserSaved(resp.usuario);
+    });
   }
 
   getDocValidations(){
@@ -60,23 +71,17 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
 
   getValidacionesPagina(pagesize:any){
     this.isLoading = true;  
-    let body2= {
-      "nombreusuario": localStorage.getItem('usuario'),
-      "contrasena":  localStorage.getItem('contrasena'),
-      "empresa": localStorage.getItem('empresa'),
-    };
+    
     // this.dataSource.data=[];
-    this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
+    
       let body  = {
         desde: this.formatDate(this.desde.value),
         hasta: this.formatDate(this.hasta.value),
         "inicio": 0,
         "cantidad": pagesize
       }
-      console.log('resp ', resp)
-      console.log('resp ', resp.token)
-      localStorage.setItem('tokenValidacion', resp.token);
-      this.docValidationsService.getDocValidations(resp, body).subscribe((resp2:any)=>{
+
+      this.docValidationsService.getDocValidations( body).subscribe((resp2:any)=>{
         console.log('resp2',resp2);
         if(this.TotalRegistros==0){
         this.TotalRegistros =resp2.length+1;
@@ -92,7 +97,7 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
         );
         this.isLoading = false;
       })
-    })
+    
   }
 
   AllValidations(){
@@ -101,10 +106,10 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
       "contrasena":  localStorage.getItem('contrasena'),
       "empresa": localStorage.getItem('empresa'),
     };
-    this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
+    // this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
     let body = { }
-    this.docValidationsService.getAllValidations(resp,body)
-    })
+    this.docValidationsService.getAllValidations(body)
+    // })
   }
 
   formatDate(dateString: any) {

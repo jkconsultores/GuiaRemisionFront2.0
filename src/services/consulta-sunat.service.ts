@@ -13,12 +13,12 @@ export class ConsultaSunatService {
     return this.http.post<any[]>(this.url+'Session/Login/platafroma', body);
   }
 
-  public getDocumentosSunat(resp: any, body: any){
-    let headers = new Headers();
-    headers.append('Content-Type','application/json');
-    headers.append('Authorization', 'Bearer ' + resp.token);
-    let options : any;
-    options = { headers: headers };
+  public getDocumentosSunat(body: any){
+    // let headers = new Headers();
+    // headers.append('Content-Type','application/json');
+    // headers.append('Authorization', 'Bearer ' + resp.token);
+    // let options : any;
+    // options = { headers: headers };
     return this.http.post<any>(this.url+'Consultas', body);
   }
 

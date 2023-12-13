@@ -14,21 +14,21 @@ export class DocValidationsService {
         return this.http.post<any[]>(this.url+'Session/Login', body);
     }
     
-    public getDocValidations(resp: any, body: any){
-        let headers = new Headers();
-        headers.append('Content-Type','application/json');
-        headers.append('Authorization', 'Bearer ' + resp.token);
-        let options : any;
-        options = { headers: headers };
+    public getDocValidations( body: any){
+        // let headers = new Headers();
+        // headers.append('Content-Type','application/json');
+        // headers.append('Authorization', 'Bearer ' + resp.token);
+        // let options : any;
+        // options = { headers: headers };
         return this.http.post<any>(this.url+'Validation/desde', body);
     }
 
-    public getAllValidations(resp:any, body: any){
-        let headers = new Headers();
-        headers.append('Content-Type','application/json');
-        headers.append('Authorization', 'Bearer ' + resp.token);
-        let options : any;
-        options = { headers: headers };
+    public getAllValidations( body: any){
+        // let headers = new Headers();
+        // headers.append('Content-Type','application/json');
+        // headers.append('Authorization', 'Bearer ' + resp.token);
+        // let options : any;
+        // options = { headers: headers };
         return this.http.post(this.url+'Validation/all/documents', body);
     }
 
