@@ -47,11 +47,13 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   hasta = new FormControl(new Date());
   desde = new FormControl(new Date());
   TotalRegistros: number = 0;
+  cantidadRegistros: number = 0;
   displayedColumns: string[] = ['numeroDocumentoRemision', 'serieNumero', 'tipoDocumento', 'fechaEmision', 'montoTotal', 'procesado',
   'nombreUsuario', 'fechaDeConsulta', 'estadoCp', 'estadoRuc', 'condDomiRuc', 'estadoDoc', 'Opt'];
   dataSource = new MatTableDataSource<any>([]);
   isLoading: boolean = false;
-  constructor(private docValidationsService:DocValidationsService,private auth:AuthServiceServiceService){}
+  constructor(private docValidationsService:DocValidationsService,
+    private auth:AuthServiceServiceService){}
 
   ngOnInit(): void {
     let body2= {
@@ -96,15 +98,17 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   }
 
   AllValidations(){
+    Swal.fire({title: 'Cargando...', allowOutsideClick: false, didOpen: () => {Swal.showLoading();}});
     let body= {
-      "nombreusuario": localStorage.getItem('usuario'),
-      "contrasena":  localStorage.getItem('contrasena'),
-      "empresa": localStorage.getItem('empresa'),
     };
-    // this.docValidationsService.obtenerLogin(body2).subscribe((resp:any)=>{
-    //let body = { }
-    this.docValidationsService.getAllValidations(body)
-    // })
+    this.docValidationsService.getAllValidations(body).subscribe((resp:any)=>{    
+      console.log('alldoc', resp);
+      Swal.close();
+      if (resp)        
+        {
+          Swal.fire(resp.mensaje, '', 'success');
+        } 
+    })
   }
 
   formatDate(dateString: any) {
@@ -148,6 +152,7 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
     let cantidadDeRegistros = (page + 1) * pagesize;
     console.log("pagina: " + page + " Tamaño de pagina: " + pagesize)
     console.log("Cantidad de registros cosumidos" + cantidadDeRegistros);
+    this.cantidadRegistros = cantidadDeRegistros;
     this.getValidacionesPagina(cantidadDeRegistros);
     // if (cantidadDeRegistros == this.dataSource.length - 5 || cantidadDeRegistros > this.dataSource.length - 5) {
     //   this.ObtenerProductosSegundallamada(cantidadDeRegistros + 5, 50, this.dataSource.filter)
@@ -158,6 +163,9 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
   }
 
   procesarDoc(row: any){
+    debugger;
+    console.log(this.cantidadRegistros);
+    console.log(this.TotalRegistros);
     const [numeroSerie, numero] = row.serieNumero.split('-');
     const fechaEmision = moment(row.fechaEmision).format("DD/MM/YYYY");
     if(row.montoTotal < 0){
@@ -176,7 +184,8 @@ export class DocValidationComponent implements OnInit, AfterViewInit {
       if (resp.success == true)        
         {
           Swal.fire('Documento procesado', '', 'success');
-          this.getDocValidations();
+          //this.getDocValidations();
+          this.getValidacionesPagina(this.cantidadRegistros);
         } else{
           Swal.fire('Documento no procesado', '', 'error');
         }  

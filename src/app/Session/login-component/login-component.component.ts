@@ -43,6 +43,7 @@ export class LoginComponentComponent implements OnInit{
     this.usuario.empresa=this.usuario!.empresa!.toLowerCase().trim();
     this.usuario.nombreusuario=this.usuario!.nombreusuario!.toLowerCase().trim();
     this.usuario.contrasena=this.usuario!.contrasena!.toLowerCase().trim();
+    
     Swal.showLoading();
     this.session.login(this.usuario).subscribe((res:any) => {
     this.validarUsuario(res);
@@ -67,8 +68,7 @@ export class LoginComponentComponent implements OnInit{
       this.auth.UserSaved(res.usuario);
       // localStorage.setItem('token',res.token);
       localStorage.setItem('emp',this.usuario.empresa.toLowerCase());
-      this.menu.getMenu().subscribe((resp:T_MenuGre[])=>{
-        debugger;
+      this.menu.getMenu().subscribe((resp:T_MenuGre[])=>{        
         console.log(resp)
         if(resp.length < 1){
           return Swal.fire({

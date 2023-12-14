@@ -13,16 +13,16 @@ export class ConsultaSunatService {
     return this.http.post<any[]>(this.url+'Session/Login/platafroma', body);
   }
 
-  public getDocumentosSunat(body: any){
-    // let headers = new Headers();
-    // headers.append('Content-Type','application/json');
-    // headers.append('Authorization', 'Bearer ' + resp.token);
-    // let options : any;
-    // options = { headers: headers };
-    return this.http.post<any>(this.url+'Consultas', body);
+  public postReporteSunat(body: any){
+    return this.http.post<any>(this.url+'Consultas/ReporteSunat', body);
+  }
+
+  public getPeriodoTributario(periodotributario: any) {
+    return this.http.get<any>(this.url+'Consultas/Diferencias/'+ periodotributario);
   }
 
   public getPeriodoMes(periodotributario: any) {
     return this.http.get<any>(this.url+'Sire/Periodo/'+ periodotributario);
   }
+
 }

@@ -83,7 +83,8 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<any>([]);
   isLoading: boolean = false;
 
-  constructor(private ConsultaSunatService:ConsultaSunatService,private auth:AuthServiceServiceService){}
+  constructor(private ConsultaSunatService:ConsultaSunatService,
+    private auth:AuthServiceServiceService){}
 
   ngOnInit(): void {
       let bodyConsul= {
@@ -91,12 +92,12 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
       "contrasena": "1234",
       "ruc": "20511465061"
     };
-
     this.ConsultaSunatService.obtenerLogin(bodyConsul).subscribe((resp:any)=>{  
       console.log('resp ', resp.token)     
       localStorage.clear();
       this.auth.SessionSaved(resp.token);
       this.auth.UserSaved(resp.usuario);
+      console.log('resp ', resp)  
     })
   }
 
@@ -116,9 +117,8 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
       "cantidad": 20
     }      
     this.isLoading = true;
-      this.ConsultaSunatService.getDocumentosSunat(body).subscribe((resp2:any)=>{
+      this.ConsultaSunatService.getPeriodoMes(body).subscribe((resp2:any)=>{
         console.log('resp2',resp2);
-        debugger;
         this.ConsultaSunat=resp2;
         this.options=resp2;
         this.dataSource = new MatTableDataSource<any>(resp2.datos);
@@ -138,9 +138,16 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
   descargaExcel(){
   }
 
-  getPeriodo(){
+  reporteSunat(){
     this.isLoading = true;
-    this.ConsultaSunatService.getPeriodoMes(this.periodoMes).subscribe((res:any[])=>{      
+    let body  = {
+      "perido": this.añoSelect+this.mesFormat,       
+      "ruc": "20511465061",
+      "busqueda": null,
+      "skip": 0,
+      "cantidad": 20
+    }  
+    this.ConsultaSunatService.postReporteSunat(body).subscribe((res:any[])=>{      
       console.log('periodoMensual', res);
       this.options=res;
         this.dataSource = new MatTableDataSource<any>(res);
@@ -151,4 +158,5 @@ export class ConsultaSunatComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
       })    
   }
+
 }

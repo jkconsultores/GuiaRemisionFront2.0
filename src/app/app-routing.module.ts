@@ -23,8 +23,8 @@ const routes: Routes = [
     canActivate: [SessionGuardGuard],
     component:PlataformaComponent,
     children:[
-      {path:'',component:GreComponent},
-      {path:'main',component:GreComponent},
+      {path:'',component:DocValidationComponent},
+      {path:'main',component:DocValidationComponent},
       {path:'usuarios',component:UsuariosComponent},
       {path:'empresas',component:EmpresaComponentComponent},
       {path:'origenes',component:OrigenComponentComponent},
