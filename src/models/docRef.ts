@@ -1,4 +1,4 @@
-export interface docRef{
+export interface docReferenciado{
    codigoDocumentoDocRel?:string,
    tipoDocumentoDocRel?:string,
    numeroDocumentoDocRel?:string,

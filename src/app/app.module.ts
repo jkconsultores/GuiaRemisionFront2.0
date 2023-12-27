@@ -47,6 +47,10 @@ import { EditVehiculoComponentComponent } from './modals/vehiculos-modal/edit-ve
 import { ObservacionGuiaComponent } from './componentes/observacion-guia/observacion-guia.component';
 import { DocValidationComponent } from './doc-validation/doc-validation.component';
 import { ConsultaSunatComponent } from './consulta-sunat/consulta-sunat.component';
+import { DocumentosComponent } from './componentes/documentos/documentos.component';
+import { EditDocumentosComponent } from './modals/documentos-modal/edit-documentos/edit-documentos.component';
+import { DocumentosModalComponent } from './modals/documentos-modal/documentos-modal.component';
+
 
 registerLocaleData(myLocaleEs)
 
@@ -85,8 +89,9 @@ registerLocaleData(myLocaleEs)
     VehiculosModalComponent,
     EditVehiculoComponentComponent,
     ObservacionGuiaComponent,
-
-   ],
+    DocumentosComponent,
+    EditDocumentosComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

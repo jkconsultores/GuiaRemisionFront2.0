@@ -1,3 +1,4 @@
+import { DocumentosComponent } from "src/app/componentes/documentos/documentos.component";
 import { SPE_DESPATCH_ITEM } from "./SPE_DESPATCH_ITEM";
 
 export interface SPE_DESPATCH {
@@ -136,6 +137,7 @@ export interface SPE_DESPATCH {
     sPE_DESPATCH_DOCRELACIONADO?: SPE_DESPATCH_DOCRELACIONADO[] | null;
     camposOpcionales1?: LogEnvioGuiaUsuarioDTO | null;
     datosDeTrasporteTercerizado?: DatosDeTrasporteTercerizado | null;
+    documentosRef?: DocumentosComponent | null;
 }
 export interface SPE_DESPATCH_DOCRELACIONADO {
   numeroDocumentoRemision: string | null;

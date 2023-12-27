@@ -17,27 +17,26 @@ export class EmpresaModalComponent {
   @Input()
   titulo!:string;
   @Output()
-  submitClicked  = new EventEmitter<AAA_EMPRESA>();
+  submitClicked = new EventEmitter<AAA_EMPRESA>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AAA_EMPRESA[],
     public dialogRef: MatDialogRef<EmpresaModalComponent>,
     public dialog: MatDialog,
     public empresaService:EmpresaService
-    ){
-    }
+    ){}
 
-    displayedColumns: string[] = ['nombreempresa', 'numerodocumentoemisor', 'tipodocumentoemisor', 'paisemisor', 'provinciaemisor', 'options'];
-    dataSource = new MatTableDataSource(this.data);
+  displayedColumns: string[] = ['nombreempresa', 'numerodocumentoemisor', 'tipodocumentoemisor', 'paisemisor', 'provinciaemisor', 'options'];
+  dataSource = new MatTableDataSource(this.data);
 
-    applyFilter(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
-    onNoClick(){
-      this.dialogRef.close();
-    }
+  onNoClick(){
+    this.dialogRef.close();
+  }
 
   ElemntoElegido(dato:any){
     this.submitClicked.emit(dato)

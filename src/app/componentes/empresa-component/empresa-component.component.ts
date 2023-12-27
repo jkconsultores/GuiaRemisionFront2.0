@@ -42,7 +42,6 @@ export class EmpresaComponentComponent {
     const dialogRef = this.dialog.open(EmpresaModalComponent, {
       data: this.Empresas, width:'1000px'
     });
-
     dialogRef.componentInstance.submitClicked.subscribe(result => {
       this.myControl.setValue(result);
       this.submitClicked.emit(result)

@@ -1,21 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
+import { docReferenciado } from 'src/models/docRef';
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class DocValidationsService {
+
+export class DocumentoService {
     private url=environment.urlApi;
     constructor(public http:HttpClient) { }
-
-    public obtenerLogin(body:any ){
-        return this.http.post<any[]>(this.url+'Session/Login', body);
-    }
     
-    public getDocValidations( body: any){
-        return this.http.post<any>(this.url+'Validation/desde', body);
+    public getDocReferenciado( ){
+        return this.http.get<docReferenciado[]>(this.url+'Chofer/Obtener/todos/choferes');
     }
 
     public getAllValidations( body: any){

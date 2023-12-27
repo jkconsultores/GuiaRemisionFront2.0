@@ -5,16 +5,17 @@ import * as moment from 'moment';
 import { SPE_DESPATCH_ITEM } from 'src/models/SPE_DESPATCH_ITEM';
 import Swal from 'sweetalert2';
 import { GreRemisionService } from 'src/services/gre-remision.service';
+import { DocumentosComponent } from 'src/app/componentes/documentos/documentos.component';
+
 @Component({
   selector: 'app-gre',
   templateUrl: './gre.component.html',
   styleUrls: ['./gre.component.css']
 })
-export class GreComponent {
 
+export class GreComponent {
   value = 'Clear me';
   RucEmisor: string = '';
-
   datosDeGreEnvio: SPE_DESPATCH = { modalidadTraslado: '01' };
 
   constructor(private greservices:GreRemisionService) { }
@@ -77,10 +78,14 @@ export class GreComponent {
     this.datosDeGreEnvio.observaciones = $event;
   }
 
+  DocChange() {
+    
+  }
 
   emitrAlerta(title: string, texto: string, icon: any) {
     Swal.fire(title, texto, icon);
   }
+
   EmitirGuia() {
     if (!this.validarCampo("remitente", this.datosDeGreEnvio.numeroDocumentoRemitente)) return;
     if (!this.validarCampo("dirección de punto de partida", this.datosDeGreEnvio.direccionPtoPartida)) return;

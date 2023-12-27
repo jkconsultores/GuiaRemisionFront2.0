@@ -1,23 +1,50 @@
-<!-- <h2 mat-dialog-title id="titulo">Documentos referenciados</h2>
+<h2 mat-dialog-title id="titulo">Documentos referenciados</h2>
 
-<form novalidate [formGroup]="docuForm" (ngSubmit)="action()" >    
-    <mat-dialog-content class="mat-typography ">
+<mat-dialog-content class="mat-typography pt-2">
+    <div class="d-flex align-items-center">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder=" " #input>
+      </mat-form-field>
+      <button mat-raised-button (click)="crearDoc()"
+        class="btn btn-primary mb-4 butondeadd" matTooltip="Agregar un nuevo documento referenciado"
+        aria-label="Agregar una nueva empresa"><mat-icon>add</mat-icon></button>
+    </div>
 
-        <div class="example w-100 "> 
-            <mat-form-field class="w-50 " appearance="outline">
-                <mat-label>Número de documento</mat-label>
-                <input type="text" matInput formControlName="numerodocumento" [readonly]="data.numerodocumento != undefined && data.numerodocumento.length > 0 "[required]="true" placeholder="Ingrese el número de documento"/>
-                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('required') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento es obligatorio</mat-error>
-                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('maxlength') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento no puede ser mayor a 11 digitos</mat-error>
-                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('minlength') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento no puede ser menor a 8 digitos</mat-error>
-                <mat-error *ngIf="choForm.get('numerodocumentochofer')!.hasError('pattern') && choForm.get('numerodocumentochofer')!.touched"> El numero de documento solo acepta numeros</mat-error> -->
-          <!--   </mat-form-field>
-            
-            <mat-form-field class="w-50" appearance="outline">
-                <mat-label>Tipo de documento</mat-label>
-                <mat-select formControlName="tipodocumento" [required]="true" placeholder="Seleccione el tipo de documento">
-                    <mat-option value="1">DNI</mat-option>
-                    <mat-option value="6">RUC</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div> -->
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="tipoDocumentoDocRel">
+          <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
+          <td mat-cell *matCellDef="let element" > {{element.tipoDocumentoDocRel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="numeroDocumentoDocRel">
+          <th mat-header-cell *matHeaderCellDef> Número Documento Relacionado</th>
+          <td mat-cell *matCellDef="let element" > {{element.numeroDocumentoDocRel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="numeroDocumentoEmisorDocRel">
+          <th mat-header-cell *matHeaderCellDef> Número Doc Emisor </th>
+          <td mat-cell *matCellDef="let element" > {{element.numeroDocumentoEmisorDocRel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="tipoDocumentoEmisorDocRel">
+          <th mat-header-cell *matHeaderCellDef> Tipo Doc Emisor </th>
+          <td mat-cell *matCellDef="let element" > {{element.tipoDocumentoEmisorDocRel}} </td>
+        </ng-container>
+        <ng-container matColumnDef="options">
+          <th mat-header-cell *matHeaderCellDef> Opciones </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex align-items-center">
+              <button mat-raised-button color="warn" class=" buttonchunqued" (click)="eliminarDoc()" matTooltip="Eliminar el doc referenciado"><mat-icon>delete</mat-icon></button>
+              <button mat-raised-button class="ms-3 btn btn-primary buttonchunqued" (click)="editarDoc()" matTooltip="Editar el doc referenciado"><mat-icon>edit</mat-icon></button>
+            </div>
+          </td>
+        </ng-container>    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"  ></tr>    
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+    
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" class="p-3">
+      <button mat-stroke-button color="primary"  (click)="onNoClick()" class="btnCancelar btn btn-danger me-3">Cancelar</button>
+    </mat-dialog-actions>

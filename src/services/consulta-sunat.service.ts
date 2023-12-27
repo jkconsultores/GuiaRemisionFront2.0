@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class ConsultaSunatService {
-  private url=environment.urlApi3;
+  private url=environment.urlApi;
   constructor(public http:HttpClient) { }
 
   public obtenerLogin(body:any ){

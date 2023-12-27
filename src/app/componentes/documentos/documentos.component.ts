@@ -1,8 +1,11 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { Observable, map, startWith } from 'rxjs';
 import { DocumentosModalComponent } from 'src/app/modals/documentos-modal/documentos-modal.component';
-import { SPE_DESPATCH_ITEM } from 'src/models/SPE_DESPATCH_ITEM';
+import { docReferenciado } from 'src/models/docRef';
+import { DocumentoService } from 'src/services/documento.service';
+
 
 @Component({
   selector: 'app-documentos',
@@ -11,28 +14,41 @@ import { SPE_DESPATCH_ITEM } from 'src/models/SPE_DESPATCH_ITEM';
 })
 
 export class DocumentosComponent {
-  constructor(public dialog: MatDialog){}
-  // submitClicked = new EventEmitter<DocumentosComponent>();
-  // ELEMENT_DATA: SPE_DESPATCH_ITEM[] = [];
-  // cantidad:number=this.ELEMENT_DATA.length;
-  // dataSource: MatTableDataSource<SPE_DESPATCH_ITEM> = new MatTableDataSource<SPE_DESPATCH_ITEM>(this.ELEMENT_DATA);
+  Documentos:docReferenciado[]=[];
+  options: docReferenciado[]=[];
+  docReferenciado: docReferenciado[] = [];
+  myControl = new FormControl();
+  filteredOptions!: Observable<docReferenciado[]>;
+  submitClicked = new EventEmitter<docReferenciado>();
 
-  openModal(){
-    const dialogRef = this.dialog.open(DocumentosModalComponent,{width:'1000px'});
-    // dialogRef.componentInstance.submitClicked.subscribe(result => {
+  constructor(
+    public dialog: MatDialog,
+    private DocumentoService: DocumentoService
+    ){}
 
-    //   let data:SPE_DESPATCH_ITEM={
-    //     //  cantidad:'1',
-    //     //  codigo:result.codigo,
-    //     //  descripcion:result.descripcion,
-    //     //  unidadMedida:result.unidadmedida
-    //   }
-    //   this.ELEMENT_DATA.push(data);
-    //   console.log(this.ELEMENT_DATA);
-    //   this.dataSource.data = this.ELEMENT_DATA;
-    //   this.cantidad=this.ELEMENT_DATA.length
-
-    // });
-
+  ngOnInit(): void {
+    this.DocumentoService.getDocReferenciado().subscribe((resp:docReferenciado[])=>{
+      this.docReferenciado=resp;
+      this.options=resp;
+    })
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
   }
+
+  private _filter(value: string): docReferenciado[] {
+    let filterValue = (typeof value === 'string') ? value.toLowerCase() : '';
+    return this.options.filter(option => option!.numeroDocumentoDocRel!.toLowerCase().includes(filterValue));
+  }
+  openModal(){
+    const dialogRef = this.dialog.open(DocumentosModalComponent, {
+    data: this.Documentos, width:'1000px'
+    });
+    dialogRef.componentInstance.submitClicked.subscribe(result => {
+    this.myControl.setValue(result);
+    this.submitClicked.emit(result)
+    });
+  }
+
 }

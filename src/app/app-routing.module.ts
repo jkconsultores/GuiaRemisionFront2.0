@@ -13,6 +13,7 @@ import { ChoferGuiaComponent } from './componentes/chofer-guia/chofer-guia.compo
 import { GreReportesComponent } from './reportes/gre-reportes/gre-reportes.component';
 import { DocValidationComponent } from './doc-validation/doc-validation.component';
 import { ConsultaSunatComponent } from './consulta-sunat/consulta-sunat.component';
+import { DocumentosComponent } from './componentes/documentos/documentos.component';
 
 
 const routes: Routes = [
@@ -23,8 +24,8 @@ const routes: Routes = [
     canActivate: [SessionGuardGuard],
     component:PlataformaComponent,
     children:[
-      {path:'',component:DocValidationComponent},
-      {path:'main',component:DocValidationComponent},
+      {path:'',component:GreComponent},
+      {path:'main',component:GreComponent},
       {path:'usuarios',component:UsuariosComponent},
       {path:'empresas',component:EmpresaComponentComponent},
       {path:'origenes',component:OrigenComponentComponent},
@@ -32,7 +33,7 @@ const routes: Routes = [
       {path:'destinatario',component:DestinatarioGuiaComponent},
       {path:'chofer', component:ChoferGuiaComponent },
       {path:'reporte', component:GreReportesComponent},
-      {path:'docvalidado', component:DocValidationComponent},
+      {path:'documentos', component:DocumentosComponent},
       {path:'ConsultasS', component:ConsultaSunatComponent}
     ]
   }

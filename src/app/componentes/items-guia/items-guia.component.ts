@@ -16,7 +16,7 @@ export class ItemsGuiaComponent implements OnInit,AfterViewInit {
   submitClicked = new EventEmitter<SPE_DESPATCH_ITEM[]>();
   ELEMENT_DATA: SPE_DESPATCH_ITEM[] = [];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator
-cantidad:number=this.ELEMENT_DATA.length;
+  cantidad:number=this.ELEMENT_DATA.length;
   displayedColumns: string[] = ['name', 'cantidad','unidad','descripcion', 'Opt'];
   dataSource: MatTableDataSource<SPE_DESPATCH_ITEM> = new MatTableDataSource<SPE_DESPATCH_ITEM>(this.ELEMENT_DATA);
 

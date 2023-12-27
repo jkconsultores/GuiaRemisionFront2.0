@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatSidenav } from '@angular/material/sidenav';
+
 
 @Component({
   selector: 'app-plataforma',
@@ -7,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./plataforma.component.css']
 })
 export class PlataformaComponent {
+  @ViewChild('sidenav') sidenav: MatSidenav;
   panelOpenState = false;
 
   constructor(private router:Router) { }
@@ -15,4 +18,10 @@ export class PlataformaComponent {
   public activeRoute(routename: string): boolean {
       return this.router.url.indexOf(routename) > -1;
   }
+
+  public changeRoute(routename: string) {
+    this.sidenav.close();
+    return this.router.navigate([routename]);
+  }
+
 }
