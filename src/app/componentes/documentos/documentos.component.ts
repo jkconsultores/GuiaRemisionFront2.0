@@ -20,7 +20,8 @@ export class DocumentosComponent {
   myControl = new FormControl();
   filteredOptions!: Observable<docReferenciado[]>;
   submitClicked = new EventEmitter<docReferenciado>();
-
+  cantidadDocumentosRelacionados: number = 0;
+  
   constructor(
     public dialog: MatDialog,
     private DocumentoService: DocumentoService
@@ -30,6 +31,7 @@ export class DocumentosComponent {
     this.DocumentoService.getDocReferenciado().subscribe((resp:docReferenciado[])=>{
       this.docReferenciado=resp;
       this.options=resp;
+      this.cantidadDocumentosRelacionados = resp.length;
     })
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -41,13 +43,14 @@ export class DocumentosComponent {
     let filterValue = (typeof value === 'string') ? value.toLowerCase() : '';
     return this.options.filter(option => option!.numeroDocumentoDocRel!.toLowerCase().includes(filterValue));
   }
+
   openModal(){
     const dialogRef = this.dialog.open(DocumentosModalComponent, {
-    data: this.Documentos, width:'1000px'
+      data: this.Documentos, width:'1000px'
     });
     dialogRef.componentInstance.submitClicked.subscribe(result => {
-    this.myControl.setValue(result);
-    this.submitClicked.emit(result)
+      this.myControl.setValue(result);
+      this.submitClicked.emit(result)
     });
   }
 

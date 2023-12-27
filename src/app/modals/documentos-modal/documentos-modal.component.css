@@ -1,4 +1,8 @@
-button{
+.btnOpt{
+    height: 30px !important;
+    width: 10px !important;
+}
+.btnAdd{
     height: 56px!important;
 }
 
@@ -13,3 +17,4 @@ button > mat-icon{
 .btnCancelar {
     height: 45px!important;
 }
+

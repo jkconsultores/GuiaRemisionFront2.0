@@ -11,6 +11,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { docReferenciado } from 'src/models/docRef';
 import { DocumentoService } from 'src/services/documento.service';
 import { EditDocumentosComponent } from './edit-documentos/edit-documentos.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -27,13 +28,14 @@ export class DocumentosModalComponent {
   @Output()
   submitClicked  = new EventEmitter<docReferenciado>();
 
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: docReferenciado[],
     public dialogRef: MatDialogRef<DocumentosModalComponent>,
     public dialog: MatDialog,
     public documentoService:DocumentoService
-    ){}
+    ){
+      console.log('data', data);
+    }
 
   displayedColumns: string[] = ['tipoDocumentoDocRel', 'numeroDocumentoDocRel', 'numeroDocumentoEmisorDocRel', 'tipoDocumentoEmisorDocRel','options'];
   dataSource = new MatTableDataSource(this.data);
@@ -46,30 +48,77 @@ export class DocumentosModalComponent {
   crearDoc(){
     let datos:docReferenciado={tipoDocumentoDocRel:'',numeroDocumentoDocRel:'',numeroDocumentoEmisorDocRel:'',tipoDocumentoEmisorDocRel:'',};
     const dialogRef = this.dialog.open(EditDocumentosComponent, {
-      data: datos!, width:'600px',
+      data:datos, width:'600px',
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-      if(result!=undefined){
-        if(result.numeroDocumentoDocRel.length>0){
+      if (result !== undefined) {
+        const datosExistentes = this.data.find(item =>
+          item.tipoDocumentoDocRel === result.tipoDocumentoDocRel &&
+          item.numeroDocumentoDocRel === result.numeroDocumentoDocRel &&
+          item.numeroDocumentoEmisorDocRel === result.numeroDocumentoEmisorDocRel &&
+          item.tipoDocumentoEmisorDocRel === result.tipoDocumentoEmisorDocRel
+        );  
+        if (datosExistentes) {
+          Swal.fire({
+            icon: 'warning',
+            title: '¡Ya existe el documento!',
+            text: 'El documento con el código ' + result.codigoDocumentoDocRel + ' ya existe',
+          });
+          console.error('Error: Los datos ya existen');
+        } else {
           this.data.push(result);
-          this.dataSource=new MatTableDataSource(this.data);
+          this.dataSource = new MatTableDataSource(this.data);
         }
-      }
+      }      
     });
   }
-
   
   onNoClick(){
     this.dialogRef.close();
   }
 
-  editarDoc(){
-
+  editarDoc(elemento: docReferenciado) {
+    const dialogRef = this.dialog.open(EditDocumentosComponent, {
+      data: elemento, width:'600px',
+    });  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);      
+      if (result !== undefined) {
+        const index = this.data.findIndex(item =>
+          item.tipoDocumentoDocRel === elemento.tipoDocumentoDocRel &&
+          item.numeroDocumentoDocRel === elemento.numeroDocumentoDocRel &&
+          item.numeroDocumentoEmisorDocRel === elemento.numeroDocumentoEmisorDocRel &&
+          item.tipoDocumentoEmisorDocRel === elemento.tipoDocumentoEmisorDocRel
+        );  
+        if (index !== -1) {
+          this.data[index] = result;
+          this.dataSource = new MatTableDataSource(this.data);
+        }
+      }
+    });
   }
-
-  eliminarDoc(){
-
+  
+  
+  eliminarDoc(elemento: docReferenciado) {
+    Swal.fire({
+      icon: 'warning',
+      title: '¿Estás seguro?',
+      text: '¿Deseas eliminar este documento?',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.data = this.data.filter(item =>
+          !(item.tipoDocumentoDocRel === elemento.tipoDocumentoDocRel &&
+            item.numeroDocumentoDocRel === elemento.numeroDocumentoDocRel &&
+            item.numeroDocumentoEmisorDocRel === elemento.numeroDocumentoEmisorDocRel &&
+            item.tipoDocumentoEmisorDocRel === elemento.tipoDocumentoEmisorDocRel)
+        );  
+        this.dataSource = new MatTableDataSource(this.data);
+      }
+    });
   }
+  
 }

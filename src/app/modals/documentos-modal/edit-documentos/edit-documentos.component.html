@@ -2,16 +2,16 @@
 
 <form novalidate [formGroup]="empresaForm" (ngSubmit)="action()">
     <mat-dialog-content class="mat-typography ">
-
-        <div class="example w-100 ">
-            <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Tipo de documento</mat-label>
-                <mat-select formControlName="tipoDocumentoDocRel" [required]="true" placeholder="Seleccione el tipo de documento">
-                    <mat-option value="1">DNI</mat-option>
-                    <mat-option value="6">RUC</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+        
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Tipo de documento</mat-label>
+            <mat-select formControlName="tipoDocumentoDocRel" [required]="true" placeholder="Seleccione el tipo de documento">
+                <mat-option value="01">Factura</mat-option>
+                <mat-option value="03">Boleta de venta</mat-option>
+                <mat-option value="09">Guia de Remision</mat-option>
+                <mat-option value="50">DAM</mat-option>
+            </mat-select>
+        </mat-form-field>        
 
         <mat-form-field class="example-full-width w-100" appearance="outline">
             <mat-label>Número de documento Relacionado</mat-label>
@@ -23,16 +23,20 @@
         </mat-form-field> 
 
         <mat-form-field class="example-full-width w-100" appearance="outline">
-            <mat-label>numeroDocumentoEmisorDocRel</mat-label>
-            <input type="text" matInput formControlName="numeroDocumentoEmisorDocRel" [required]="true" placeholder="Ingrese el nombre de la empresa"/>
+            <mat-label>Número Documento Emisor Relacionado</mat-label>
+            <input type="text" matInput formControlName="numeroDocumentoEmisorDocRel" [required]="true" placeholder="Ingrese el número de documento emisor"/>
             <!-- <mat-error *ngIf="empresaForm.get('nombreempresa')!.hasError('required') && empresaForm.get('nombreempresa')!.touched"> El nombre de empresa es obligatorio</mat-error> -->
-        </mat-form-field>        
-
-        <mat-form-field class="example-full-width w-100" appearance="outline">
-            <mat-label>tipoDocumentoEmisorDocRel</mat-label>
-            <input type="text" matInput formControlName="tipoDocumentoEmisorDocRel" [required]="true" placeholder="Ingrese la razón social de empresa"/>
-            <!-- <mat-error *ngIf="empresaForm.get('razonsocialemisor')!.hasError('required') && empresaForm.get('razonsocialemisor')!.touched"> La razón social es obligatoria</mat-error> -->
-        </mat-form-field>
+        </mat-form-field> 
+                
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Tipo de documento Emisor</mat-label>
+            <mat-select formControlName="tipoDocumentoEmisorDocRel" [required]="true" placeholder="Seleccione el tipo de documento del emisor">
+                <mat-option value="6">RUC</mat-option>
+                <mat-option value="1">DNI</mat-option>
+                <mat-option value="4">CARNET DE EXTRANJERIA</mat-option>
+                <mat-option value="7">PASAPORTE</mat-option>
+            </mat-select>
+        </mat-form-field> 
         
     </mat-dialog-content>
     
