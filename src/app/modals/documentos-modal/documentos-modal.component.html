@@ -14,8 +14,13 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="tipoDocumentoDocRel">
           <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
-          <td mat-cell *matCellDef="let element" > {{element.tipoDocumentoDocRel}} </td>
-        </ng-container>
+          <td mat-cell *matCellDef="let element">
+            {{ element.tipoDocumentoDocRel === '01' ? 'Factura' :
+               element.tipoDocumentoDocRel === '03' ? 'Boleta de venta' :
+               element.tipoDocumentoDocRel === '09' ? 'Guía de Remisión' :
+               element.tipoDocumentoDocRel === '50' ? 'DAM' :
+               element.tipoDocumentoDocRel }}
+          </td>        </ng-container>
         <ng-container matColumnDef="numeroDocumentoDocRel">
           <th mat-header-cell *matHeaderCellDef> Número Documento Relacionado</th>
           <td mat-cell *matCellDef="let element" > {{element.numeroDocumentoDocRel}} </td>
@@ -26,8 +31,13 @@
         </ng-container>
         <ng-container matColumnDef="tipoDocumentoEmisorDocRel">
           <th mat-header-cell *matHeaderCellDef> Tipo Doc Emisor </th>
-          <td mat-cell *matCellDef="let element" > {{element.tipoDocumentoEmisorDocRel}} </td>
-        </ng-container>
+          <td mat-cell *matCellDef="let element">
+            {{ element.tipoDocumentoEmisorDocRel === '1' ? 'DNI' :
+               element.tipoDocumentoEmisorDocRel === '4' ? 'CARNET DE EXTRANJERIA' :
+               element.tipoDocumentoEmisorDocRel === '6' ? 'RUC' :
+               element.tipoDocumentoEmisorDocRel === '7' ? 'PASAPORTE' :
+               element.tipoDocumentoEmisorDocRel }}
+          </td>        </ng-container>
         <ng-container matColumnDef="options">
           <th mat-header-cell *matHeaderCellDef> Opciones </th>
           <td mat-cell *matCellDef="let element">

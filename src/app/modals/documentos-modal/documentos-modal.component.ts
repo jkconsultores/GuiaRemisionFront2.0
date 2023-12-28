@@ -40,6 +40,11 @@ export class DocumentosModalComponent {
   displayedColumns: string[] = ['tipoDocumentoDocRel', 'numeroDocumentoDocRel', 'numeroDocumentoEmisorDocRel', 'tipoDocumentoEmisorDocRel','options'];
   dataSource = new MatTableDataSource(this.data);
 
+  ngOnInit(): void {
+    console.log('data', this.data);
+    console.log('datalength', this.data.length);
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -82,8 +87,7 @@ export class DocumentosModalComponent {
     const dialogRef = this.dialog.open(EditDocumentosComponent, {
       data: elemento, width:'600px',
     });  
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);      
+    dialogRef.afterClosed().subscribe(result => {    
       if (result !== undefined) {
         const index = this.data.findIndex(item =>
           item.tipoDocumentoDocRel === elemento.tipoDocumentoDocRel &&

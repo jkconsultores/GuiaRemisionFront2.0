@@ -10,7 +10,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -20,6 +20,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -44,7 +45,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatChipsModule,
     MatAutocompleteModule,
     MatPaginatorModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ],
   exports: [
     MatToolbarModule,
@@ -65,7 +67,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatAutocompleteModule,
     MatPaginatorModule,
     MatExpansionModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBadgeModule
   ]
 })
 export class MaterialModule { }

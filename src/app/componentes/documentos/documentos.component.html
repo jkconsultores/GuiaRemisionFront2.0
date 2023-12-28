@@ -1,3 +1,9 @@
-<button mat-stroke-button color="primary" class="btnDoc btn btn-primary " 
-style="white-space: nowrap;" (click)="openModal()"> Documentos Referenciados </button>
-
+<button mat-stroke-button 
+  color="primary" 
+  class="btnDoc btn btn-primary" 
+  style="white-space: nowrap;"
+  mat-raised-button
+  [matBadge]="Documentos.length" 
+  [matBadgeHidden]="hidden" 
+  matBadgeColor="warn"
+  (click)="openModal()"> Documentos Referenciados </button>
