@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { docReferenciado } from 'src/models/docRef';
-import { DocumentoService } from 'src/services/documento.service';
 import { EditDocumentosComponent } from './edit-documentos/edit-documentos.component';
 import Swal from 'sweetalert2';
 
@@ -32,7 +31,6 @@ export class DocumentosModalComponent {
     @Inject(MAT_DIALOG_DATA) public data: docReferenciado[],
     public dialogRef: MatDialogRef<DocumentosModalComponent>,
     public dialog: MatDialog,
-    public documentoService:DocumentoService
     ){
       console.log('data', data);
     }
@@ -114,13 +112,16 @@ export class DocumentosModalComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.data = this.data.filter(item =>
+        debugger;
+        var items : any = this.data.filter(item =>
           !(item.tipoDocumentoDocRel === elemento.tipoDocumentoDocRel &&
             item.numeroDocumentoDocRel === elemento.numeroDocumentoDocRel &&
             item.numeroDocumentoEmisorDocRel === elemento.numeroDocumentoEmisorDocRel &&
             item.tipoDocumentoEmisorDocRel === elemento.tipoDocumentoEmisorDocRel)
         );  
-        this.dataSource = new MatTableDataSource(this.data);
+        this.data = items;
+        this.dataSource.data = items;
+        this.submitClicked.emit(items);
       }
     });
   }

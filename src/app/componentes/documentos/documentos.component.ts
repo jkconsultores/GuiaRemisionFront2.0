@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
 import { DocumentosModalComponent } from 'src/app/modals/documentos-modal/documentos-modal.component';
 import { docReferenciado } from 'src/models/docRef';
-import { DocumentoService } from 'src/services/documento.service';
 
 
 @Component({
@@ -14,29 +13,19 @@ import { DocumentoService } from 'src/services/documento.service';
 })
 
 export class DocumentosComponent {
-  Documentos:docReferenciado[]=[];
   options: docReferenciado[]=[];
   docReferenciado: docReferenciado[] = [];
   myControl = new FormControl();
   filteredOptions!: Observable<docReferenciado[]>;
   submitClicked = new EventEmitter<docReferenciado>();
-  
-  hidden = false;
-
+  hidden = true;
   constructor(
     public dialog: MatDialog,
-    private DocumentoService: DocumentoService
+    
     ){}
 
   ngOnInit(): void {
-    this.DocumentoService.getDocReferenciado().subscribe((resp:docReferenciado[])=>{
-      this.docReferenciado=resp;
-      this.options=resp;
-    })
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+
   }
 
   private _filter(value: string): docReferenciado[] {
@@ -45,15 +34,26 @@ export class DocumentosComponent {
   }
 
   openModal(){
-    this.hidden = !this.hidden;
-    console.log('datolength', this.Documentos.length);
+    if(this.docReferenciado.length>0){
+      this.hidden = false;
+    }    
+    console.log('datolength', this.docReferenciado.length);
     const dialogRef = this.dialog.open(DocumentosModalComponent, {
-      data: this.Documentos, width:'1000px'
+      data: this.docReferenciado, width:'1000px'
     });    
     dialogRef.componentInstance.submitClicked.subscribe(result => {
+      debugger;
       this.myControl.setValue(result);
       this.submitClicked.emit(result)
+      //this.Documentos = result;
     });
+    //dialogRef.afterClosed().subscribe(result => {
+    //  debugger;
+    //  console.log(`Dialog result2222222222222: ${result}`);
+    //  if (result !== undefined) {
+    //    this.Documentos = result;
+    //  }      
+    //});
   }
 
 }
