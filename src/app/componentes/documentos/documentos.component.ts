@@ -20,27 +20,21 @@ export class DocumentosComponent {
   submitClicked = new EventEmitter<docReferenciado>();
   hidden = true;
   constructor(
-    public dialog: MatDialog,
-    
+    public dialog: MatDialog, 
     ){}
 
   ngOnInit(): void {
-
-  }
-
-  private _filter(value: string): docReferenciado[] {
-    let filterValue = (typeof value === 'string') ? value.toLowerCase() : '';
-    return this.options.filter(option => option!.numeroDocumentoDocRel!.toLowerCase().includes(filterValue));
+    
   }
 
   openModal(){
     if(this.docReferenciado.length>0){
       this.hidden = false;
-    }    
+    }
     console.log('datolength', this.docReferenciado.length);
     const dialogRef = this.dialog.open(DocumentosModalComponent, {
       data: this.docReferenciado, width:'1000px'
-    });    
+    });
     dialogRef.componentInstance.submitClicked.subscribe(result => {
       debugger;
       this.myControl.setValue(result);

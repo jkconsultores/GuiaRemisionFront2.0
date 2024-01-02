@@ -1,12 +1,10 @@
 <div class="d-flex align-items-center">
   <div class="w-100">
     <mat-form-field class="example-full-width w-100" appearance="outline">
-      <mat-label>Empresa</mat-label>
+      <mat-label> {{titulo}} </mat-label>
       <input type="text" placeholder="Seleccione una empresa" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)" [displayWith]="displayFn">
-      <mat-option  *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option.nombreempresa}}
-      </mat-option>
+      <mat-option  *ngFor="let option of filteredOptions | async" [value]="option"> {{option.nombreempresa}} </mat-option>
     </mat-autocomplete>
     </mat-form-field>
   </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, map, startWith } from 'rxjs';
@@ -16,6 +16,8 @@ import { EmpresaService } from 'src/services/empresa.service';
 export class EmpresaComponentComponent {
   @Output()
   submitClicked = new EventEmitter<AAA_EMPRESA>();
+  @Input()
+  titulo: string | undefined;
   myControl = new FormControl();
   options: AAA_EMPRESA[]=[];
   Empresas:AAA_EMPRESA[]=[];

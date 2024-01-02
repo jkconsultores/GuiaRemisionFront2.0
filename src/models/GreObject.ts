@@ -5,9 +5,11 @@ import { chofer } from "./choferSec";
 import { destinatario } from "./destinatario";
 import { AAA_DESTINO } from "./destino";
 import { Aaa_OrigenDTO } from "./origen";
+import { transportista } from "./transportista";
 
 export interface GreCabecera{
   empresa?:AAA_EMPRESA,
+  transporte?:transportista,
   Origen?:Aaa_OrigenDTO,
   Serie?:string,
   FechaEmision?:Date,

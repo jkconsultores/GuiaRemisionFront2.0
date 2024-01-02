@@ -50,6 +50,7 @@ import { ConsultaSunatComponent } from './consulta-sunat/consulta-sunat.componen
 import { DocumentosComponent } from './componentes/documentos/documentos.component';
 import { EditDocumentosComponent } from './modals/documentos-modal/edit-documentos/edit-documentos.component';
 import { DocumentosModalComponent } from './modals/documentos-modal/documentos-modal.component';
+import { TransportistaComponent } from './componentes/transportista/transportista.component';
 
 
 registerLocaleData(myLocaleEs)
@@ -91,6 +92,7 @@ registerLocaleData(myLocaleEs)
     ObservacionGuiaComponent,
     DocumentosComponent,
     EditDocumentosComponent,
+    TransportistaComponent,
   ],
   imports: [
     BrowserModule,

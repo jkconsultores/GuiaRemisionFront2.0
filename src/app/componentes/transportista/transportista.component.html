@@ -1,0 +1,16 @@
+<div class="d-flex align-items-center">
+<div class="w-100">
+    <mat-form-field class="example-full-width w-100" appearance="outline">
+    <mat-label>Transportista</mat-label>
+    <input type="text" placeholder="Seleccione un Transportista" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)" [displayWith]="displayFn">
+    <mat-option  *ngFor="let option of filteredOptions | async" [value]="option"> {{option.nombreTransportista}} </mat-option>
+    </mat-autocomplete>
+    </mat-form-field>
+</div>
+<button
+    mat-raised-button (click)="AbrirModalDeEmpresa()" class="btn btn-primary mb-4" matTooltip="Editar, crear o seleccionar un Transportista"
+    aria-label="Seleccion de emrpesas">
+    <mat-icon>search</mat-icon>
+</button>
+</div>

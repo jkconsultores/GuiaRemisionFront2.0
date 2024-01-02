@@ -8,9 +8,10 @@
     <form class="example-form">
       <div class="row">
         <div class="col-md-3">
-          <app-empresa-component (submitClicked)="EmpresaSeleccionada($event)"></app-empresa-component>
+          <app-empresa-component *ngIf="tipo=='Remitente'" (submitClicked)="EmpresaSeleccionada($event)"  [titulo]="'Empresa'"></app-empresa-component>
+          <app-transportista *ngIf="tipo=='Transporte'" (submitClicked)="TransporteSeleccionada($event)"></app-transportista>
         </div>
-        <div class="col-md-3" >
+        <div class="col-md-3">
           <app-origen-component  [RucEmisor]="SeleccionEmpresa?.numerodocumentoemisor" (submitClicked)="OrigenSelecionado($event)"></app-origen-component>
         </div>
         <div class="col-md-2">
@@ -42,6 +43,9 @@
       </div>
 
       <div class="row">
+        <div class="col-md-3" *ngIf="tipo=='Transporte'">
+          <app-empresa-component  (submitClicked)="EmpresaSeleccionada($event)"  [titulo]="'Remitente'"></app-empresa-component>
+        </div>
         <div class="col-md-3">
           <mat-form-field  class="w-100" appearance="outline" >
             <mat-label>Seleccione una modalidad</mat-label>

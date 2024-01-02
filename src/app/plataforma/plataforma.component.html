@@ -17,11 +17,15 @@
     </div>
     <div (click)="changeRoute('plataforma/main')" class="nav-item {{activeRoute('main')==true?'active':''}}" >
       <mat-icon>edit_document</mat-icon>
-      <a>Emitir una guia de remision</a>
+      <a>Emitir una Guía de Remisión</a>
     </div>
     <div (click)="changeRoute('plataforma/reporte')" class="nav-item" >
       <mat-icon>edit_document</mat-icon>
       <a>Reporte GRE</a>
+    </div>
+    <div (click)="changeRoute('plataforma/transportista')" class="nav-item" >
+      <mat-icon>edit_document</mat-icon>
+      <a>Emitir una Guía de Transporte</a>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -9,6 +9,7 @@ import { MOTIVOS } from 'src/models/Motivos';
 import { T_UnidadMedida } from 'src/models/UnidadMedida';
 import { Aaa_OrigenDTO } from 'src/models/origen';
 import { serie } from 'src/models/serie';
+import { transportista } from 'src/models/transportista';
 import { DestinatariosService } from 'src/services/destinatarios.service';
 import { MotivosService } from 'src/services/motivos.service';
 import { SerieService } from 'src/services/serie.service';
@@ -23,10 +24,13 @@ export class CabeceraGuiaComponent implements OnInit {
   submitClicked = new EventEmitter<GreCabecera>();
   @Input()
   tituloGuia: string | undefined;
+  @Input()
+  tipo: string | undefined;
   tablaSeries: serie[] = [];
   Motivos: MOTIVOS[] = [];
   Destinos: any;
   SeleccionEmpresa: AAA_EMPRESA | undefined;
+  SeleccionTransporte: transportista | undefined;
   SeleccionOrigen: Aaa_OrigenDTO | undefined;
   cabecera: GreCabecera = {};
 
@@ -41,8 +45,11 @@ export class CabeceraGuiaComponent implements OnInit {
     private SerieService: SerieService,
     private MotivosService: MotivosService,
     private motivosService: MotivosService,
-  ) {}
+  ) {
+    console.log(this.tipo);
+  }
   ngOnInit(): void {
+    console.log(this.tipo);
     this.cabecera.FechaEmision = new Date();
     this.cabecera.FechaVencimiento=new Date();
     this.SerieService.getSerie().subscribe((res: serie[]) => {
@@ -76,11 +83,18 @@ export class CabeceraGuiaComponent implements OnInit {
     fechaActual.setDate(fechaActual.getDate() - 1);
     return fechaActual;
   }
+
   EmpresaSeleccionada(event: AAA_EMPRESA) {
     this.SeleccionEmpresa = event;
     this.cabecera.empresa = this.SeleccionEmpresa;
     this.ChangedValues();
+  }  
+  TransporteSeleccionada(event: transportista) {
+    this.SeleccionTransporte = event;
+    this.cabecera.transporte = this.SeleccionTransporte;
+    this.ChangedValues();
   }
+
   OrigenSelecionado(event: Aaa_OrigenDTO) {
     this.SeleccionOrigen = event;
     this.cabecera.Origen = this.SeleccionOrigen;

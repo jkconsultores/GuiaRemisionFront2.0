@@ -14,6 +14,7 @@ import { GreReportesComponent } from './reportes/gre-reportes/gre-reportes.compo
 import { DocValidationComponent } from './doc-validation/doc-validation.component';
 import { ConsultaSunatComponent } from './consulta-sunat/consulta-sunat.component';
 import { DocumentosComponent } from './componentes/documentos/documentos.component';
+import { GreTransportistaComponent } from './dashboard/gre-transportista/gre-transportista.component';
 
 
 const routes: Routes = [
@@ -33,8 +34,8 @@ const routes: Routes = [
       {path:'destinatario',component:DestinatarioGuiaComponent},
       {path:'chofer', component:ChoferGuiaComponent },
       {path:'reporte', component:GreReportesComponent},
-      {path:'documentos', component:DocumentosComponent},
-      {path:'ConsultasS', component:ConsultaSunatComponent}
+      {path:'documentos', component:DocumentosComponent},      
+      {path:'transportista', component:GreTransportistaComponent}
     ]
   }
 ];
